@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
 
 export default function WhatsAppFloat() {
-    const phoneNumber = '234XXXXXXXXXX'
+    const phoneNumber = '917777914539'
     const message = encodeURIComponent(
         'Hello, I would like to know more about your services.'
     )
