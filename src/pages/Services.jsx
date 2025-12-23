@@ -1,13 +1,17 @@
 import React from 'react';
+import { useState } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import ProjectFormModal from '../components/ProjectFormModal'
+import Navbar from '../components/Navbar'
 
 import { Activity, Menu, X, ArrowRight, Smartphone, Globe, Bot, Cloud } from 'lucide-react';
 
 export default function Services() {
-    const [open, setOpen] = React.useState(false);
+    const [showForm, setShowForm] = useState(false)
+
 
     const services = [
         {
@@ -71,65 +75,7 @@ export default function Services() {
                 </div>
 
                 {/* Navigation */}
-                <nav className="relative z-50 px-6 py-4 backdrop-blur-sm bg-[#0f0f0f]/80 border-b border-gray-800">
-                    <div className="max-w-7xl mx-auto flex justify-between items-center">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="flex items-center gap-3"
-                        >
-                            <div className="relative">
-                                <img
-                                    src="/logo.png"
-                                    alt="Trovina Web Studio Logo"
-                                    className="w-12 h-12 object-contain rounded-full"
-                                />
-                                <div className="absolute inset-0 rounded-full border-2 border-white/30 pointer-events-none"></div>
-                            </div>
-                            <span className="text-2xl font-bold text-white hidden sm:block">Trovina.io</span>
-                        </motion.div>
-
-                        <div className="hidden md:flex items-center gap-8">
-                            <a href="/" className="text-gray-300 hover:text-white transition-colors font-medium">Home</a>
-                            <a href="/services" className="text-white font-semibold border-b-2 border-white pb-1">Services</a>
-                            <a href="/about" className="text-gray-300 hover:text-white transition-colors font-medium">About Us</a>
-                            <a href="/contact" className="text-gray-300 hover:text-white transition-colors font-medium">Contact Us</a>
-
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-6 py-2 bg-white text-black hover:bg-gray-200 rounded-lg font-semibold transition-all shadow-lg"
-                            >
-                                Request Quote
-                            </motion.button>
-                        </div>
-
-                        <motion.button
-                            whileTap={{ scale: 0.9 }}
-                            className="md:hidden text-white"
-                            onClick={() => setOpen(!open)}
-                        >
-                            {open ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-                        </motion.button>
-                    </div>
-
-                    {open && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="md:hidden mt-6 flex flex-col gap-4 pb-4"
-                        >
-                            <a href="/" className="text-gray-300 hover:text-white font-medium text-center py-2">Home</a>
-                            <a href="/services" className="text-white font-semibold text-center py-2">Services</a>
-                            <a href="/about" className="text-gray-300 hover:text-white font-medium text-center py-2">About Us</a>
-                            <a href="/contact" className="text-gray-300 hover:text-white font-medium text-center py-2">Contact Us</a>
-
-                            <button className="mx-auto px-6 py-3 bg-white text-black hover:bg-gray-200 rounded-lg font-semibold shadow-lg w-3/4">
-                                Request Quote
-                            </button>
-                        </motion.div>
-                    )}
-                </nav>
+                <Navbar onOpenForm={() => setShowForm(true)} />
 
                 {/* Hero Section */}
                 <section className="relative z-10 px-6 py-20 md:py-32">
@@ -234,9 +180,9 @@ export default function Services() {
                             </p>
 
                             <motion.a
-                                href="/contact"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={() => setShowForm(true)}
                                 className="inline-flex items-center gap-2 px-10 py-4 bg-white text-black hover:bg-gray-200 rounded-lg font-bold text-lg shadow-xl transition-all"
                             >
                                 Book a Free Strategy Session
@@ -245,6 +191,11 @@ export default function Services() {
                         </div>
                     </motion.div>
                 </section>
+
+                <ProjectFormModal
+                    open={showForm}
+                    onClose={() => setShowForm(false)}
+                />
 
                 {/* Footer */}
                 <footer className="relative z-10 px-6 py-12 border-t border-gray-800 bg-[#0f0f0f]/80">
