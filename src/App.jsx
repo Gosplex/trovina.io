@@ -6,16 +6,43 @@ import Services from './pages/Services'
 import ContactUs from './pages/ContactUs'
 import ServiceDetail from './pages/ServiceDetail'
 import WhatsAppFloat from './components/WhatsAppFloat'
+import FreeWebistePromo from './ads/freeWebsiteOffer'
+import { Toaster } from 'react-hot-toast'
+
 
 function App() {
   return (
     <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: '#111',
+            color: '#fff',
+            border: '1px solid #333',
+          },
+          success: {
+            iconTheme: {
+              primary: '#22c55e',
+              secondary: '#000',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#000',
+            },
+          },
+        }}
+      />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/services/:slug" element={<ServiceDetail />} />
+        <Route path="/free-webiste-promo" element={<FreeWebistePromo />} />
         <Route
           path="*"
           element={

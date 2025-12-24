@@ -1,9 +1,16 @@
+@import "react-international-phone/style.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "react-international-phone/style.css";
-
 
 .input {
     @apply w-full px-4 py-3 rounded-xl bg-black/40 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/40 focus:border-white transition-all;
+}
+
+html,
+body {
+    background-color: #0f0f0f;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
 }
