@@ -12,7 +12,11 @@ const pages = [
     '/services/mobile-app-development',
     '/services/web-app-website-development',
     '/services/ai-automation-workflow-systems',
-    '/services/cloud-infrastructure-devops'
+    '/services/cloud-infrastructure-devops',
+    '/privacy-policy',
+    '/terms-of-service',
+    '/cookie-policy',
+    '/disclaimer'
 ]
 
 async function generateSitemap() {
