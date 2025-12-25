@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import ProjectFormModal from '../components/ProjectFormModal'
+import Footer from '../components/Footer'
 import {
     ArrowLeft,
     CheckCircle,
@@ -1054,9 +1055,8 @@ export default function ServiceDetail() {
                 </section>
 
 
-                <section className="px-6 py-16 text-center text-gray-500 text-sm">
-                    © 2025 Trovina.io All Rights Reserved
-                </section>
+                {/* Footer */}
+                <Footer />
             </div>
         </>
     );

@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { Zap, ArrowRight, CheckCircle, Play, X, Smartphone, Layers, Activity, Menu, Globe, Bot, Cloud } from 'lucide-react';
 import ProjectFormModal from '../components/ProjectFormModal'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 
 
@@ -479,22 +480,7 @@ export default function Home() {
 
 
                 {/* Footer */}
-                <footer className="relative z-10 px-6 py-12 border-t border-gray-800 bg-[#0f0f0f]/80">
-                    <div className="max-w-7xl mx-auto text-center text-gray-400">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            className="flex items-center justify-center gap-3 mb-4"
-                        >
-                            <div className="relative">
-                                <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain rounded-full" />
-                                <div className="absolute inset-0 rounded-full border border-white/20 pointer-events-none"></div>
-                            </div>
-                            <span className="text-xl font-bold text-white">Trovina.io</span>
-                        </motion.div>
-                        <p>© 2025 Trovina.io. All rights reserved.</p>
-                    </div>
-                </footer>
+                <Footer />
             </div>
         </>
     );

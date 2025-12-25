@@ -5,6 +5,7 @@ import { CheckCircle, X, Clock, Smartphone, MessageSquare, Globe, Zap, ArrowRigh
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import toast from 'react-hot-toast';
+import Footer from '../components/Footer'
 
 export default function LandingPage() {
     const [showPopup, setShowPopup] = useState(false);
@@ -494,51 +495,7 @@ export default function LandingPage() {
             </section>
 
             {/* SECTION 7: FOOTER */}
-            <footer className="relative z-10 px-6 py-12 border-t border-gray-800 bg-[#0f0f0f]/80">
-                <div className="max-w-7xl mx-auto text-center text-gray-400">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="flex items-center justify-center gap-3 mb-4"
-                    >
-                        <div className="relative w-8 h-8">
-                            <img
-                                src="/logo.png"
-                                alt="Trovina Logo"
-                                className="w-full h-full object-contain rounded-full"
-                            />
-                            <div className="absolute inset-0 rounded-full border border-white/20 pointer-events-none"></div>
-                        </div>
-
-                        <span className="text-xl font-bold text-white">Trovina.io</span>
-                    </motion.div>
-
-
-                    {/* Social Media Icons */}
-                    <div className="flex items-center justify-center gap-4 mb-4">
-                        <a
-                            href="https://facebook.com/trovina"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 bg-gray-800 hover:bg-white hover:text-black rounded-full flex items-center justify-center transition-colors"
-                        >
-                            <Facebook className="w-5 h-5" />
-                        </a>
-                        <a
-                            href="https://linkedin.com/company/trovina"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 bg-gray-800 hover:bg-white hover:text-black rounded-full flex items-center justify-center transition-colors"
-                        >
-                            <Linkedin className="w-5 h-5" />
-                        </a>
-                    </div>
-
-                    <p className="mb-2">hello@trovina.io</p>
-                    <p>© 2025 Trovina.io. All rights reserved.</p>
-                </div>
-            </footer>
+            <Footer />
 
             {/* POPUP FORM */}
             <AnimatePresence>
