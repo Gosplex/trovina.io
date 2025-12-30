@@ -1,10 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useState } from "react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Cookie, Settings, Info, Globe } from 'lucide-react';
+import ProjectFormModal from '../components/ProjectFormModal'
 
 export default function CookiePolicy() {
+    const [showForm, setShowForm] = useState(false)
     return (
         <>
             <Helmet>
@@ -14,7 +17,7 @@ export default function CookiePolicy() {
 
             <div className="min-h-screen bg-[#0f0f0f] text-[#f9f9f9] font-poppins">
                 {/* Navigation */}
-                <Navbar />
+                <Navbar onOpenForm={() => setShowForm(true)} />
 
                 {/* Hero Section */}
                 <section className="relative z-10 px-6 py-24 md:py-32">
@@ -113,6 +116,10 @@ export default function CookiePolicy() {
                 </section>
 
                 <Footer />
+                <ProjectFormModal
+                    open={showForm}
+                    onClose={() => setShowForm(false)}
+                />
             </div>
         </>
     );

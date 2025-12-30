@@ -10,6 +10,7 @@ import CookiePolicy from './pages/CookiePolicy'
 import Disclaimer from './pages/Disclaimer'
 import ServiceDetail from './pages/ServiceDetail'
 import WhatsAppFloat from './components/WhatsAppFloat'
+import ScrollToTop from "./components/ScrollToTop";
 import FreeWebistePromo from './ads/freeWebsiteOffer'
 import { Toaster } from 'react-hot-toast'
 
@@ -40,13 +41,15 @@ function App() {
         }}
       />
 
+      <ScrollToTop />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/services/:slug" element={<ServiceDetail />} />
-        <Route path="/free-webiste-promo" element={<FreeWebistePromo />} />
+        <Route path="/free-website-promo" element={<FreeWebistePromo />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />

@@ -239,7 +239,7 @@ export default function ContactUs() {
                                 <Info
                                     icon={<MapPin />}
                                     label="Location"
-                                    value="Remote First Team — Global Clients"
+                                    value="Remote First Teams"
                                 />
                             </div>
                         </motion.div>
