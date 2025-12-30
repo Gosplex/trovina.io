@@ -360,8 +360,12 @@ export default function Home() {
                 </section>
 
                 {/* Video Section */}
-                <section id="video-section" className="relative z-10 px-6 py-20 bg-[#0f0f0f]/30 border-t border-gray-800">
+                <section
+                    id="video-section"
+                    className="relative z-10 px-6 py-20 bg-[#0f0f0f]/30 border-t border-gray-800"
+                >
                     <div className="max-w-6xl mx-auto">
+                        {/* Section heading */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -376,34 +380,69 @@ export default function Home() {
                             </p>
                         </motion.div>
 
+                        {/* Video container */}
                         <motion.div whileHover={{ scale: 1.02 }} className="relative group">
-                            <div className="relative aspect-video bg-gradient-to-br from-gray-900 to-[#0f0f0f] rounded-3xl overflow-hidden border-2 border-gray-800 shadow-2xl">
+                            <div className="relative aspect-video rounded-3xl overflow-hidden border-2 border-gray-800 shadow-2xl">
+
                                 {!isVideoPlaying ? (
-                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#0f0f0f] via-gray-900 to-black">
-                                        <div className="text-center space-y-6">
-                                            <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
-                                                <Smartphone className="w-32 h-32 text-white" />
+                                    <button
+                                        onClick={() => setIsVideoPlaying(true)}
+                                        className="relative w-full h-full focus:outline-none"
+                                    >
+                                        {/* Thumbnail */}
+                                        <img
+                                            src="/video-thumbnail.png"
+                                            alt="Trovina demo video"
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        />
+
+                                        {/* Dark overlay */}
+                                        <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-colors" />
+
+                                        {/* Overlay content */}
+                                        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center space-y-6">
+
+                                            {/* Phone icon — desktop only */}
+                                            <motion.div
+                                                className="hidden md:block"
+                                                animate={{ y: [0, -10, 0] }}
+                                                transition={{ repeat: Infinity, duration: 2 }}
+                                            >
+                                                <Smartphone className="w-24 h-24 text-white/80" />
                                             </motion.div>
-                                            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => setIsVideoPlaying(true)}>
-                                                <div className="relative w-24 h-24 bg-white hover:bg-gray-200 rounded-full flex items-center justify-center shadow-2xl">
-                                                    <Play className="w-10 h-10 text-black ml-1" />
-                                                </div>
-                                            </motion.button>
-                                            <p className="text-2xl font-semibold text-white">Watch Demo Video</p>
-                                            <p className="text-gray-400">3:15 minutes</p>
+
+                                            {/* Play button — always visible */}
+                                            <motion.div
+                                                whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-full flex items-center justify-center shadow-2xl"
+                                            >
+                                                <Play className="w-8 h-8 md:w-10 md:h-10 text-black ml-1" />
+                                            </motion.div>
+
+                                            {/* Text — desktop only */}
+                                            <div className="hidden md:block">
+                                                <p className="text-2xl font-semibold text-white">
+                                                    Watch Video
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </button>
                                 ) : (
                                     <>
+                                        {/* YouTube iframe */}
                                         <iframe
                                             className="absolute inset-0 w-full h-full"
-                                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                                            allow="autoplay"
+                                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
+                                            title="Trovina demo video"
+                                            allow="autoplay; encrypted-media"
                                             allowFullScreen
-                                        ></iframe>
+                                        />
+
+                                        {/* Close button */}
                                         <button
                                             onClick={() => setIsVideoPlaying(false)}
-                                            className="absolute top-4 right-4 w-10 h-10 bg-gray-900/90 hover:bg-white hover:text-black rounded-full flex items-center justify-center"
+                                            className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/70 hover:bg-white hover:text-black rounded-full flex items-center justify-center transition-colors"
                                         >
                                             <X className="w-6 h-6" />
                                         </button>
@@ -413,6 +452,7 @@ export default function Home() {
                         </motion.div>
                     </div>
                 </section>
+
 
                 {/* Industries We Serve */}
                 <section className="relative z-10 px-6 py-20 bg-[#0f0f0f]/30 border-t border-gray-800">
