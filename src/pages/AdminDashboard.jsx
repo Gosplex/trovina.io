@@ -6,6 +6,7 @@ import {
     getDocs,
     doc,
     updateDoc,
+    getDoc,
     serverTimestamp,
 } from "firebase/firestore";
 import {
@@ -30,105 +31,82 @@ import {
 import AdminLayout from "../components/AdminLayout";
 import { db } from "../lib/firebase";
 import { formatDate } from "../utils/date";
-
-
-
-/* ===============================
-   MAIN DASHBOARD
-================================ */
+import { LEAD_STATUS } from "../constants/lead.constants";
+import { capitalize } from "../utils/text";
+import { PROJECT_STATUS, PAYMENT_STATUS, PAYMENT_PLAN, CURRENCY } from "../constants/projectConstants";
 
 export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
+    const [rates, setRates] = useState({ ngnToUsd: 0, ngnToInr: 0 });
+    const [totalEarningsUSD, setTotalEarningsUSD] = useState(0);
 
     const [stats, setStats] = useState({
         total: 0,
         new: 0,
         contacted: 0,
-        completed: 0,
-        earnings: 0,
+        qualified: 0,
+        converted: 0,
     });
 
     const [recentLeads, setRecentLeads] = useState([]);
     const [weeklyData, setWeeklyData] = useState([]);
 
-    /* ===============================
-       FETCH + NORMALIZE DATA
-    ================================ */
     const fetchDashboardData = async () => {
         try {
             setLoading(true);
-            const allLeads = [];
 
-            // -------- LEADS ----------
+            // Fetch exchange rates
+            const configSnap = await getDoc(doc(db, "config", "exchangeRates"));
+            const exchangeRates = configSnap.exists() ? configSnap.data() : { ngnToUsd: 0.000692, ngnToInr: 0.0622 };
+            setRates(exchangeRates);
+
+            // Fetch leads
             const leadsSnap = await getDocs(collection(db, "leads"));
+            const leads = [];
+
             for (const d of leadsSnap.docs) {
                 const data = d.data();
 
-                if (!data.status) {
+                if (!data.leadStatus) {
                     await updateDoc(doc(db, "leads", d.id), {
-                        status: "new",
+                        leadStatus: LEAD_STATUS.NEW,
                         updatedAt: serverTimestamp(),
                     });
-                    data.status = "new";
+                    data.leadStatus = LEAD_STATUS.NEW;
                 }
 
-                allLeads.push({
+                leads.push({
                     id: d.id,
-                    business: data.businessName || "—",
-                    name: data.name || data.fullName,
-                    email: data.email,
-                    phone: data.phone,
-                    country: data.country,
-                    status: data.status,
+                    businessName: data.businessName || data.fullName,
+                    fullName: data.fullName || "—",
+                    email: data.emailAddress || "—",
+                    phone: data.phoneNumber || "—",
+                    country: data.country || "—",
+                    status: data.leadStatus,
                     createdAt: data.createdAt,
                 });
             }
 
-            // -------- FREE WEBSITE PROMO ----------
-            const promoSnap = await getDocs(collection(db, "free_website_promo"));
-            for (const d of promoSnap.docs) {
-                const data = d.data();
+            leads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-                if (!data.status) {
-                    await updateDoc(doc(db, "free_website_promo", d.id), {
-                        status: "new",
-                        updatedAt: serverTimestamp(),
-                    });
-                    data.status = "new";
-                }
-
-                allLeads.push({
-                    id: d.id,
-                    business: data.businessName,
-                    name: data.fullName,
-                    email: data.email,
-                    phone: data.phone,
-                    country: data.country,
-                    status: data.status,
-                    createdAt: data.createdAt,
-                });
-            }
-
-            // SORT
-            allLeads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-            const total = allLeads.length;
-            const newLeads = allLeads.filter(l => l.status === "new").length;
-            const contacted = allLeads.filter(l => l.status === "contacted").length;
-            const completed = allLeads.filter(l => l.status === "completed").length;
+            const total = leads.length;
+            const newLeads = leads.filter(l => l.status === LEAD_STATUS.NEW).length;
+            const contacted = leads.filter(l => l.status === LEAD_STATUS.CONTACTED).length;
+            const qualified = leads.filter(l => l.status === LEAD_STATUS.QUALIFIED).length;
+            const converted = leads.filter(l => l.status === LEAD_STATUS.CONVERTED).length;
 
             setStats({
                 total,
                 new: newLeads,
                 contacted,
-                completed,
-                earnings: completed * 90000,
+                qualified,
+                converted,
             });
 
-            setRecentLeads(allLeads.slice(0, 5));
+            setRecentLeads(leads.slice(0, 5));
 
             const weekMap = {};
-            allLeads.forEach(l => {
+            leads.forEach(l => {
                 const day = new Date(l.createdAt).toLocaleDateString("en-US", {
                     weekday: "short",
                 });
@@ -136,8 +114,52 @@ export default function AdminDashboard() {
             });
 
             setWeeklyData(
-                Object.entries(weekMap).map(([day, leads]) => ({ day, leads }))
+                Object.entries(weekMap).map(([day, leads]) => ({
+                    day,
+                    leads,
+                }))
             );
+
+
+            const projectsSnap = await getDocs(collection(db, "projects"));
+            let totalUSD = 0;
+
+            for (const d of projectsSnap.docs) {
+                const data = d.data();
+
+                const amountPaid = Number(data.amountPaid) || 0;
+                const currency = data.currency || CURRENCY.NGN;
+                const paymentStatus = data.paymentStatus || PAYMENT_STATUS.PENDING;
+
+                if (amountPaid <= 0) continue;
+
+                const isPaidOrPartial =
+                    paymentStatus === PAYMENT_STATUS.PAID ||
+                    paymentStatus === PAYMENT_STATUS.PARTIALLY_PAID;
+
+                if (!isPaidOrPartial && amountPaid > 0) {
+                    // You can choose to include anyway if amountPaid exists
+                    // Or skip if status doesn't reflect payment
+                    // Here we INCLUDE it because money was received
+                }
+
+                let amountInUSD = 0;
+
+                if (currency === CURRENCY.USD) {
+                    amountInUSD = amountPaid;
+                } else if (currency === CURRENCY.NGN) {
+                    amountInUSD = amountPaid * (rates.ngnToUsd || 0.000692); // fallback if rate missing
+                } else if (currency === CURRENCY.INR) {
+                    // Convert INR → NGN → USD using the known NGN rates
+                    const inrToUsd = rates.ngnToUsd / rates.ngnToInr;
+                    amountInUSD = amountPaid * (inrToUsd || 0); // fallback to 0 if rates missing
+                }
+                // Add more currencies here if needed in future
+
+                totalUSD += amountInUSD;
+            }
+
+            setTotalEarningsUSD(totalUSD);
         } catch (err) {
             console.error("Dashboard fetch failed:", err);
         } finally {
@@ -145,56 +167,39 @@ export default function AdminDashboard() {
         }
     };
 
-    /* ===============================
-       INIT
-    ================================ */
     useEffect(() => {
         fetchDashboardData();
     }, []);
 
-    const formatCurrency = value =>
-        new Intl.NumberFormat("en-NG", {
-            style: "currency",
-            currency: "NGN",
-            minimumFractionDigits: 0,
-        }).format(value);
-
-    /* ===============================
-       RENDER
-    ================================ */
     return (
         <AdminLayout>
             <motion.div className="space-y-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <h1 className="text-4xl font-bold">Dashboard</h1>
 
                 {/* STATS */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                    {(loading ? Array(5).fill(0) : [1]).map((_, i) =>
-                        loading ? (
-                            <SkeletonCard key={i} />
-                        ) : (
-                            <>
-                                <StatCard icon={<Users />} title="Total Leads" value={stats.total} />
-                                <StatCard icon={<Zap />} title="New Leads" value={stats.new} />
-                                <StatCard icon={<MessageSquare />} title="Contacted" value={stats.contacted} />
-                                <StatCard icon={<CheckCircle />} title="Completed" value={stats.completed} />
-                                <StatCard icon={<DollarSign />} title="Money Earned" value={formatCurrency(stats.earnings)} />
-                            </>
-                        )
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {loading ? (
+                        Array(5).fill(0).map((_, i) => <SkeletonCard key={i} />)
+                    ) : (
+                        <>
+                            <StatCard icon={<Users />} title="Total Leads" value={stats.total} />
+                            <StatCard icon={<Zap />} title="New" value={stats.new} />
+                            <StatCard icon={<MessageSquare />} title="Contacted" value={stats.contacted} />
+                            <StatCard icon={<CheckCircle />} title="Qualified" value={stats.qualified} />
+                            <EarningsCard totalUSD={totalEarningsUSD} rates={rates} />
+                        </>
                     )}
                 </div>
 
-                {/* ALERT */}
                 {!loading && stats.new > 0 && (
                     <div className="bg-purple-500/10 border border-purple-500/30 rounded-2xl p-6 flex items-center gap-4">
                         <TrendingUp className="text-purple-400" />
                         <p className="text-purple-300 font-semibold">
-                            {stats.new} new leads are waiting to be contacted
+                            {stats.new} new leads need follow-up
                         </p>
                     </div>
                 )}
 
-                {/* MAIN GRID */}
                 <div className="grid lg:grid-cols-3 gap-8">
                     {/* RECENT LEADS */}
                     <div className="lg:col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-6">
@@ -205,11 +210,11 @@ export default function AdminDashboard() {
                         ) : (
                             <table className="w-full text-sm">
                                 <tbody>
-                                    {recentLeads.map((l, i) => (
-                                        <tr key={i} className="border-b border-gray-800">
-                                            <td className="py-4 font-medium">{l.business}</td>
+                                    {recentLeads.map((l) => (
+                                        <tr key={l.id} className="border-b border-gray-800">
+                                            <td className="py-4 font-medium">{l.businessName}</td>
                                             <td className="py-4">
-                                                {l.name}
+                                                {l.fullName}
                                                 <div className="text-xs text-gray-500">{l.email}</div>
                                             </td>
                                             <td className="py-4">
@@ -217,7 +222,7 @@ export default function AdminDashboard() {
                                             </td>
                                             <td className="py-4 text-gray-400 flex items-center gap-2">
                                                 <Clock size={14} />
-                                                {formatDate(new Date(l.createdAt).toLocaleString())}
+                                                {formatDate(new Date(l.createdAt))}
                                             </td>
                                         </tr>
                                     ))}
@@ -253,7 +258,7 @@ export default function AdminDashboard() {
 }
 
 /* ===============================
-   SKELETONS
+   UI HELPERS
 ================================ */
 
 function SkeletonCard() {
@@ -276,14 +281,8 @@ function TableSkeleton() {
 }
 
 function ChartSkeleton() {
-    return (
-        <div className="h-[240px] bg-gray-800 rounded-xl animate-pulse" />
-    );
+    return <div className="h-[240px] bg-gray-800 rounded-xl animate-pulse" />;
 }
-
-/* ===============================
-   UI COMPONENTS
-================================ */
 
 function StatCard({ icon, title, value }) {
     return (
@@ -297,15 +296,60 @@ function StatCard({ icon, title, value }) {
     );
 }
 
+function EarningsCard({ totalUSD, rates }) {
+    const [selectedCurrency, setSelectedCurrency] = useState(CURRENCY.USD);
+
+    const currencySymbols = {
+        [CURRENCY.USD]: '$',
+        [CURRENCY.NGN]: '₦',
+        [CURRENCY.INR]: '₹',
+    };
+
+    let displayed = 0;
+    if (selectedCurrency === CURRENCY.USD) {
+        displayed = totalUSD;
+    } else if (selectedCurrency === CURRENCY.NGN) {
+        displayed = totalUSD / rates.ngnToUsd;
+    } else if (selectedCurrency === CURRENCY.INR) {
+        displayed = totalUSD / (rates.ngnToUsd / rates.ngnToInr);
+    }
+
+    const formatted = (currencySymbols[selectedCurrency] || '') + displayed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    return (
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+            <p className="text-gray-400 text-sm mb-2">Total Earnings</p>
+            <div className="flex items-center justify-between">
+                <p className="text-3xl font-bold">{formatted}</p>
+                <div className="text-gray-400"><DollarSign /></div>
+            </div>
+            <select
+                value={selectedCurrency}
+                onChange={(e) => setSelectedCurrency(e.target.value)}
+                className="mt-4 w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-purple-500/50 transition"
+            >
+                {Object.values(CURRENCY).map((curr) => (
+                    <option key={curr} value={curr}>
+                        {curr}
+                    </option>
+                ))}
+            </select>
+        </div>
+    );
+}
+
 function StatusBadge({ status }) {
     const styles = {
         new: "bg-purple-500/20 text-purple-400",
         contacted: "bg-blue-500/20 text-blue-400",
-        completed: "bg-green-500/20 text-green-400",
+        qualified: "bg-yellow-500/20 text-yellow-400",
+        converted: "bg-green-500/20 text-green-400",
+        lost: "bg-red-500/20 text-red-400",
     };
+
     return (
-        <span className={`px-3 py-1 rounded-full text-xs ${styles[status]}`}>
-            {status}
+        <span className={`px-3 py-1 rounded-full text-xs ${styles[status] || ""}`}>
+            {capitalize(status)}
         </span>
     );
 }

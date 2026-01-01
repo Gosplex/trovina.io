@@ -39,14 +39,22 @@ export default function ContactUs() {
 
         try {
             await addDoc(collection(db, 'leads'), {
-                name: form.name,
-                email: form.email,
-                phone,
-                service: form.service,
-                description: form.message,
-                source: 'contact-page',
+                fullName: form.name,
+                emailAddress: form.email,
+                phoneNumber: phone,
+                businessName: null,
+                businessEmail: null,
+                businessType: null,
+                interestedService: form.service,
+                projectDescription: form.message,
+                hasAWebsite: null,
+                websiteUrl: null,
+                country,
+                leadStatus: "new",
+                source: "contact-page",
                 createdAt: new Date().toISOString(),
-            })
+                updatedAt: new Date().toISOString(),
+            });
 
             // Clear form
             setForm({

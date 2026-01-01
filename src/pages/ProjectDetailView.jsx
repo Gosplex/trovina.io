@@ -6,56 +6,67 @@ import {
     ArrowLeft,
     Calendar,
     Clock,
-    Globe,
     Mail,
     Phone,
     Edit3,
+    DollarSign,
 } from "lucide-react";
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+
 import AdminLayout from "../components/AdminLayout";
 import { db } from "../lib/firebase";
 import { formatDate } from "../utils/date";
-import { LEAD_STATUS } from "../constants/lead.constants";
+import { capitalize } from "../utils/text";
 
-export default function LeadDetailView() {
+import {
+    PROJECT_STATUS,
+    PAYMENT_STATUS,
+} from "../constants/projectConstants";
+
+export default function ProjectDetailView() {
     const { id } = useParams();
-    const [lead, setLead] = useState(null);
+    const [project, setProject] = useState(null);
     const [loading, setLoading] = useState(true);
+
     const [editingNotes, setEditingNotes] = useState(false);
     const [notes, setNotes] = useState("");
     const [savingNotes, setSavingNotes] = useState(false);
 
+    /* ================= FETCH PROJECT ================= */
     useEffect(() => {
-        const fetchLead = async () => {
+        const fetchProject = async () => {
             try {
                 setLoading(true);
-                const snap = await getDoc(doc(db, "leads", id));
+                const snap = await getDoc(doc(db, "projects", id));
                 if (!snap.exists()) {
-                    setLead(null);
+                    setProject(null);
                     return;
                 }
                 const data = snap.data();
-                setLead(data);
+                setProject(data);
                 setNotes(data.notes || "");
             } catch (err) {
-                console.error("Error fetching lead:", err);
+                console.error("Error fetching project:", err);
             } finally {
                 setLoading(false);
             }
         };
 
-        if (id) fetchLead();
+        if (id) fetchProject();
     }, [id]);
 
+    /* ================= SAVE NOTES ================= */
     const handleSaveNotes = async () => {
         if (savingNotes) return;
         setSavingNotes(true);
+
         try {
-            await updateDoc(doc(db, "leads", id), {
+            await updateDoc(doc(db, "projects", id), {
                 notes: notes.trim(),
                 updatedAt: serverTimestamp(),
             });
-            setLead((prev) => ({ ...prev, notes: notes.trim() }));
+
+            setProject(prev => ({ ...prev, notes: notes.trim() }));
             setEditingNotes(false);
         } catch (err) {
             console.error("Failed to save notes:", err);
@@ -64,6 +75,7 @@ export default function LeadDetailView() {
         }
     };
 
+    /* ================= STATES ================= */
     if (loading) {
         return (
             <AdminLayout>
@@ -71,7 +83,10 @@ export default function LeadDetailView() {
                     <div className="h-8 bg-gray-800 rounded w-64" />
                     <div className="grid md:grid-cols-2 gap-6">
                         {[...Array(4)].map((_, i) => (
-                            <div key={i} className="h-40 bg-gray-900 border border-gray-800 rounded-2xl" />
+                            <div
+                                key={i}
+                                className="h-40 bg-gray-900 border border-gray-800 rounded-2xl"
+                            />
                         ))}
                     </div>
                 </div>
@@ -79,33 +94,37 @@ export default function LeadDetailView() {
         );
     }
 
-    if (!lead) {
+    if (!project) {
         return (
             <AdminLayout>
                 <div className="p-8 text-center text-gray-400 text-xl">
-                    Lead not found
+                    Project not found
                 </div>
             </AdminLayout>
         );
     }
 
     const createdAt =
-        lead.createdAt?.toDate?.() ||
-        new Date(lead.createdAt || Date.now());
+        project.createdAt?.toDate?.() ||
+        new Date(project.createdAt || Date.now());
+
     const updatedAt =
-        lead.updatedAt?.toDate?.() || createdAt;
+        project.updatedAt?.toDate?.() || createdAt;
 
     return (
         <AdminLayout>
             <div className="max-w-7xl mx-auto p-6 space-y-8">
+
+                {/* BACK */}
                 <Link
-                    to="/admin/leads"
+                    to="/admin/projects"
                     className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition"
                 >
                     <ArrowLeft className="w-5 h-5" />
-                    Back to Leads
+                    Back to Projects
                 </Link>
 
+                {/* HEADER */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -114,84 +133,80 @@ export default function LeadDetailView() {
                     <div className="grid md:grid-cols-2 gap-8">
                         <div>
                             <h1 className="text-4xl font-bold text-white mb-2">
-                                {lead.businessName || "—"}
+                                {project.projectTitle || "—"}
                             </h1>
                             <p className="text-xl text-gray-300">
-                                {lead.fullName || "—"}
+                                {project.projectOwnerSnapshot?.fullName || "—"}
                             </p>
                         </div>
+
                         <div className="grid grid-cols-2 gap-6">
                             <div>
-                                <p className="text-gray-400 text-sm mb-1">Status</p>
-                                <StatusBadge status={lead.leadStatus} />
-                            </div>
-                            <div>
-                                <p className="text-gray-400 text-sm mb-1">Source</p>
-                                <p className="font-medium text-white">
-                                    {lead.source || "—"}
+                                <p className="text-gray-400 text-sm mb-1">
+                                    Project Status
                                 </p>
+                                <StatusBadge status={project.projectStatus} />
+                            </div>
+
+                            <div>
+                                <p className="text-gray-400 text-sm mb-1">
+                                    Payment Status
+                                </p>
+                                <StatusBadge
+                                    status={project.paymentStatus}
+                                    type="payment"
+                                />
                             </div>
                         </div>
                     </div>
                 </motion.div>
 
+                {/* INFO GRID */}
                 <div className="grid md:grid-cols-2 gap-6">
-                    <StatCard title="Contact Information">
+                    <StatCard title="Client Information">
                         <InfoRow
                             icon={<Mail />}
-                            label="Personal Email"
-                            value={lead.emailAddress}
-                            href={lead.emailAddress && `mailto:${lead.emailAddress}`}
-                        />
-                        <InfoRow
-                            icon={<Mail />}
-                            label="Business Email"
-                            value={lead.businessEmail}
-                            href={lead.businessEmail && `mailto:${lead.businessEmail}`}
+                            label="Email"
+                            value={project.projectOwnerSnapshot?.emailAddress}
+                            href={
+                                project.projectOwnerSnapshot?.emailAddress &&
+                                `mailto:${project.projectOwnerSnapshot.emailAddress}`
+                            }
                         />
                         <InfoRow
                             icon={<Phone />}
-                            label="Phone Number"
-                            value={lead.phoneNumber}
-                            href={lead.phoneNumber && `tel:${lead.phoneNumber}`}
-                        />
-                        <InfoRow
-                            icon={<Globe />}
-                            label="Country"
-                            value={lead.country?.toUpperCase()}
+                            label="Phone"
+                            value={project.projectOwnerSnapshot?.phoneNumber}
+                            href={
+                                project.projectOwnerSnapshot?.phoneNumber &&
+                                `tel:${project.projectOwnerSnapshot.phoneNumber}`
+                            }
                         />
                     </StatCard>
 
-                    <StatCard title="Business Details">
-                        <InfoRow label="Business Type" value={lead.businessType} />
+                    <StatCard title="Payment Information">
                         <InfoRow
-                            label="Interested Service"
-                            value={lead.interestedService}
+                            icon={<DollarSign />}
+                            label="Total Price"
+                            value={`${project.currency} ${project.totalPrice}`}
                         />
                         <InfoRow
-                            label="Has Website"
-                            value={lead.hasAWebsite === true ? "Yes" : "No"}
-                            badge={lead.hasAWebsite === true}
+                            icon={<DollarSign />}
+                            label="Amount Paid"
+                            value={`${project.currency} ${project.amountPaid}`}
                         />
-                        {lead.websiteUrl && (
-                            <InfoRow
-                                icon={<Globe />}
-                                label="Website URL"
-                                value={lead.websiteUrl}
-                                href={lead.websiteUrl}
-                                link
-                            />
-                        )}
                     </StatCard>
                 </div>
 
+                {/* DESCRIPTION */}
                 <StatCard title="Project Description">
                     <p className="text-gray-300 whitespace-pre-wrap">
-                        {lead.projectDescription || "—"}
+                        {project.projectDescription || "—"}
                     </p>
                 </StatCard>
 
-                <StatCard title="Notes">
+                {/* NOTES */}
+                <StatCard title="Internal Notes">
                     {editingNotes ? (
                         <div className="space-y-4">
                             <textarea
@@ -203,7 +218,7 @@ export default function LeadDetailView() {
                             <div className="flex justify-end gap-3">
                                 <button
                                     onClick={() => {
-                                        setNotes(lead.notes || "");
+                                        setNotes(project.notes || "");
                                         setEditingNotes(false);
                                     }}
                                     className="px-5 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl"
@@ -222,7 +237,7 @@ export default function LeadDetailView() {
                     ) : (
                         <div className="relative group">
                             <div className="min-h-[120px] text-gray-300 whitespace-pre-wrap">
-                                {lead.notes || (
+                                {project.notes || (
                                     <span className="text-gray-500 italic">
                                         No notes yet.
                                     </span>
@@ -238,6 +253,7 @@ export default function LeadDetailView() {
                     )}
                 </StatCard>
 
+                {/* SYSTEM */}
                 <StatCard title="System Information">
                     <div className="grid md:grid-cols-3 gap-6">
                         <InfoRow
@@ -250,13 +266,15 @@ export default function LeadDetailView() {
                             label="Updated At"
                             value={formatDate(updatedAt)}
                         />
-                        <InfoRow label="Lead ID" value={id} code />
+                        <InfoRow label="Project ID" value={id} code />
                     </div>
                 </StatCard>
             </div>
         </AdminLayout>
     );
 }
+
+/* ================= COMPONENTS ================= */
 
 function StatCard({ title, children }) {
     return (
@@ -265,13 +283,15 @@ function StatCard({ title, children }) {
             animate={{ opacity: 1, y: 0 }}
             className="bg-gray-900 border border-gray-800 rounded-2xl p-6"
         >
-            <h2 className="text-xl font-semibold text-white mb-4">{title}</h2>
+            <h2 className="text-xl font-semibold text-white mb-4">
+                {title}
+            </h2>
             <div className="space-y-4">{children}</div>
         </motion.div>
     );
 }
 
-function InfoRow({ icon, label, value, href, link, badge, code }) {
+function InfoRow({ icon, label, value, href, code }) {
     if (!value) return null;
 
     const content = (
@@ -279,9 +299,7 @@ function InfoRow({ icon, label, value, href, link, badge, code }) {
             {icon && <div className="text-gray-400 mt-1">{icon}</div>}
             <div>
                 <p className="text-gray-400 text-sm">{label}</p>
-                <p className={`font-medium ${badge ? "text-green-400" : "text-white"}`}>
-                    {value}
-                </p>
+                <p className="font-medium text-white">{value}</p>
             </div>
         </div>
     );
@@ -290,8 +308,6 @@ function InfoRow({ icon, label, value, href, link, badge, code }) {
         return (
             <a
                 href={href}
-                target={link ? "_blank" : undefined}
-                rel={link ? "noopener noreferrer" : undefined}
                 className="block py-2 hover:bg-white/5 px-3 -mx-3 rounded-lg"
             >
                 {content}
@@ -313,18 +329,27 @@ function InfoRow({ icon, label, value, href, link, badge, code }) {
     return <div className="py-2">{content}</div>;
 }
 
-function StatusBadge({ status }) {
-    const styles = {
-        [LEAD_STATUS.NEW]: "bg-purple-500/20 text-purple-400",
-        [LEAD_STATUS.CONTACTED]: "bg-blue-500/20 text-blue-400",
-        [LEAD_STATUS.QUALIFIED]: "bg-yellow-500/20 text-yellow-400",
-        [LEAD_STATUS.CONVERTED]: "bg-green-500/20 text-green-400",
-        [LEAD_STATUS.LOST]: "bg-red-500/20 text-red-400",
-    };
+function StatusBadge({ status, type }) {
+    const styles =
+        type === "payment"
+            ? {
+                [PAYMENT_STATUS.PENDING]: "bg-yellow-500/20 text-yellow-400",
+                [PAYMENT_STATUS.PAID]: "bg-green-500/20 text-green-400",
+                [PAYMENT_STATUS.PARTIAL]: "bg-blue-500/20 text-blue-400",
+            }
+            : {
+                [PROJECT_STATUS.PENDING]: "bg-yellow-500/20 text-yellow-400",
+                [PROJECT_STATUS.ACTIVE]: "bg-blue-500/20 text-blue-400",
+                [PROJECT_STATUS.COMPLETED]: "bg-green-500/20 text-green-400",
+                [PROJECT_STATUS.CANCELLED]: "bg-red-500/20 text-red-400",
+            };
 
     return (
-        <span className={`px-4 py-2 rounded-full text-sm font-medium ${styles[status]}`}>
-            {status?.charAt(0).toUpperCase() + status?.slice(1)}
+        <span
+            className={`px-4 py-2 rounded-full text-sm font-medium ${styles[status]
+                }`}
+        >
+            {capitalize(status)}
         </span>
     );
 }

@@ -19,6 +19,10 @@ import AdminLeads from "./pages/AdminLeads";
 import LeadDetailView from "./pages/LeadDetailView";
 import LeadEditView from "./pages/LeadEditView";
 import AdminGuard from "./guards/AdminGuard";
+import AdminProjects from "./pages/AdminProjects";
+import AdminProjectCreate from "./pages/AdminProjectCreate";
+import ProjectDetailView from "./pages/ProjectDetailView";
+import AdminProjectEdit from "./pages/AdminProjectEdit";
 
 
 
@@ -108,6 +112,42 @@ function App() {
           element={
             <AdminGuard>
               <LeadEditView />
+            </AdminGuard>
+          }
+        />
+
+        <Route
+          path="/admin/projects"
+          element={
+            <AdminGuard>
+              <AdminProjects />
+            </AdminGuard>
+          }
+        />
+
+        <Route
+          path="/admin/projects/new"
+          element={
+            <AdminGuard>
+              <AdminProjectCreate />
+            </AdminGuard>
+          }
+        />
+
+        <Route
+          path="/admin/projects/:id"
+          element={
+            <AdminGuard>
+              <ProjectDetailView />
+            </AdminGuard>
+          }
+        />
+
+        <Route
+          path="admin/projects/:id/edit"
+          element={
+            <AdminGuard>
+              <AdminProjectEdit />
             </AdminGuard>
           }
         />

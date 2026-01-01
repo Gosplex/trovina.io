@@ -8,6 +8,8 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import ThankYouRedirect from './ThankYouRedirect'
+import { BUSINESS_TYPES } from "../constants/businessTypes";
+
 
 export default function ProjectFormModal({ open, onClose }) {
     const { executeRecaptcha } = useGoogleReCaptcha()
@@ -22,6 +24,8 @@ export default function ProjectFormModal({ open, onClose }) {
         businessName: '',        // ← NEW FIELD
         email: '',
         businessEmail: '',
+        businessType: '',
+        customBusinessType: '',
         service: '',
         description: '',
     })
@@ -61,34 +65,49 @@ export default function ProjectFormModal({ open, onClose }) {
             const token = await executeRecaptcha('project_form_submit')
 
             const payload = {
-                ...form,
-                phone,
+                fullName: form.name,
+                emailAddress: form.email,
+                phoneNumber: phone,
+                businessName: form.businessName,
+                businessEmail: form.businessEmail || null,
+                businessType:
+                    form.businessType === "Other"
+                        ? form.customBusinessType
+                        : form.businessType,
+                interestedService: form.service,
+                projectDescription: form.description,
+                hasAWebsite: null,
+                websiteUrl: null,
                 country,
-                recaptchaToken: token,
+                leadStatus: "new",
+                source: "project-form",
                 createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                recaptchaToken: token,
             }
 
-            await addDoc(collection(db, 'leads'), payload)
+            await addDoc(collection(db, "leads"), payload)
 
-            // Clear form
             setForm({
                 name: '',
                 businessName: '',
                 email: '',
                 businessEmail: '',
+                businessType: '',
+                customBusinessType: '',
                 service: '',
                 description: '',
-            })
+            });
             setPhone('')
-
-            // Show thank you
             setShowThankYou(true)
+
         } catch (err) {
             console.error('Submit failed:', err)
         } finally {
             setIsSubmitting(false)
         }
     }
+
 
     return (
         <>
@@ -163,6 +182,34 @@ export default function ProjectFormModal({ open, onClose }) {
                                     className="input"
                                 />
                             </div>
+
+                            {/* Business Type */}
+                            <select
+                                name="businessType"
+                                value={form.businessType}
+                                onChange={updateForm}
+                                className="input"
+                                required
+                            >
+                                <option value="">Select Business Type *</option>
+                                {BUSINESS_TYPES.map((type) => (
+                                    <option key={type} value={type}>
+                                        {type}
+                                    </option>
+                                ))}
+                            </select>
+
+                            {/* Custom Business Type (only if Other) */}
+                            {form.businessType === "Other" && (
+                                <input
+                                    name="customBusinessType"
+                                    value={form.customBusinessType}
+                                    onChange={updateForm}
+                                    placeholder="Enter your business type *"
+                                    className="input"
+                                    required
+                                />
+                            )}
 
                             {/* Phone */}
                             <div className="flex items-center h-[56px] bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">

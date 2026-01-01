@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../utils/date";
+import { LEAD_STATUS } from "../constants/lead.constants";
+import { capitalize } from "../utils/text";
+import { BUSINESS_TYPES } from '../constants/businessTypes'
+
 
 import {
     Eye,
@@ -44,84 +48,30 @@ export default function AdminLeads() {
             setLoading(true);
             const allLeads = [];
 
-            // Fetch from "leads"
             const leadsSnap = await getDocs(collection(db, "leads"));
-            for (const d of leadsSnap.docs) {
-                let data = d.data();
-                if (!data.status) {
-                    await updateDoc(doc(db, "leads", d.id), {
-                        status: "new",
-                        updatedAt: serverTimestamp(),
-                    });
-                    data = { ...data, status: "new" };
-                }
-                allLeads.push({
-                    id: d.id,
-                    collection: "leads",
-                    businessName: data.businessName || "—",
-                    fullName: data.name || data.fullName,
-                    email: data.email,
-                    phone: data.phone,
-                    businessType: data.businessType || "—",
-                    hasWebsite: data.hasWebsite || "No",
-                    status: data.status,
-                    country: data.country,
-                    createdAt: (function () {
-                        if (!data.createdAt) return "Unknown";
-                        if (typeof data.createdAt.toDate === "function") {
-                            // It's a Firebase Timestamp
-                            return data.createdAt.toDate().toLocaleString();
-                        }
-                        if (data.createdAt instanceof Date) {
-                            return data.createdAt.toLocaleString();
-                        }
-                        if (typeof data.createdAt === "string") {
-                            return new Date(data.createdAt).toLocaleString();
-                        }
-                        return "Unknown";
-                    })(),
-                });
-            }
 
-            // Fetch from "free_website_promo"
-            const promoSnap = await getDocs(collection(db, "free_website_promo"));
-            for (const d of promoSnap.docs) {
-                let data = d.data();
-                if (!data.status) {
-                    await updateDoc(doc(db, "free_website_promo", d.id), {
-                        status: "new",
+            for (const d of leadsSnap.docs) {
+                const data = d.data();
+
+                if (!data.leadStatus) {
+                    await updateDoc(doc(db, "leads", d.id), {
+                        leadStatus: LEAD_STATUS.NEW,
                         updatedAt: serverTimestamp(),
                     });
-                    data = { ...data, status: "new" };
+                    data.leadStatus = LEAD_STATUS.NEW;
                 }
+
                 allLeads.push({
                     id: d.id,
-                    collection: "free_website_promo",
                     businessName: data.businessName || "—",
-                    fullName: data.fullName,
-                    email: data.email,
-                    phone: data.phone,
-                    businessType: data.businessType,
-                    hasWebsite: data.hasWebsite || "No",
-                    status: data.status,
-                    country: data.country,
-                    createdAt: (function () {
-                        if (!data.createdAt) return "Unknown";
-                        if (typeof data.createdAt.toDate === "function") {
-                            return data.createdAt.toDate().toLocaleString();
-                        }
-                        if (data.createdAt instanceof Date) {
-                            return data.createdAt.toLocaleString();
-                        }
-                        if (typeof data.createdAt === "string") {
-                            try {
-                                return new Date(data.createdAt).toLocaleString();
-                            } catch {
-                                return data.createdAt;
-                            }
-                        }
-                        return "Unknown";
-                    })(),
+                    fullName: data.fullName || "—",
+                    email: data.emailAddress || "—",
+                    phone: data.phoneNumber || "—",
+                    businessType: data.businessType || "—",
+                    hasWebsite: data.hasAWebsite ? "Yes" : "No",
+                    status: data.leadStatus,
+                    country: data.country || "—",
+                    createdAt: data.createdAt,
                 });
             }
 
@@ -147,7 +97,8 @@ export default function AdminLeads() {
             lead.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
             lead.email.toLowerCase().includes(searchTerm.toLowerCase());
 
-        const matchesStatus = statusFilter === "all" || lead.status === statusFilter;
+        const matchesStatus =
+            statusFilter === "all" || lead.status === statusFilter;
 
         return matchesSearch && matchesStatus;
     });
@@ -168,21 +119,34 @@ export default function AdminLeads() {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (saving) return;
+
         setSaving(true);
 
         try {
             const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
+            const values = Object.fromEntries(formData.entries());
 
-            // Set timestamps
-            data.createdAt = new Date().toISOString();
-            data.updatedAt = new Date().toISOString();
-            data.status = data.status || "new";
+            const payload = {
+                businessName: values.businessName,
+                fullName: values.fullName,
+                emailAddress: values.email,
+                phoneNumber: values.phone,
+                businessType: values.businessType || null,
+                hasAWebsite: values.hasWebsite === "Yes",
+                websiteUrl: values.websiteUrl || null,
+                notes: values.notes || null,
+                country: values.country || null,
 
-            // Save to selected collection
-            await addDoc(collection(db, data.collection), data);
+                leadStatus: values.status || LEAD_STATUS.NEW,
+                source: "admin-manual",
 
-            // Refresh leads
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            };
+
+            await addDoc(collection(db, "leads"), payload);
+
             await fetchLeads();
             setIsModalOpen(false);
         } catch (err) {
@@ -191,6 +155,7 @@ export default function AdminLeads() {
             setSaving(false);
         }
     };
+
 
     return (
         <AdminLayout>
@@ -238,9 +203,11 @@ export default function AdminLeads() {
                         className="px-5 py-4 bg-gray-900 border border-gray-800 rounded-xl focus:outline-none focus:border-purple-500/50 transition"
                     >
                         <option value="all">All Status</option>
-                        <option value="new">New</option>
-                        <option value="contacted">Contacted</option>
-                        <option value="completed">Completed</option>
+                        {Object.values(LEAD_STATUS).map((status) => (
+                            <option key={status} value={status}>
+                                {status.charAt(0).toUpperCase() + status.slice(1)}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
@@ -398,58 +365,128 @@ export default function AdminLeads() {
                                         </button>
                                     </div>
 
-                                    <div className="space-y-6">
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <InputField name="businessName" label="Business Name" placeholder="e.g. Bright Salon" required />
-                                            <InputField name="fullName" label="Full Name" placeholder="e.g. Aisha Bello" required />
-                                            <InputField name="email" type="email" label="Email" placeholder="aisha@example.com" required />
-                                            <InputField name="phone" label="Phone Number" placeholder="+234 803 123 4567" required />
-                                            <InputField name="businessType" label="Business Type" placeholder="e.g. Salon, Restaurant" />
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-300 mb-2">Has Website?</label>
-                                                <select name="hasWebsite" className="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500/50 transition">
-                                                    <option value="No">No</option>
-                                                    <option value="Yes">Yes</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
-                                                <select name="status" className="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500/50 transition">
-                                                    <option value="new">New</option>
-                                                    <option value="contacted">Contacted</option>
-                                                    <option value="completed">Completed</option>
-                                                </select>
-                                            </div>
-                                            <InputField name="country" label="Country" placeholder="e.g. NG" />
-                                            <div className="md:col-span-2">
-                                                <label className="block text-sm font-medium text-gray-300 mb-2">Collection</label>
-                                                <select name="collection" required className="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500/50 transition">
-                                                    <option value="">Select Collection</option>
-                                                    <option value="leads">Leads</option>
-                                                    <option value="free_website_promo">Free Website Promo</option>
-                                                </select>
-                                            </div>
-                                            {/* Additional fields */}
-                                            <InputField name="websiteUrl" label="Website URL (if yes)" placeholder="https://example.com" />
-                                            <InputField name="notes" label="Notes" placeholder="Additional notes..." />
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <InputField
+                                            name="businessName"
+                                            label="Business Name"
+                                            placeholder="e.g. Bright Salon"
+                                            required
+                                        />
+
+                                        <InputField
+                                            name="fullName"
+                                            label="Full Name"
+                                            placeholder="e.g. Aisha Bello"
+                                            required
+                                        />
+
+                                        <InputField
+                                            name="email"
+                                            type="email"
+                                            label="Email Address"
+                                            placeholder="aisha@example.com"
+                                            required
+                                        />
+
+                                        <InputField
+                                            name="phone"
+                                            label="Phone Number"
+                                            placeholder="+234 803 123 4567"
+                                            required
+                                        />
+
+                                        {/* Business Type */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                                Business Type
+                                            </label>
+                                            <select
+                                                name="businessType"
+                                                className="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500/50 transition"
+                                            >
+                                                <option value="">Select business type</option>
+                                                {Object.values(BUSINESS_TYPES).map((type) => (
+                                                    <option key={type} value={type}>
+                                                        {type}
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
 
-                                        <div className="flex justify-end gap-4 pt-6">
-                                            <button
-                                                type="button"
-                                                onClick={() => setIsModalOpen(false)}
-                                                className="px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl font-medium transition"
+                                        {/* Has Website */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                                Has Website?
+                                            </label>
+                                            <select
+                                                name="hasWebsite"
+                                                className="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500/50 transition"
                                             >
-                                                Cancel
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                disabled={saving}
-                                                className="px-8 py-3 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
-                                            >
-                                                {saving ? "Saving..." : "Save Lead"}
-                                            </button>
+                                                <option value="No">No</option>
+                                                <option value="Yes">Yes</option>
+                                            </select>
                                         </div>
+
+                                        {/* Lead Status */}
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                                Lead Status
+                                            </label>
+                                            <select
+                                                name="status"
+                                                className="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500/50 transition"
+                                            >
+                                                <option value={LEAD_STATUS.NEW}>New</option>
+                                                <option value={LEAD_STATUS.CONTACTED}>Contacted</option>
+                                                <option value={LEAD_STATUS.QUALIFIED}>Qualified</option>
+                                                <option value={LEAD_STATUS.CONVERTED}>Converted</option>
+                                                <option value={LEAD_STATUS.LOST}>Lost</option>
+                                            </select>
+                                        </div>
+
+                                        <InputField
+                                            name="country"
+                                            label="Country"
+                                            placeholder="NG"
+                                        />
+
+                                        <div className="md:col-span-2">
+                                            <InputField
+                                                name="websiteUrl"
+                                                label="Website URL"
+                                                placeholder="https://example.com"
+                                            />
+                                        </div>
+
+
+                                        <div className="md:col-span-2">
+                                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                                                Notes
+                                            </label>
+                                            <textarea
+                                                name="notes"
+                                                rows="4"
+                                                placeholder="Internal notes or context..."
+                                                className="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:border-purple-500/50 transition resize-none placeholder:text-gray-500"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-end gap-4 pt-8">
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsModalOpen(false)}
+                                            className="px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-xl font-medium transition"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={saving}
+                                            className="px-8 py-3 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg disabled:opacity-70"
+                                        >
+                                            {saving ? "Saving..." : "Save Lead"}
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -457,6 +494,7 @@ export default function AdminLeads() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
         </AdminLayout>
     );
 }
@@ -464,17 +502,17 @@ export default function AdminLeads() {
 /* ======================= COMPONENTS ======================= */
 
 function StatusBadge({ status }) {
-    const config = {
-        new: { bg: "bg-purple-500/20", text: "text-purple-400", border: "border-purple-500/30" },
-        contacted: { bg: "bg-blue-500/20", text: "text-blue-400", border: "border-blue-500/30" },
-        completed: { bg: "bg-green-500/20", text: "text-green-400", border: "border-green-500/30" },
+    const styles = {
+        [LEAD_STATUS.NEW]: "bg-purple-500/20 text-purple-400",
+        [LEAD_STATUS.CONTACTED]: "bg-blue-500/20 text-blue-400",
+        [LEAD_STATUS.QUALIFIED]: "bg-yellow-500/20 text-yellow-400",
+        [LEAD_STATUS.CONVERTED]: "bg-green-500/20 text-green-400",
+        [LEAD_STATUS.LOST]: "bg-red-500/20 text-red-400",
     };
 
-    const style = config[status] || { bg: "bg-gray-700", text: "text-gray-300", border: "" };
-
     return (
-        <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold border ${style.bg} ${style.text} ${style.border}`}>
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+        <span className={`px-4 py-1.5 rounded-full text-xs font-semibold ${styles[status]}`}>
+            {capitalize(status)}
         </span>
     );
 }

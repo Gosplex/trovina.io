@@ -7,6 +7,8 @@ import { db } from '../lib/firebase'
 import toast from 'react-hot-toast';
 import Footer from '../components/Footer'
 import SocialProofPopup from "../components/SocialProofPopup";
+import { BUSINESS_TYPES } from "../constants/businessTypes";
+
 
 
 export default function LandingPage() {
@@ -21,8 +23,10 @@ export default function LandingPage() {
         email: '',
         phone: '',
         businessType: '',
+        customBusinessType: '',
         hasWebsite: ''
     });
+
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const timeOnPageRef = useRef(0);
@@ -136,6 +140,7 @@ export default function LandingPage() {
             !formData.email ||
             !formData.phone ||
             !formData.businessType ||
+            (formData.businessType === "Other" && !formData.customBusinessType) ||
             !formData.hasWebsite ||
             isSubmitting
         ) {
@@ -147,18 +152,37 @@ export default function LandingPage() {
 
         try {
             const payload = {
-                businessName: formData.businessName,
                 fullName: formData.fullName,
-                email: formData.email,
-                phone: formData.phone,
-                businessType: formData.businessType,
-                hasWebsite: formData.hasWebsite,
+                emailAddress: formData.email,
+                phoneNumber: formData.phone,
+                businessName: formData.businessName,
+                businessEmail: null,
+                businessType:
+                    formData.businessType === "Other"
+                        ? formData.customBusinessType
+                        : formData.businessType,
+                interestedService: "Free Website",
+                projectDescription: null,
+                hasAWebsite: formData.hasWebsite === "yes",
+                websiteUrl: null,
                 country,
-                source: 'Free Website Promo',
+                leadStatus: "new",
+                source: "free-website-landing",
                 createdAt: new Date().toISOString(),
-            }
+                updatedAt: new Date().toISOString(),
+            };
 
-            await addDoc(collection(db, 'free_website_promo'), payload)
+            await addDoc(collection(db, "leads"), payload);
+
+            setFormData({
+                businessName: '',
+                fullName: '',
+                email: '',
+                phone: '',
+                businessType: '',
+                customBusinessType: '',
+                hasWebsite: ''
+            });
 
             setFormSubmitted(true)
 
@@ -699,14 +723,30 @@ export default function LandingPage() {
                                                 className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-white transition-colors"
                                             >
                                                 <option value="">Select your business type</option>
-                                                <option value="retail">Retail / E-commerce</option>
-                                                <option value="services">Professional Services</option>
-                                                <option value="restaurant">Restaurant / Food</option>
-                                                <option value="healthcare">Healthcare</option>
-                                                <option value="education">Education</option>
-                                                <option value="other">Other</option>
+                                                {BUSINESS_TYPES.map((type) => (
+                                                    <option key={type} value={type}>
+                                                        {type}
+                                                    </option>
+                                                ))}
                                             </select>
                                         </div>
+
+                                        {formData.businessType === "Other" && (
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                                                    Specify Business Type *
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="customBusinessType"
+                                                    value={formData.customBusinessType}
+                                                    onChange={handleInputChange}
+                                                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-white transition-colors"
+                                                    placeholder="Enter your business type"
+                                                />
+                                            </div>
+                                        )}
+
 
                                         <div>
                                             <label className="block text-sm font-semibold text-gray-300 mb-2">

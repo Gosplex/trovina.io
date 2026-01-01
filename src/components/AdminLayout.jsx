@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Users, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, LogOut, FolderKanban } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
@@ -12,9 +12,9 @@ export default function AdminLayout({ children }) {
     };
 
     return (
-        <div className="min-h-screen flex bg-[#0f0f0f] text-white">
-            {/* SIDEBAR */}
-            <aside className="w-64 bg-black border-r border-gray-800 flex flex-col">
+        <div className="h-screen bg-[#0f0f0f] text-white">
+            {/* SIDEBAR (FIXED) */}
+            <aside className="fixed left-0 top-0 h-screen w-64 bg-black border-r border-gray-800 flex flex-col">
                 {/* Brand */}
                 <div className="px-6 py-5 border-b border-gray-800">
                     <h1 className="text-xl font-bold">Trovina Admin</h1>
@@ -22,13 +22,13 @@ export default function AdminLayout({ children }) {
                 </div>
 
                 {/* Nav */}
-                <nav className="flex-1 px-4 py-6 space-y-2">
+                <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
                     <NavLink
                         to="/admin/dashboard"
                         end
                         className={({ isActive }) =>
                             `flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition
-              ${isActive ? "bg-gray-800" : "hover:bg-gray-900"}`
+                            ${isActive ? "bg-gray-800" : "hover:bg-gray-900"}`
                         }
                     >
                         <LayoutDashboard size={18} />
@@ -39,11 +39,22 @@ export default function AdminLayout({ children }) {
                         to="/admin/leads"
                         className={({ isActive }) =>
                             `flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition
-              ${isActive ? "bg-gray-800" : "hover:bg-gray-900"}`
+                            ${isActive ? "bg-gray-800" : "hover:bg-gray-900"}`
                         }
                     >
                         <Users size={18} />
                         Leads
+                    </NavLink>
+
+                    <NavLink
+                        to="/admin/projects"
+                        className={({ isActive }) =>
+                            `flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition
+                            ${isActive ? "bg-gray-800" : "hover:bg-gray-900"}`
+                        }
+                    >
+                        <FolderKanban size={18} />
+                        Projects
                     </NavLink>
                 </nav>
 
@@ -59,8 +70,8 @@ export default function AdminLayout({ children }) {
                 </div>
             </aside>
 
-            {/* MAIN CONTENT */}
-            <main className="flex-1 p-6 overflow-y-auto">
+            {/* MAIN CONTENT (SCROLLS) */}
+            <main className="ml-64 h-screen overflow-y-auto p-6">
                 {children}
             </main>
         </div>
