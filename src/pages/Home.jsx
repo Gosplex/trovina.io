@@ -373,7 +373,7 @@ export default function Home() {
                             className="text-center mb-12"
                         >
                             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-                                See Trovina in Action
+                                See Who We Are
                             </h2>
                             <p className="text-xl text-gray-400">
                                 Watch how we deliver powerful digital solutions for our clients

@@ -6,6 +6,8 @@ import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import toast from 'react-hot-toast';
 import Footer from '../components/Footer'
+import SocialProofPopup from "../components/SocialProofPopup";
+
 
 export default function LandingPage() {
     const [showPopup, setShowPopup] = useState(false);
@@ -661,6 +663,11 @@ export default function LandingPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+
+            <SocialProofPopup pause={showPopup} />
+
+
         </div>
     );
 }
