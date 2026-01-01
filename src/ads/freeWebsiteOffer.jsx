@@ -254,6 +254,16 @@ export default function LandingPage() {
                         We build and launch your professional website for <span className="text-white font-semibold">FREE</span>. You only pay for your domain name and hosting.
                     </motion.p>
 
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="text-base md:text-lg text-gray-400 mb-10 max-w-3xl mx-auto"
+                    >
+                        Most Nigerian customers won’t trust a business they can’t find on Google.
+                    </motion.p>
+
+
                     {/* COUNTDOWN TIMER */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -317,7 +327,7 @@ export default function LandingPage() {
                         onClick={openPopupFromButton}
                         className="px-10 py-5 bg-white text-black hover:bg-gray-200 rounded-lg font-bold text-lg shadow-xl inline-flex items-center gap-2"
                     >
-                        Get My Free Website
+                        See If My Business Qualifies
                     </motion.button>
                 </div>
             </section>
@@ -387,6 +397,88 @@ export default function LandingPage() {
             {/* SECTION 4: OFFER BREAKDOWN */}
             <section className="relative z-10 px-6 py-16 border-t border-gray-800">
                 <div className="max-w-4xl mx-auto">
+
+                    {/* 🔥 OUTER ANIMATED BORDER WRAPPER */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="relative rounded-2xl p-[2px] animated-border"
+                    >
+                        {/* INNER CONTENT (UNCHANGED) */}
+                        <div className="bg-gradient-to-br from-gray-900 via-[#0f0f0f] to-black border-2 border-gray-800 rounded-2xl p-8 md:p-12">
+
+                            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-white">
+                                Here's What You Pay (And Don't Pay)
+                            </h2>
+
+                            <div className="grid md:grid-cols-2 gap-8 mb-10">
+
+                                {/* ✅ CARD 1 */}
+                                <div className="relative rounded-xl p-[1px] animated-card-border">
+                                    <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+                                        <div className="text-green-400 font-bold text-sm mb-2 uppercase tracking-wide">
+                                            Included FREE
+                                        </div>
+                                        <div className="text-2xl font-bold text-white mb-4">
+                                            Website Setup & Design
+                                        </div>
+                                        <div className="text-gray-400 line-through text-xl mb-2">
+                                            ₦250,000
+                                        </div>
+                                        <div className="text-3xl font-bold text-white mb-4">
+                                            ₦0
+                                        </div>
+                                        <div className="text-sm text-gray-400 mt-4 pt-4 border-t border-gray-700">
+                                            + Google Business Profile Setup
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* ✅ CARD 2 */}
+                                <div className="relative rounded-xl p-[1px] animated-card-border">
+                                    <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
+                                        <div className="text-gray-400 font-bold text-sm mb-2 uppercase tracking-wide">
+                                            You Only Pay
+                                        </div>
+                                        <div className="text-2xl font-bold text-white mb-4">
+                                            Domain + Hosting
+                                        </div>
+                                        <div className="text-3xl font-bold text-white mb-2">
+                                            ₦90,000
+                                        </div>
+                                        <div className="text-sm text-gray-400">
+                                            (One-time setup fee)
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <p className="text-center text-base md:text-lg text-gray-300 mb-8">
+                                <span className="font-semibold text-white">
+                                    No upsells. No hidden charges.
+                                </span>{" "}
+                                You only pay for your domain and hosting.
+                            </p>
+
+                            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-6 text-center">
+                                <p className="text-yellow-400 font-semibold text-lg">
+                                    ⚠️ Only 8 slots available this month
+                                </p>
+                                <p className="text-gray-300 mt-2">
+                                    We limit our monthly intake to ensure quality delivery for every client.
+                                </p>
+                            </div>
+
+                        </div>
+                    </motion.div>
+
+                </div>
+            </section>
+
+            {/* <section className="relative z-10 px-6 py-16 border-t border-gray-800">
+                <div className="max-w-4xl mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -416,6 +508,14 @@ export default function LandingPage() {
                             </div>
                         </div>
 
+                        <p className="text-center text-base md:text-lg text-gray-300 mb-8">
+                            <span className="font-semibold text-white">
+                                No upsells. No hidden charges.
+                            </span>{" "}
+                            You only pay for your domain and hosting.
+                        </p>
+
+
                         <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-6 text-center">
                             <p className="text-yellow-400 font-semibold text-lg">
                                 ⚠️ Only 8 slots available this month
@@ -426,7 +526,7 @@ export default function LandingPage() {
                         </div>
                     </motion.div>
                 </div>
-            </section>
+            </section> */}
 
             {/* SECTION 5: WHO THIS IS FOR */}
             <section className="relative z-10 px-6 py-16 border-t border-gray-800">
@@ -478,6 +578,10 @@ export default function LandingPage() {
                     </h2>
                     <p className="text-xl text-gray-300 leading-relaxed mb-8">
                         Trovina.io has delivered over 500 digital products for businesses across Nigeria and 50+ countries worldwide. We understand what Nigerian SMEs need to succeed online, and we deliver results without excuses.
+                    </p>
+                    <p className="text-base md:text-lg text-gray-400 mb-10">
+                        Used by salons, logistics companies, schools, restaurants, real estate firms,
+                        and professional service providers.
                     </p>
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="text-center">
@@ -640,7 +744,9 @@ export default function LandingPage() {
 
 
                                         <p className="text-center text-sm text-gray-400 mt-4">
-                                            We will contact you within 24 hours
+                                            We will contact you within 24 hours.
+                                            <br />
+                                            You’ll be redirected to WhatsApp to confirm your application.
                                         </p>
                                     </div>
                                 </>
@@ -655,7 +761,9 @@ export default function LandingPage() {
                                     </motion.div>
                                     <h3 className="text-3xl font-bold text-white mb-4">Thank You!</h3>
                                     <p className="text-lg text-gray-300 max-w-md mx-auto">
-                                        We've received your information and will contact you within 24 hours.
+                                        We've received your information.
+                                        <br />
+                                        You’ll now be redirected to WhatsApp to confirm your application.
                                     </p>
                                 </div>
                             )}

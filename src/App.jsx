@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+
 
 import Home from './pages/Home'
 import AboutUs from './pages/AboutUs'
@@ -16,6 +17,12 @@ import { Toaster } from 'react-hot-toast'
 
 
 function App() {
+  const location = useLocation()
+
+  // 👇 Exclude WhatsApp float on landing page
+  const hideWhatsApp =
+    location.pathname === '/free-website-promo'
+
   return (
     <>
       <Toaster
@@ -64,7 +71,7 @@ function App() {
         />
       </Routes>
 
-      <WhatsAppFloat />
+      {!hideWhatsApp && <WhatsAppFloat />}
     </>
   )
 }
