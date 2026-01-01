@@ -32,33 +32,28 @@ export default function LandingPage() {
 
     // COUNTDOWN TIMER - Fixed 48 hours that persists across page loads
     useEffect(() => {
-        let targetTime = localStorage.getItem('offerEndTime');
-
-        if (!targetTime) {
-            targetTime = new Date().getTime() + (48 * 60 * 60 * 1000);
-            localStorage.setItem('offerEndTime', targetTime);
-        } else {
-            targetTime = parseInt(targetTime);
-        }
+        const OFFER_END_TIME = new Date("2026-01-02T22:59:00Z").getTime();
+        // 22:59 UTC = 11:59 PM WAT
 
         const interval = setInterval(() => {
             const now = new Date().getTime();
-            const distance = targetTime - now;
+            const distance = OFFER_END_TIME - now;
 
-            if (distance < 0) {
+            if (distance <= 0) {
                 clearInterval(interval);
                 setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
             } else {
                 setTimeLeft({
                     hours: Math.floor(distance / (1000 * 60 * 60)),
                     minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-                    seconds: Math.floor((distance % (1000 * 60)) / 1000)
+                    seconds: Math.floor((distance % (1000 * 60)) / 1000),
                 });
             }
         }, 1000);
 
         return () => clearInterval(interval);
     }, []);
+
 
 
 

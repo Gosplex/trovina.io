@@ -9,10 +9,20 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import CookiePolicy from './pages/CookiePolicy'
 import Disclaimer from './pages/Disclaimer'
+import Login from './pages/Login'
 import ServiceDetail from './pages/ServiceDetail'
 import WhatsAppFloat from './components/WhatsAppFloat'
 import ScrollToTop from "./components/ScrollToTop";
 import FreeWebistePromo from './ads/freeWebsiteOffer'
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminLeads from "./pages/AdminLeads";
+import LeadDetailView from "./pages/LeadDetailView";
+import LeadEditView from "./pages/LeadEditView";
+import AdminGuard from "./guards/AdminGuard";
+
+
+
+
 import { Toaster } from 'react-hot-toast'
 
 
@@ -21,7 +31,9 @@ function App() {
 
   // 👇 Exclude WhatsApp float on landing page
   const hideWhatsApp =
-    location.pathname === '/free-website-promo'
+    location.pathname === '/free-website-promo' ||
+    location.pathname.includes('/admin');
+
 
   return (
     <>
@@ -61,6 +73,47 @@ function App() {
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
+
+        /// Admin pages
+        <Route path="/admin/login" element={<Login />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminGuard>
+              <AdminDashboard />
+            </AdminGuard>
+          }
+        />
+
+        <Route
+          path="/admin/leads"
+          element={
+            <AdminGuard>
+              <AdminLeads />
+            </AdminGuard>
+          }
+        />
+
+        <Route
+          path="/admin/leads/:id"
+          element={
+            <AdminGuard>
+              <LeadDetailView />
+            </AdminGuard>
+          }
+        />
+
+        <Route
+          path="/admin/leads/:id/edit"
+          element={
+            <AdminGuard>
+              <LeadEditView />
+            </AdminGuard>
+          }
+        />
+
+
+
         <Route
           path="*"
           element={

@@ -19,13 +19,14 @@ export default function ProjectFormModal({ open, onClose }) {
 
     const [form, setForm] = useState({
         name: '',
+        businessName: '',        // ← NEW FIELD
         email: '',
         businessEmail: '',
         service: '',
         description: '',
     })
 
-    // Detect country
+    // Detect country from IP
     useEffect(() => {
         if (!open) return
 
@@ -72,6 +73,7 @@ export default function ProjectFormModal({ open, onClose }) {
             // Clear form
             setForm({
                 name: '',
+                businessName: '',
                 email: '',
                 businessEmail: '',
                 service: '',
@@ -102,16 +104,16 @@ export default function ProjectFormModal({ open, onClose }) {
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.9, opacity: 0, y: 40 }}
                         transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                        className="relative w-full max-w-2xl bg-gradient-to-br from-gray-900 via-[#0f0f0f] to-black border border-gray-800 rounded-3xl shadow-2xl p-8"
+                        className="relative w-full max-w-2xl bg-gradient-to-br from-gray-900 via-[#0f0f0f] to-black border border-gray-800 rounded-3xl shadow-2xl p-8 overflow-y-auto max-h-[95vh]"
                     >
                         <button
                             onClick={onClose}
-                            className="absolute top-5 right-5 text-gray-400 hover:text-white"
+                            className="absolute top-5 right-5 text-gray-400 hover:text-white transition"
                         >
                             <X className="w-6 h-6" />
                         </button>
 
-                        <div className="mb-6 text-center">
+                        <div className="mb-8 text-center">
                             <h2 className="text-3xl font-bold text-white mb-2">
                                 Start Your Project
                             </h2>
@@ -120,44 +122,41 @@ export default function ProjectFormModal({ open, onClose }) {
                             </p>
                         </div>
 
-                        <form className="space-y-4" onSubmit={handleSubmit}>
+                        <form className="space-y-6" onSubmit={handleSubmit}>
+                            {/* Name + Business Name */}
                             <div className="grid md:grid-cols-2 gap-4">
                                 <input
                                     name="name"
                                     value={form.name}
                                     onChange={updateForm}
-                                    placeholder="Full Name"
+                                    placeholder="Full Name *"
                                     className="input"
                                     required
                                 />
                                 <input
-                                    name="email"
-                                    type="email"
-                                    value={form.email}
+                                    name="businessName"
+                                    value={form.businessName}
                                     onChange={updateForm}
-                                    placeholder="Email Address"
+                                    placeholder="Business Name *"
                                     className="input"
                                     required
                                 />
                             </div>
 
+                            {/* Email + Business Email */}
                             <div className="grid md:grid-cols-2 gap-4">
-                                <div className="flex items-center h-[52px] bg-black/40 border border-gray-700 rounded-xl overflow-hidden">
-                                    <PhoneInput
-                                        country={country}
-                                        value={phone}
-                                        onChange={setPhone}
-                                        className="w-full h-full"
-                                        inputClassName="!bg-transparent !border-none !text-white !pl-3"
-                                        countrySelectorStyleProps={{
-                                            buttonClassName:
-                                                '!bg-transparent !border-none !px-3 !text-white',
-                                        }}
-                                    />
-                                </div>
-
+                                <input
+                                    name="email"
+                                    type="email"
+                                    value={form.email}
+                                    onChange={updateForm}
+                                    placeholder="Personal Email *"
+                                    className="input"
+                                    required
+                                />
                                 <input
                                     name="businessEmail"
+                                    type="email"
                                     value={form.businessEmail}
                                     onChange={updateForm}
                                     placeholder="Business Email (optional)"
@@ -165,6 +164,22 @@ export default function ProjectFormModal({ open, onClose }) {
                                 />
                             </div>
 
+                            {/* Phone */}
+                            <div className="flex items-center h-[56px] bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+                                <PhoneInput
+                                    country={country}
+                                    value={phone}
+                                    onChange={setPhone}
+                                    inputClassName="!bg-transparent !border-none !text-white !h-full !pl-4 !pr-3 !outline-none"
+                                    countrySelectorStyleProps={{
+                                        buttonClassName: '!bg-transparent !border-none !px-4 !h-full !text-white',
+                                        dropdownStyleProps: { className: '!bg-gray-900 !border-gray-700' },
+                                    }}
+                                    className="w-full"
+                                />
+                            </div>
+
+                            {/* Service */}
                             <select
                                 name="service"
                                 value={form.service}
@@ -172,7 +187,7 @@ export default function ProjectFormModal({ open, onClose }) {
                                 className="input"
                                 required
                             >
-                                <option value="">Request Service</option>
+                                <option value="">Select a Service *</option>
                                 <option>Mobile App Development</option>
                                 <option>Web App / Website</option>
                                 <option>AI Automation & Workflow</option>
@@ -180,26 +195,31 @@ export default function ProjectFormModal({ open, onClose }) {
                                 <option>Other</option>
                             </select>
 
+                            {/* Description */}
                             <textarea
                                 name="description"
                                 value={form.description}
                                 onChange={updateForm}
-                                rows="4"
-                                placeholder="Describe your project..."
+                                rows="5"
+                                placeholder="Describe your project in detail... *"
                                 className="input resize-none"
                                 required
                             />
 
+                            {/* Submit */}
                             <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
                                 disabled={isSubmitting}
-                                className={`w-full py-4 rounded-xl font-bold flex justify-center gap-3 ${isSubmitting
-                                    ? 'bg-gray-300 text-gray-600'
-                                    : 'bg-white text-black'
+                                type="submit"
+                                className={`w-full py-5 rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all ${isSubmitting
+                                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                                    : 'bg-white text-black hover:bg-gray-100 shadow-xl'
                                     }`}
                             >
                                 {isSubmitting ? (
                                     <>
-                                        <span className="w-5 h-5 border-2 border-gray-600 border-t-transparent rounded-full animate-spin" />
+                                        <span className="w-6 h-6 border-3 border-gray-400 border-t-transparent rounded-full animate-spin" />
                                         Submitting…
                                     </>
                                 ) : (
@@ -211,7 +231,7 @@ export default function ProjectFormModal({ open, onClose }) {
                 </motion.div>
             </AnimatePresence>
 
-            {/* THANK YOU */}
+            {/* Thank You Redirect */}
             <ThankYouRedirect
                 key={showThankYou ? 'open' : 'closed'}
                 open={showThankYou}
@@ -219,7 +239,7 @@ export default function ProjectFormModal({ open, onClose }) {
                     setShowThankYou(false)
                     onClose()
                 }}
-                redirectUrl="https://calendly.com/YOUR_CALENDLY_LINK"
+                redirectUrl="https://calendly.com/YOUR_CALENDLY_LINK" // ← Replace with your real Calendly link
             />
         </>
     )
