@@ -585,7 +585,769 @@ const serviceData = {
             },
         ],
     },
+
+    // SEO & Growth Optimization
+    "seo-growth-optimization": {
+        slug: "seo-growth-optimization",
+        title: "SEO & Growth Optimization",
+        keyword:
+            "seo services, search engine optimization, technical seo, content marketing, growth marketing, organic traffic growth",
+
+        icon: "🔍",
+
+        heroTitle: "SEO & Growth Strategies That Drive Sustainable Organic Traffic",
+        heroDesc:
+            "We deliver data-driven SEO and growth optimization strategies combining technical SEO, keyword research, content systems, and conversion optimization to increase search visibility, attract high-intent traffic, and generate consistent long-term revenue growth for businesses worldwide.",
+
+        heroImage:
+            "https://images.klipfolio.com/website/public/297f7872-b3dc-4c28-85c7-e42f1bcce16a/seo-analytics-dashboard.png",
+
+        stats: [
+            { value: "300%+", label: "Average Organic Traffic Growth" },
+            { value: "Page 1", label: "Search Engine Rankings" },
+            { value: "50+", label: "High-Intent Keywords Ranked" },
+            { value: "6–12 Months", label: "Compounding Growth Results" },
+        ],
+
+        features: [
+            {
+                title: "Technical SEO",
+                desc:
+                    "Full technical SEO audits including site structure, crawlability, indexation, Core Web Vitals, page speed optimization, schema markup, and mobile-first performance improvements.",
+                icon: <Zap className="w-6 h-6" />,
+            },
+            {
+                title: "Keyword Research & Search Strategy",
+                desc:
+                    "In-depth keyword research and competitor analysis focused on high-intent, conversion-ready search queries that drive qualified organic traffic.",
+                icon: <Target className="w-6 h-6" />,
+            },
+            {
+                title: "Content Strategy & SEO Copywriting",
+                desc:
+                    "SEO-optimized content frameworks, topic clusters, landing pages, and authority-building articles designed to rank and convert.",
+                icon: <TrendingUp className="w-6 h-6" />,
+            },
+            {
+                title: "Link Building & Authority Growth",
+                desc:
+                    "White-hat backlink strategies, digital PR, and outreach campaigns that increase domain authority and trust signals.",
+                icon: <Award className="w-6 h-6" />,
+            },
+            {
+                title: "Local & International SEO",
+                desc:
+                    "Search optimization for both local and international markets, including multilingual SEO and geo-targeted strategies.",
+                icon: <Users className="w-6 h-6" />,
+            },
+            {
+                title: "Analytics, Tracking & Reporting",
+                desc:
+                    "Advanced SEO analytics, real-time dashboards, conversion tracking, and transparent performance reporting.",
+                icon: <CheckCircle className="w-6 h-6" />,
+            },
+            {
+                title: "Conversion Rate Optimization (CRO)",
+                desc:
+                    "Landing page optimization, UX improvements, and data-backed experiments to turn organic traffic into leads and sales.",
+                icon: <Clock className="w-6 h-6" />,
+            },
+            {
+                title: "E-commerce SEO",
+                desc:
+                    "Product page optimization, category structuring, technical fixes, and SEO strategies built to increase online sales.",
+                icon: <Shield className="w-6 h-6" />,
+            },
+        ],
+
+        painPoints: [
+            "Low organic traffic despite strong products or services?",
+            "High rankings but poor conversions?",
+            "Over-reliance on paid ads for growth?",
+            "Competitors dominating search results?",
+        ],
+
+        benefits: [
+            {
+                title: "Qualified Organic Traffic",
+                desc:
+                    "Attract users actively searching for your products or services through search engines.",
+            },
+            {
+                title: "Higher Search Visibility",
+                desc:
+                    "Consistent top-of-page rankings for high-value keywords that matter to your business.",
+            },
+            {
+                title: "Compounding Long-Term Growth",
+                desc:
+                    "SEO strategies that continue to generate traffic and revenue without ongoing ad spend.",
+            },
+        ],
+
+        process: [
+            {
+                step: "1",
+                title: "Audit & Research",
+                desc:
+                    "Technical site audit, keyword research, competitor benchmarking, and growth opportunity analysis.",
+            },
+            {
+                step: "2",
+                title: "Strategy & Optimization",
+                desc:
+                    "On-page SEO, site architecture improvements, and technical optimization implementation.",
+            },
+            {
+                step: "3",
+                title: "Content & Authority",
+                desc:
+                    "SEO content production, topic clusters, and authority-building link acquisition.",
+            },
+            {
+                step: "4",
+                title: "Measure & Scale",
+                desc:
+                    "Continuous tracking, reporting, testing, and iterative optimization for growth.",
+            },
+        ],
+
+        tech: [
+            "Google Analytics",
+            "Google Search Console",
+            "Ahrefs",
+            "SEMrush",
+            "Screaming Frog",
+            "RankMath / Yoast",
+            "Hotjar",
+        ],
+
+        testimonial: {
+            quote:
+                "Organic traffic grew by over 350% within months. We now rank consistently for our core keywords and generate qualified leads without increasing ad spend.",
+            author: "Head of Growth",
+            role: "SaaS Company",
+            rating: 5,
+        },
+
+        faq: [
+            {
+                q: "How long does SEO take to show results?",
+                a:
+                    "Early improvements typically appear within 4–8 weeks. Strong, sustainable growth usually occurs within 6–12 months depending on competition and scope.",
+            },
+            {
+                q: "Do you guarantee #1 rankings?",
+                a:
+                    "No ethical SEO provider can guarantee exact rankings. We focus on measurable traffic, visibility, and revenue growth backed by data.",
+            },
+            {
+                q: "Can SEO work alongside paid advertising?",
+                a:
+                    "Yes. SEO complements paid ads by reducing long-term acquisition costs and building sustainable organic traffic.",
+            },
+            {
+                q: "Is SEO suitable for small or large businesses?",
+                a:
+                    "SEO is effective for startups, SMEs, and enterprises when aligned with clear growth goals and realistic timelines.",
+            },
+            {
+                q: "What reporting do you provide?",
+                a:
+                    "Monthly reports covering keyword rankings, traffic growth, conversions, and actionable insights.",
+            },
+            {
+                q: "Is SEO a one-time service?",
+                a:
+                    "SEO is an ongoing process that evolves with algorithms, competitors, and user behavior.",
+            },
+        ],
+    },
+
+
+    // Branding & Visual Identity
+    "branding-visual-identity": {
+        slug: "branding-visual-identity",
+        title: "Branding & Visual Identity",
+        keyword:
+            "branding agency, brand identity design, logo design services, brand strategy, visual identity systems, corporate branding",
+
+        icon: "🎨",
+
+        heroTitle: "Build a Strong Brand Identity That People Remember",
+        heroDesc:
+            "We design strategic brand identities, logos, and visual systems that communicate clarity, credibility, and value. Our branding solutions help businesses stand out, build trust, and create lasting emotional connections across all digital and offline touchpoints.",
+
+        heroImage:
+            "https://www.logoai.com/uploads/articles/2025/01/13/17367608776312887.png",
+
+        stats: [
+            { value: "50+", label: "Brands Designed" },
+            { value: "100%", label: "Client Satisfaction" },
+            { value: "10x", label: "Brand Perception Lift" },
+            { value: "End-to-End", label: "Brand Systems Delivered" },
+        ],
+
+        features: [
+            {
+                title: "Logo Design",
+                desc:
+                    "Distinctive, timeless logo designs crafted to reflect your brand values, positioning, and long-term vision.",
+                icon: <Zap className="w-6 h-6" />,
+            },
+            {
+                title: "Brand Guidelines",
+                desc:
+                    "Comprehensive brand guidelines covering color systems, typography, logo usage, tone, and visual standards.",
+                icon: <Target className="w-6 h-6" />,
+            },
+            {
+                title: "Visual Identity Systems",
+                desc:
+                    "Complete visual identity systems including icons, patterns, imagery direction, and design components.",
+                icon: <TrendingUp className="w-6 h-6" />,
+            },
+            {
+                title: "Stationery & Collateral",
+                desc:
+                    "Professionally designed business cards, letterheads, envelopes, and branded marketing materials.",
+                icon: <Award className="w-6 h-6" />,
+            },
+            {
+                title: "Digital Brand Assets",
+                desc:
+                    "Social media templates, email signatures, presentation decks, and digital brand kits.",
+                icon: <Users className="w-6 h-6" />,
+            },
+            {
+                title: "Brand Strategy",
+                desc:
+                    "Brand positioning, messaging frameworks, tone of voice, and audience research to guide all design decisions.",
+                icon: <CheckCircle className="w-6 h-6" />,
+            },
+            {
+                title: "Rebranding Services",
+                desc:
+                    "Strategic rebranding that modernizes your brand while preserving recognition and brand equity.",
+                icon: <Clock className="w-6 h-6" />,
+            },
+            {
+                title: "Packaging Design",
+                desc:
+                    "Product packaging and label design built to stand out visually and communicate value instantly.",
+                icon: <Shield className="w-6 h-6" />,
+            },
+        ],
+
+        painPoints: [
+            "Brand looks generic or forgettable?",
+            "Inconsistent visuals across platforms?",
+            "Low trust or weak brand perception?",
+            "Outdated or unclear brand identity?",
+        ],
+
+        benefits: [
+            {
+                title: "Instant Brand Recognition",
+                desc:
+                    "Create a cohesive identity that audiences recognize and trust immediately.",
+            },
+            {
+                title: "Professional Market Positioning",
+                desc:
+                    "Present your business as credible, established, and competitive.",
+            },
+            {
+                title: "Stronger Emotional Connection",
+                desc:
+                    "Build loyalty and affinity through consistent and meaningful design.",
+            },
+        ],
+
+        process: [
+            {
+                step: "1",
+                title: "Discovery & Research",
+                desc:
+                    "Deep understanding of your business goals, audience, competitors, and brand values.",
+            },
+            {
+                step: "2",
+                title: "Brand Strategy",
+                desc:
+                    "Define positioning, messaging, tone of voice, and creative direction.",
+            },
+            {
+                step: "3",
+                title: "Design & Identity",
+                desc:
+                    "Develop logo concepts, visual identity systems, and brand assets.",
+            },
+            {
+                step: "4",
+                title: "Delivery & Implementation",
+                desc:
+                    "Provide final files, brand guidelines, and ongoing implementation support.",
+            },
+        ],
+
+        tech: [
+            "Figma",
+            "Adobe Illustrator",
+            "Adobe Photoshop",
+            "Canva Brand Kits",
+            "Brand Guidelines PDF",
+        ],
+
+        testimonial: {
+            quote:
+                "Our new brand identity elevated how customers perceive us. The visual system is clear, professional, and consistent across every channel.",
+            author: "Founder",
+            role: "Consumer Brand",
+            rating: 5,
+        },
+
+        faq: [
+            {
+                q: "How long does a branding project take?",
+                a:
+                    "Most branding projects take between 4–8 weeks depending on scope and feedback cycles.",
+            },
+            {
+                q: "Do you provide all source files?",
+                a:
+                    "Yes. You receive all vector files, brand assets, and editable source files.",
+            },
+            {
+                q: "Can you work with existing brands?",
+                a:
+                    "Absolutely. We handle both full rebrands and subtle brand refreshes.",
+            },
+            {
+                q: "How many revisions are included?",
+                a:
+                    "We offer flexible revision rounds to ensure the final outcome aligns perfectly with your vision.",
+            },
+            {
+                q: "Do you design for print and digital?",
+                a:
+                    "Yes. All branding assets are delivered for both print and digital use.",
+            },
+            {
+                q: "Is brand strategy included?",
+                a:
+                    "Yes. Every branding project starts with strategic positioning and research.",
+            },
+        ],
+    },
+
+
+    // Graphics & Creative Design
+    "graphics-creative-design": {
+        slug: "graphics-creative-design",
+        title: "Graphics & Creative Design",
+        keyword:
+            "graphic design services, creative design agency, social media graphics, marketing design, advertising creatives, visual design services",
+
+        icon: "✏️",
+
+        heroTitle: "High-Impact Graphic Design That Engages and Converts",
+        heroDesc:
+            "We create professional graphic design solutions for social media, advertising, print, and digital marketing. Our designs are crafted to capture attention, communicate value clearly, and drive measurable engagement and conversions.",
+
+        heroImage:
+            "https://www.creativefabrica.com/wp-content/uploads/2021/11/08/Flyer-Design-Poster-Social-Media-Post-Graphics-19846711-1.jpg",
+
+        stats: [
+            { value: "1000+", label: "Designs Delivered" },
+            { value: "48hr", label: "Fast Turnaround" },
+            { value: "Unlimited", label: "Revisions Included" },
+            { value: "Print & Digital", label: "All Design Formats" },
+        ],
+
+        features: [
+            {
+                title: "Social Media Graphics",
+                desc:
+                    "Scroll-stopping social media posts, stories, reel covers, and ad creatives optimized for each platform and audience.",
+                icon: <Zap className="w-6 h-6" />,
+            },
+            {
+                title: "Flyers & Posters",
+                desc:
+                    "Promotional flyers, posters, and marketing materials designed for both print and digital distribution.",
+                icon: <Target className="w-6 h-6" />,
+            },
+            {
+                title: "Advertising Creatives",
+                desc:
+                    "High-converting ad creatives for social media, search, and display campaigns.",
+                icon: <TrendingUp className="w-6 h-6" />,
+            },
+            {
+                title: "Infographics & Visual Data",
+                desc:
+                    "Clear, engaging infographics that simplify complex information and improve understanding.",
+                icon: <Award className="w-6 h-6" />,
+            },
+            {
+                title: "Banners & Large Format Design",
+                desc:
+                    "Digital banners, website headers, and large-format visuals designed for maximum visibility.",
+                icon: <Users className="w-6 h-6" />,
+            },
+            {
+                title: "Brochures & Catalogs",
+                desc:
+                    "Multi-page brochures, catalogs, and company profiles for products and services.",
+                icon: <CheckCircle className="w-6 h-6" />,
+            },
+            {
+                title: "Packaging & Label Design",
+                desc:
+                    "Product packaging and labels that communicate value and stand out visually.",
+                icon: <Clock className="w-6 h-6" />,
+            },
+            {
+                title: "Presentation & Pitch Deck Design",
+                desc:
+                    "Professional slide decks and presentations built to persuade and impress.",
+                icon: <Shield className="w-6 h-6" />,
+            },
+        ],
+
+        painPoints: [
+            "Designs look generic or unprofessional?",
+            "Low engagement or click-through rates on ads?",
+            "Inconsistent visuals across marketing channels?",
+            "Lack of internal design resources?",
+        ],
+
+        benefits: [
+            {
+                title: "Higher Engagement",
+                desc:
+                    "Designs that capture attention and increase likes, shares, and interactions.",
+            },
+            {
+                title: "Improved Conversions",
+                desc:
+                    "Marketing visuals optimized to drive clicks, leads, and sales.",
+            },
+            {
+                title: "Consistent Brand Presence",
+                desc:
+                    "All designs aligned with your brand identity and messaging.",
+            },
+        ],
+
+        process: [
+            {
+                step: "1",
+                title: "Creative Brief",
+                desc:
+                    "Understand your objectives, audience, brand guidelines, and messaging.",
+            },
+            {
+                step: "2",
+                title: "Concept Development",
+                desc:
+                    "Create initial design directions and visual concepts.",
+            },
+            {
+                step: "3",
+                title: "Refinement & Revisions",
+                desc:
+                    "Iterative improvements with flexible revision rounds.",
+            },
+            {
+                step: "4",
+                title: "Final Delivery",
+                desc:
+                    "Delivery of final assets in all required formats and sizes.",
+            },
+        ],
+
+        tech: [
+            "Adobe Photoshop",
+            "Adobe Illustrator",
+            "Figma",
+            "Canva Pro",
+            "Adobe InDesign",
+        ],
+
+        testimonial: {
+            quote:
+                "Our engagement increased significantly after the new creatives. Every design now feels polished, professional, and aligned with our brand.",
+            author: "Marketing Lead",
+            role: "Consumer Brand",
+            rating: 5,
+        },
+
+        faq: [
+            {
+                q: "How many revisions are included?",
+                a:
+                    "We offer flexible and generous revision rounds until the design meets your expectations.",
+            },
+            {
+                q: "What file formats will I receive?",
+                a:
+                    "You receive all required formats including PNG, JPG, PDF, SVG, and editable source files.",
+            },
+            {
+                q: "Do you design for both print and digital?",
+                a:
+                    "Yes. All designs are optimized for both print production and digital platforms.",
+            },
+            {
+                q: "Do you offer ongoing design support?",
+                a:
+                    "Yes. Monthly and retainer-based design plans are available.",
+            },
+            {
+                q: "How fast is delivery?",
+                a:
+                    "Initial concepts are typically delivered within 48–72 hours depending on scope.",
+            },
+            {
+                q: "Can you match our existing brand identity?",
+                a:
+                    "Absolutely. We follow your brand guidelines or help create them if needed.",
+            },
+        ],
+    },
+
+
+    // Video Editing & Motion Content
+    "video-editing-motion-content": {
+        slug: "video-editing-motion-content",
+        title: "Video Editing & Motion Content",
+        keyword:
+            "video editing services, motion graphics, professional video editor, social media video editing, youtube video editing, corporate video production",
+
+        icon: "🎥",
+
+        heroTitle: "Professional Video Editing That Engages and Converts",
+        heroDesc:
+            "We deliver high-quality video editing, motion graphics, color grading, and sound design for ads, social media, YouTube, corporate videos, and product demos. Our videos are crafted to capture attention, increase watch time, and drive measurable results.",
+
+        heroImage:
+            "https://assets.videomaker.com/2015/05/Stages-of-Editing.jpg",
+
+        stats: [
+            { value: "1M+", label: "Views Generated" },
+            { value: "4K+", label: "Professional Video Quality" },
+            { value: "48hr", label: "Fast Turnaround" },
+            { value: "100+", label: "Videos Edited" },
+        ],
+
+        features: [
+            {
+                title: "Social Media Video Editing",
+                desc:
+                    "Short-form vertical videos optimized for Instagram Reels, TikTok, YouTube Shorts, and other social platforms.",
+                icon: <Zap className="w-6 h-6" />,
+            },
+            {
+                title: "YouTube Video Editing",
+                desc:
+                    "Long-form YouTube editing with pacing, chapters, thumbnails, hooks, and retention-focused storytelling.",
+                icon: <Target className="w-6 h-6" />,
+            },
+            {
+                title: "Motion Graphics & Animation",
+                desc:
+                    "Animated text, transitions, lower thirds, explainer elements, and branded motion graphics.",
+                icon: <TrendingUp className="w-6 h-6" />,
+            },
+            {
+                title: "Color Correction & Grading",
+                desc:
+                    "Professional color correction and cinematic grading for a polished, premium look.",
+                icon: <Award className="w-6 h-6" />,
+            },
+            {
+                title: "Advertising & Promo Videos",
+                desc:
+                    "High-conversion video ads for social media, websites, and digital campaigns.",
+                icon: <Users className="w-6 h-6" />,
+            },
+            {
+                title: "Corporate & Brand Videos",
+                desc:
+                    "Brand stories, testimonials, explainer videos, and internal communications.",
+                icon: <CheckCircle className="w-6 h-6" />,
+            },
+            {
+                title: "Sound Design & Audio Cleanup",
+                desc:
+                    "Music syncing, sound effects, voiceover mixing, noise reduction, and audio enhancement.",
+                icon: <Clock className="w-6 h-6" />,
+            },
+            {
+                title: "Subtitles & Captions",
+                desc:
+                    "Burned-in subtitles or SRT files to improve accessibility, engagement, and watch time.",
+                icon: <Shield className="w-6 h-6" />,
+            },
+        ],
+
+        painPoints: [
+            "Videos failing to hold viewer attention?",
+            "Low retention or watch time?",
+            "Ads not converting into leads or sales?",
+            "No time or expertise to edit professionally?",
+        ],
+
+        benefits: [
+            {
+                title: "Higher Watch Time",
+                desc:
+                    "Optimized pacing, visuals, and storytelling keep viewers engaged longer.",
+            },
+            {
+                title: "Stronger Engagement",
+                desc:
+                    "Videos designed to earn more likes, comments, shares, and subscribers.",
+            },
+            {
+                title: "Improved ROI",
+                desc:
+                    "Video content built to support marketing goals and revenue growth.",
+            },
+        ],
+
+        process: [
+            {
+                step: "1",
+                title: "Brief & Footage Review",
+                desc:
+                    "Understand project goals, audience, and review raw footage.",
+            },
+            {
+                step: "2",
+                title: "Rough Cut",
+                desc:
+                    "Initial edit focusing on structure, timing, and storytelling.",
+            },
+            {
+                step: "3",
+                title: "Polish & Enhance",
+                desc:
+                    "Add motion graphics, color grading, sound design, and refinements.",
+            },
+            {
+                step: "4",
+                title: "Final Delivery",
+                desc:
+                    "Export in required formats with revision rounds included.",
+            },
+        ],
+
+        tech: [
+            "Adobe Premiere Pro",
+            "After Effects",
+            "DaVinci Resolve",
+            "Final Cut Pro",
+            "Adobe Audition",
+        ],
+
+        testimonial: {
+            quote:
+                "Professional editing transformed our content. Watch time increased significantly and the motion graphics elevated our brand presence.",
+            author: "Content Lead",
+            role: "Digital Media Brand",
+            rating: 5,
+        },
+
+        faq: [
+            {
+                q: "What editing software do you use?",
+                a:
+                    "We use industry-standard tools including Adobe Premiere Pro, After Effects, and DaVinci Resolve.",
+            },
+            {
+                q: "Do you include music and sound effects?",
+                a:
+                    "Yes. Royalty-free music, sound effects, and audio cleanup are included.",
+            },
+            {
+                q: "Can you edit mobile or low-quality footage?",
+                a:
+                    "Yes. We enhance and optimize raw footage to look professional.",
+            },
+            {
+                q: "How many revisions are included?",
+                a:
+                    "Up to three revision rounds are included, depending on project scope.",
+            },
+            {
+                q: "Do you design thumbnails?",
+                a:
+                    "Yes. Custom thumbnails are included with YouTube and video packages.",
+            },
+            {
+                q: "What export formats do you provide?",
+                a:
+                    "We deliver MP4 and custom formats including vertical (9:16), horizontal (16:9), and square ratios.",
+            },
+        ],
+    },
+
 };
+
+
+const relatedServicesMap = {
+    "ai-automation-workflow-systems": [
+        "web-app-website-development",
+        "cloud-infrastructure-devops",
+        "seo-growth-optimization",
+    ],
+
+    "mobile-app-development": [
+        "web-app-website-development",
+        "ai-automation-workflow-systems",
+        "cloud-infrastructure-devops",
+    ],
+
+    "web-app-website-development": [
+        "seo-growth-optimization",
+        "branding-visual-identity",
+        "cloud-infrastructure-devops",
+    ],
+
+    "cloud-infrastructure-devops": [
+        "ai-automation-workflow-systems",
+        "web-app-website-development",
+        "mobile-app-development",
+    ],
+
+    "seo-growth-optimization": [
+        "web-app-website-development",
+        "graphics-creative-design",
+        "video-editing-motion-content",
+    ],
+
+    "branding-visual-identity": [
+        "graphics-creative-design",
+        "web-app-website-development",
+        "video-editing-motion-content",
+    ],
+
+    "graphics-creative-design": [
+        "branding-visual-identity",
+        "video-editing-motion-content",
+        "seo-growth-optimization",
+    ],
+
+    "video-editing-motion-content": [
+        "seo-growth-optimization",
+        "branding-visual-identity",
+        "graphics-creative-design",
+    ],
+};
+
 
 
 function AccordionItem({ question, answer, isOpen, onClick }) {
@@ -626,6 +1388,50 @@ function AccordionItem({ question, answer, isOpen, onClick }) {
 }
 
 
+const buildServiceSchema = (service) => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.title,
+    "description": service.heroDesc,
+    "provider": {
+        "@type": "Organization",
+        "name": "Trovina",
+        "url": "https://trovina.io",
+    },
+    "areaServed": {
+        "@type": "Place",
+        "name": "Worldwide"
+    },
+    "serviceType": service.title,
+    "url": `https://trovina.io/services/${service.slug}`,
+});
+
+const buildFAQSchema = (faq = []) => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+        "@type": "Question",
+        "name": item.q,
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.a
+        }
+    }))
+});
+
+const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Trovina",
+    "url": "https://trovina.io",
+    "logo": "https://trovina.io/logo.png",
+    "sameAs": [
+        "https://www.linkedin.com/company/trovinaio",
+        "https://www.facebook.com/trovinaio"
+    ]
+};
+
+
 export default function ServiceDetail() {
     const { slug } = useParams();
     const service = serviceData[slug];
@@ -663,6 +1469,23 @@ export default function ServiceDetail() {
                 <title>{service.title} | Trovina.io</title>
                 <meta name="description" content={service.heroDesc} />
                 <meta name="keywords" content={service.keyword} />
+
+                {/* Organization Schema */}
+                <script type="application/ld+json">
+                    {JSON.stringify(organizationSchema)}
+                </script>
+
+                {/* Service Schema */}
+                <script type="application/ld+json">
+                    {JSON.stringify(buildServiceSchema(service))}
+                </script>
+
+                {/* FAQ Schema */}
+                {service.faq?.length > 0 && (
+                    <script type="application/ld+json">
+                        {JSON.stringify(buildFAQSchema(service.faq))}
+                    </script>
+                )}
             </Helmet>
 
             <div className="min-h-screen bg-[#0f0f0f] text-white font-sans">
@@ -1015,6 +1838,51 @@ export default function ServiceDetail() {
                         ))}
                     </motion.div>
                 </section>
+
+                {/* RELATED SERVICES */}
+                <section className="px-6 py-20 bg-black border-t border-gray-800">
+                    <motion.h2
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-4xl font-bold text-center mb-12"
+                    >
+                        Related Services
+                    </motion.h2>
+
+                    <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+                        {relatedServicesMap[slug]?.map((relatedSlug) => {
+                            const related = serviceData[relatedSlug];
+
+                            if (!related) return null;
+
+                            return (
+                                <motion.div
+                                    key={related.slug}
+                                    whileHover={{ y: -6, scale: 1.03 }}
+                                    className="p-8 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl hover:border-white transition-all"
+                                >
+                                    <h3 className="text-2xl font-bold mb-3">
+                                        {related.title}
+                                    </h3>
+
+                                    <p className="text-gray-400 mb-6 text-sm">
+                                        {related.heroDesc.slice(0, 120)}...
+                                    </p>
+
+                                    <button
+                                        onClick={() => navigate(`/services/${related.slug}`)}
+                                        className="inline-flex items-center gap-2 font-semibold text-white hover:text-gray-300"
+                                    >
+                                        Learn More <ChevronDown className="rotate-[-90deg]" />
+                                    </button>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                </section>
+
+
 
                 <ProjectFormModal
                     open={showForm}

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async'
 
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { Zap, ArrowRight, CheckCircle, Play, X, Smartphone, Layers, Activity, Menu, Globe, Bot, Cloud } from 'lucide-react';
+import { Zap, ArrowRight, CheckCircle, Play, X, Smartphone, Activity, Globe, Bot, Cloud, Search, Palette, PenTool, Video } from 'lucide-react';
 import ProjectFormModal from '../components/ProjectFormModal'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -41,8 +41,29 @@ export default function Home() {
             icon: <Cloud className="w-6 h-6" />,
             title: "Cloud Infrastructure & DevOps",
             desc: "Secure and scalable cloud systems on AWS, Azure, and GCP, including DevOps, CI/CD automation, monitoring, and long-term infrastructure support."
+        },
+        {
+            icon: <Search className="w-6 h-6" />,
+            title: "SEO & Growth Optimization",
+            desc: "Data-driven SEO strategies, technical optimization, and content systems designed to increase organic visibility, qualified traffic, and long-term search performance."
+        },
+        {
+            icon: <Palette className="w-6 h-6" />,
+            title: "Branding & Visual Identity",
+            desc: "Strategic branding, logo systems, and visual identity design that establish credibility, consistency, and a strong market presence across digital platforms."
+        },
+        {
+            icon: <PenTool className="w-6 h-6" />,
+            title: "Graphics & Creative Design",
+            desc: "Professional graphic design for websites, social media, ads, and marketing materials, crafted to communicate clearly, convert effectively, and reinforce brand identity."
+        },
+        {
+            icon: <Video className="w-6 h-6" />,
+            title: "Video Editing & Motion Content",
+            desc: "High-quality video editing for ads, reels, product demos, and corporate content, optimized for engagement, storytelling, and platform-specific performance."
         }
     ];
+
 
     const industries = [
         { name: "E-Commerce & Retail", desc: "Online stores, delivery apps, marketplace platforms, product tracking, and digital payment systems for growing retail brands" },

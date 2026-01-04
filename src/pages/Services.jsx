@@ -8,7 +8,7 @@ import ProjectFormModal from '../components/ProjectFormModal'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
-import { Activity, Menu, X, ArrowRight, Smartphone, Globe, Bot, Cloud } from 'lucide-react';
+import { Activity, Menu, X, ArrowRight, Smartphone, Globe, Bot, Cloud, Search, Palette, PenTool, Video } from 'lucide-react';
 
 export default function Services() {
     const [showForm, setShowForm] = useState(false)
@@ -42,6 +42,34 @@ export default function Services() {
             icon: <Cloud className="w-8 h-8" />,
             desc: "We design and manage secure cloud infrastructure on AWS, Google Cloud, and Azure. Our services include DevOps support, CI and CD pipelines, Docker and Kubernetes setup, monitoring, backups, and cloud cost management.",
             image: "https://thumbs.dreamstime.com/b/futuristic-server-room-lit-neon-lights-dark-data-center-sleek-design-glowing-reflective-floor-technology-cybersecurity-385666166.jpg"
+        },
+        {
+            slug: "seo-growth-optimization",
+            title: "SEO & Growth Optimization",
+            icon: <Search className="w-8 h-8" />,
+            desc: "We deliver data-driven SEO strategies, technical optimization, keyword research, content systems, and link building to increase organic traffic, improve Google rankings, and drive sustainable revenue growth.",
+            image: "https://blog.usermaven.com/wp-content/uploads/2025/01/analytics-dashboard-hero.png"
+        },
+        {
+            slug: "branding-visual-identity",
+            title: "Branding & Visual Identity",
+            icon: <Palette className="w-8 h-8" />,
+            desc: "We create strategic brand identities including logos, color palettes, typography, guidelines, and visual assets that build recognition, trust, and emotional connection with your audience.",
+            image: "https://tint.creativemarket.com/OosjthHU_uW4h9PN_ouOiZINDOgfkxK49HplOJMvsiM/width:1200/height:800/gravity:nowe/rt:fill-down/el:1/czM6Ly9maWxlcy5jcmVhdGl2ZW1hcmtldC5jb20vaW1hZ2VzL3NjcmVlbnNob3RzL3Byb2R1Y3RzLzQ5MjYvNDkyNjgvNDkyNjg3NjYvMi1vLmpwZw?1698731536"
+        },
+        {
+            slug: "graphics-creative-design",
+            title: "Graphics & Creative Design",
+            icon: <PenTool className="w-8 h-8" />,
+            desc: "Professional graphic design for social media posts, flyers, ads, infographics, banners, and marketing materials that grab attention, communicate clearly, and strengthen your brand.",
+            image: "https://graphicsfamily.com/wp-content/uploads/edd/2023/10/Advertising-Social-Media-Poster-Design-scaled.jpg"
+        },
+        {
+            slug: "video-editing-motion-content",
+            title: "Video Editing & Motion Content",
+            icon: <Video className="w-8 h-8" />,
+            desc: "High-quality video editing, motion graphics, color grading, and animation for social media reels, YouTube, ads, and corporate videos that boost engagement and conversions.",
+            image: "https://www.elegantthemes.com/blog/wp-content/uploads/2023/08/Non-Linear-editing-Premiere-Pro.jpg"
         }
     ];
 

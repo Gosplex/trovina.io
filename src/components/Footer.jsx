@@ -31,6 +31,10 @@ export default function Footer() {
                             <li><Link to="/services/web-app-website-development" className="hover:text-white">Web & SaaS Development</Link></li>
                             <li><Link to="/services/ai-automation-workflow-systems" className="hover:text-white">AI Automation Systems</Link></li>
                             <li><Link to="/services/cloud-infrastructure-devops" className="hover:text-white">Cloud & DevOps</Link></li>
+                            <li><Link to="/services/seo-growth-optimization" className="hover:text-white">SEO & Growth Optimization</Link></li>
+                            <li><Link to="/services/branding-visual-identity" className="hover:text-white">Branding & Visual Identity</Link></li>
+                            <li><Link to="/services/graphics-creative-design" className="hover:text-white">Graphics & Creative Design</Link></li>
+                            <li><Link to="/services/video-editing-motion-content" className="hover:text-white">Video Editing & Motion Content</Link></li>
                         </ul>
                     </div>
 
