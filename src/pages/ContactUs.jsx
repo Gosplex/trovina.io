@@ -243,7 +243,7 @@ export default function ContactUs() {
 
                             <div className="space-y-8">
                                 <Info icon={<Mail />} label="Email" value="hello@trovina.io" />
-                                <Info icon={<Phone />} label="Phone" value="+1 (555) 123-4567" />
+                                <Info icon={<Phone />} label="Phone" value="+2349037248511, +917777914539" />
                                 <Info
                                     icon={<MapPin />}
                                     label="Location"

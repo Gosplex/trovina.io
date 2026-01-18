@@ -192,7 +192,7 @@ export default function LandingPage() {
                     `Hello Trovina 👋\n\nI just applied for the *Free Website Offer*.\n\nBusiness Name: ${formData.businessName}\nName: ${formData.fullName}\nEmail: ${formData.email}`
                 )
 
-                window.location.href = `https://wa.me/234XXXXXXXXXX?text=${message}`
+                window.location.href = `https://wa.me/2349037248511?text=${message}`
             }, 2000)
 
         } catch (err) {
