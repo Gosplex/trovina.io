@@ -11,7 +11,11 @@ export default function Footer() {
 
                     {/* Brand */}
                     <div>
-                        <h3 className="text-2xl font-bold text-white mb-3">
+                        <h3
+                            className="text-2xl font-bold mb-3
+    bg-gradient-to-r from-[#6B21A8] via-[#A855F7] to-[#C084FC] 
+    bg-clip-text text-transparent"
+                        >
                             Trovina.io
                         </h3>
                         <p className="text-gray-400 text-sm leading-relaxed">
@@ -117,6 +121,24 @@ export default function Footer() {
                                         <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zM7.2 19H4.1V9.4h3.1V19zM5.65 8.1C4.7 8.1 4 7.4 4 6.5s.7-1.6 1.65-1.6S7.3 5.6 7.3 6.5 6.6 8.1 5.65 8.1zM20 19h-3.1v-4.9c0-1.2 0-2.7-1.65-2.7s-1.9 1.3-1.9 2.6V19H10.2V9.4h3v1.3h.05c.42-.8 1.45-1.65 2.98-1.65 3.18 0 3.77 2.1 3.77 4.8V19z" />
                                     </svg>
                                 </a>
+                                {/* YouTube */}
+                                <a
+                                    href="https://youtube.com/@trovinaio"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 hover:text-white transition-colors"
+                                    aria-label="Trovina.io on YouTube"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        className="w-5 h-5"
+                                    >
+                                        <path d="M23.498 6.186a3.01 3.01 0 0 0-2.12-2.13C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.378.556a3.01 3.01 0 0 0-2.12 2.13A31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .502 5.814 3.01 3.01 0 0 0 2.12 2.13C4.5 20.5 12 20.5 12 20.5s7.5 0 9.378-.556a3.01 3.01 0 0 0 2.12-2.13A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z" />
+                                    </svg>
+                                </a>
+
                             </li>
                         </ul>
                     </div>

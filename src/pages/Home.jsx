@@ -454,8 +454,8 @@ export default function Home() {
                                         {/* YouTube iframe */}
                                         <iframe
                                             className="absolute inset-0 w-full h-full"
-                                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0"
-                                            title="Trovina demo video"
+                                            src="https://www.youtube.com/embed/Eiik7yjxDBk?si=VknfOzJxwZkDTYhy"
+                                            title="Trovina explainer video"
                                             allow="autoplay; encrypted-media"
                                             allowFullScreen
                                         />
