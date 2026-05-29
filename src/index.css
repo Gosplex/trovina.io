@@ -3,69 +3,173 @@
 @tailwind components;
 @tailwind utilities;
 
-.input {
-    @apply w-full px-4 py-3 rounded-xl bg-black/40 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/40 focus:border-white transition-all;
-}
+/* ============================================================
+   THEME TOKENS — single source of truth for light & dark mode.
+   Values are RGB triplets consumed by Tailwind via
+   rgb(var(--token) / <alpha-value>). Mirrors src/constants/colors.js.
+============================================================ */
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --surface: 250 250 251;
+    --surface-2: 244 244 246;
+    --border: 230 230 236;
+    --foreground: 15 15 18;
+    --muted: 90 90 102;
+    --subtle: 138 138 150;
+    --primary: 147 51 234; /* brand-600 */
+    --primary-foreground: 255 255 255;
+    --ring: 168 85 247; /* brand-500 */
+    color-scheme: light;
+  }
 
-html,
-body {
-    background-color: #0f0f0f;
+  .dark {
+    --background: 10 10 12;
+    --surface: 20 20 24;
+    --surface-2: 28 28 34;
+    --border: 39 39 46;
+    --foreground: 247 247 249;
+    --muted: 161 161 170;
+    --subtle: 113 113 122;
+    --primary: 168 85 247; /* brand-500 */
+    --primary-foreground: 255 255 255;
+    --ring: 168 85 247;
+    color-scheme: dark;
+  }
+
+  * {
+    border-color: rgb(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html,
+  body {
     margin: 0;
     padding: 0;
     overscroll-behavior: none;
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+  }
+
+  body {
+    font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background-color: rgb(var(--primary) / 0.18);
+    color: rgb(var(--foreground));
+  }
+
+  /* Custom scrollbar — subtle, theme-aware */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--border));
+    border-radius: 9999px;
+    border: 2px solid rgb(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--subtle));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-@keyframes borderMove {
-    0% {
-        background-position: 0% 50%;
-    }
+/* ============================================================
+   REUSABLE COMPONENT CLASSES
+============================================================ */
+@layer components {
+  /* Layout */
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
+  }
+  .section {
+    @apply relative py-16 md:py-24;
+  }
+  .section-lg {
+    @apply relative py-20 md:py-32;
+  }
 
-    100% {
-        background-position: 200% 50%;
-    }
-}
+  /* Surfaces */
+  .card {
+    @apply rounded-2xl border border-border bg-surface shadow-soft transition-all duration-300 ease-premium;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1 hover:border-brand-500/40 hover:shadow-card;
+  }
+  .glass-nav {
+    @apply border-b border-border bg-background/80 backdrop-blur-xl;
+  }
 
-.animate-border {
+  /* Eyebrow / pill label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm font-medium text-muted;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 ease-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground shadow-soft hover:shadow-lift hover:brightness-110;
+  }
+  .btn-secondary {
+    @apply btn border border-border bg-surface text-foreground hover:bg-surface-2;
+  }
+  .btn-ghost {
+    @apply btn text-foreground hover:bg-surface-2;
+  }
+  .btn-lg {
+    @apply px-8 py-4 text-base;
+  }
+
+  /* Inputs (theme-aware; replaces the old dark-only .input) */
+  .input {
+    @apply w-full rounded-xl border border-border bg-surface px-4 py-3 text-foreground placeholder-subtle transition-all duration-200 focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-500/15;
+  }
+
+  /* Brand gradient text (logo + accents) */
+  .text-gradient {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+
+  /* Animated gradient border wrapper */
+  .gradient-border {
+    @apply rounded-2xl bg-brand-gradient p-px;
     background-size: 200% 200%;
-    animation: borderMove 3s linear infinite;
+    animation: border-flow 6s linear infinite;
+  }
 }
 
-/* ===============================
-   PRICING SECTION BORDER ANIMATION
-================================ */
-
-.animated-border {
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0.06),
-            rgba(255, 255, 255, 0.35),
-            rgba(255, 255, 255, 0.06));
-    background-size: 200% 200%;
-    animation: borderFlow 6s linear infinite;
-}
-
-/* ===============================
-     PRICE CARD BORDER ANIMATION
-  ================================ */
-
-.animated-card-border {
-    background: linear-gradient(120deg,
-            rgba(255, 255, 255, 0.08),
-            rgba(255, 255, 255, 0.25),
-            rgba(255, 255, 255, 0.08));
-    background-size: 200% 200%;
-    animation: borderFlow 8s linear infinite;
-}
-
-/* ===============================
-     KEYFRAMES
-  ================================ */
-
-@keyframes borderFlow {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    100% {
-        background-position: 200% 50%;
-    }
+/* ============================================================
+   UTILITIES
+============================================================ */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-grid {
+    background-image: theme('backgroundImage.grid-light');
+    background-size: 56px 56px;
+  }
 }

@@ -15,21 +15,21 @@ export default function CookiePolicy() {
                 <meta name="description" content="Learn about how Trovina.io uses cookies and similar technologies on our website." />
             </Helmet>
 
-            <div className="min-h-screen bg-[#0f0f0f] text-[#f9f9f9] font-poppins">
+            <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}
                 <Navbar onOpenForm={() => setShowForm(true)} />
 
                 {/* Hero Section */}
                 <section className="relative z-10 px-6 py-24 md:py-32">
                     <div className="max-w-4xl mx-auto text-center">
-                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800 border border-gray-700 rounded-full text-sm mb-8">
-                            <Cookie className="w-5 h-5 text-white" />
+                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-surface border border-border rounded-full text-sm mb-8">
+                            <Cookie className="w-5 h-5 text-foreground" />
                             <span>Cookie Policy</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold mb-6">
                             Cookie Policy
                         </h1>
-                        <p className="text-xl text-gray-400">
+                        <p className="text-xl text-muted">
                             Last updated: December 25, 2025
                         </p>
                     </div>
@@ -37,10 +37,10 @@ export default function CookiePolicy() {
 
                 {/* Content */}
                 <section className="relative z-10 px-6 py-16">
-                    <div className="max-w-4xl mx-auto space-y-12 text-gray-300">
+                    <div className="max-w-4xl mx-auto space-y-12 text-muted">
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Info className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Info className="w-7 h-7 text-foreground" />
                                 1. What Are Cookies?
                             </h2>
                             <p>
@@ -49,8 +49,8 @@ export default function CookiePolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Settings className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Settings className="w-7 h-7 text-foreground" />
                                 2. How We Use Cookies
                             </h2>
                             <p>
@@ -65,8 +65,8 @@ export default function CookiePolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Globe className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Globe className="w-7 h-7 text-foreground" />
                                 3. Types of Cookies We Use
                             </h2>
                             <p>
@@ -78,7 +78,7 @@ export default function CookiePolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 4. Managing Cookies
                             </h2>
                             <p>
@@ -96,19 +96,19 @@ export default function CookiePolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 5. Contact Us
                             </h2>
                             <p>
                                 If you have any questions about this Cookie Policy, please contact us at:
                             </p>
-                            <p className="text-white font-semibold">
+                            <p className="text-foreground font-semibold">
                                 hello@trovina.io
                             </p>
                         </div>
 
-                        <div className="pt-8 border-t border-gray-800">
-                            <p className="text-sm text-gray-500">
+                        <div className="pt-8 border-t border-border">
+                            <p className="text-sm text-subtle">
                                 We may update this Cookie Policy from time to time. Changes will be posted on this page with an updated effective date.
                             </p>
                         </div>

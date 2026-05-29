@@ -1,128 +1,146 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import ThemeToggle from './ui/ThemeToggle';
+
+const NAV_LINKS = [
+  { path: '/', label: 'Home' },
+  { path: '/services', label: 'Services' },
+  { path: '/about', label: 'About Us' },
+  { path: '/contact', label: 'Contact Us' },
+];
 
 export default function Navbar({ onOpenForm }) {
-    const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    const toggleMenu = () => setOpen(!open)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-    return (
-        <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-sm bg-[#0f0f0f]/80 border-b border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-
-                {/* Logo */}
-                <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-3"
-                >
-                    <div className="relative">
-                        <img
-                            src="/logo.png"
-                            alt="Trovina Web Studio Logo"
-                            className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain rounded-full"
-                        />
-                        <div className="absolute inset-0 rounded-full border-2 border-white/30 pointer-events-none" />
-                    </div>
-
-                    <span
-                        className="hidden sm:block text-xl md:text-2xl font-bold 
-                        bg-gradient-to-r from-[#6B21A8] via-[#A855F7] to-[#C084FC] 
-                        bg-clip-text text-transparent"
-                    >
-                        Trovina.io
-                    </span>
-                </motion.div>
-
-                {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-8">
-                    {[
-                        { path: '/', label: 'Home' },
-                        { path: '/services', label: 'Services' },
-                        { path: '/about', label: 'About Us' },
-                        { path: '/contact', label: 'Contact Us' },
-                    ].map((item) => (
-                        <NavLink
-                            key={item.path}
-                            to={item.path}
-                            className={({ isActive }) =>
-                                isActive
-                                    ? 'text-white font-semibold border-b-2 border-white pb-1'
-                                    : 'text-gray-300 hover:text-white transition-colors font-medium'
-                            }
-                        >
-                            {item.label}
-                        </NavLink>
-                    ))}
-
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={onOpenForm}
-                        className="px-6 py-2 bg-white text-black hover:bg-gray-200 rounded-lg font-semibold transition-all shadow-lg"
-                    >
-                        Request Quote
-                    </motion.button>
-                </div>
-
-                {/* Mobile Menu Button */}
-                <motion.button
-                    whileTap={{ scale: 0.9 }}
-                    className="md:hidden text-white"
-                    onClick={toggleMenu}
-                    aria-label="Toggle Menu"
-                >
-                    {open ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-                </motion.button>
+  return (
+    <nav
+      className={`fixed top-0 left-0 z-50 w-full transition-shadow duration-300 glass-nav ${
+        scrolled ? 'shadow-soft' : ''
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
+        {/* Logo */}
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="flex items-center gap-3"
+        >
+          <NavLink to="/" className="flex items-center gap-3" aria-label="Trovina.io home">
+            <div className="relative">
+              <img
+                src="/logo.png"
+                alt="Trovina Web Studio Logo"
+                className="h-11 w-11 rounded-full object-contain sm:h-12 sm:w-12"
+              />
+              <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-border" />
             </div>
+            <span className="hidden text-xl font-bold text-gradient sm:block md:text-2xl">Trovina.io</span>
+          </NavLink>
+        </motion.div>
 
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {open && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="md:hidden bg-[#0f0f0f]/95 border-t border-gray-800"
-                    >
-                        <div className="flex flex-col gap-4 py-6 px-6">
-                            {[
-                                { path: '/', label: 'Home' },
-                                { path: '/services', label: 'Services' },
-                                { path: '/about', label: 'About Us' },
-                                { path: '/contact', label: 'Contact Us' },
-                            ].map((item) => (
-                                <NavLink
-                                    key={item.path}
-                                    to={item.path}
-                                    onClick={() => setOpen(false)}
-                                    className={({ isActive }) =>
-                                        isActive
-                                            ? 'text-white font-semibold text-center py-2'
-                                            : 'text-gray-300 hover:text-white transition-colors font-medium text-center py-2'
-                                    }
-                                >
-                                    {item.label}
-                                </NavLink>
-                            ))}
+        {/* Desktop nav */}
+        <div className="hidden items-center gap-8 md:flex">
+          {NAV_LINKS.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                isActive
+                  ? 'relative text-sm font-semibold text-foreground'
+                  : 'relative text-sm font-medium text-muted transition-colors hover:text-foreground'
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  {item.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute -bottom-1.5 left-0 h-0.5 w-full rounded-full bg-brand-gradient"
+                    />
+                  )}
+                </>
+              )}
+            </NavLink>
+          ))}
 
-                            <button
-                                onClick={() => {
-                                    setOpen(false)
-                                    onOpenForm()
-                                }}
-                                className="mx-auto mt-2 px-6 py-3 bg-white text-black hover:bg-gray-200 rounded-lg font-semibold transition-all shadow-lg w-full max-w-xs"
-                            >
-                                Request Quote
-                            </button>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </nav>
-    )
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={onOpenForm}
+              className="btn-primary"
+            >
+              Request Quote <ArrowRight className="h-4 w-4" />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Mobile controls */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-border bg-background/95 backdrop-blur-xl md:hidden"
+          >
+            <div className="flex flex-col gap-1 px-6 py-5">
+              {NAV_LINKS.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `rounded-xl px-4 py-3 text-center font-medium transition-colors ${
+                      isActive ? 'bg-surface-2 text-foreground' : 'text-muted hover:bg-surface-2 hover:text-foreground'
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  onOpenForm?.();
+                }}
+                className="btn-primary mt-3 w-full"
+              >
+                Request Quote <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
 }

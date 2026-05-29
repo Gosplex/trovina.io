@@ -16,21 +16,21 @@ export default function PrivacyPolicy() {
                 <meta name="description" content="Learn how Trovina.io collects, uses, and protects your personal information." />
             </Helmet>
 
-            <div className="min-h-screen bg-[#0f0f0f] text-[#f9f9f9] font-poppins">
+            <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}
                 <Navbar onOpenForm={() => setShowForm(true)} />
 
                 {/* Hero Section */}
                 <section className="relative z-10 px-6 py-24 md:py-32">
                     <div className="max-w-4xl mx-auto text-center">
-                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800 border border-gray-700 rounded-full text-sm mb-8">
-                            <Shield className="w-5 h-5 text-white" />
+                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-surface border border-border rounded-full text-sm mb-8">
+                            <Shield className="w-5 h-5 text-foreground" />
                             <span>Privacy Policy</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold mb-6">
                             Your Privacy Matters to Us
                         </h1>
-                        <p className="text-xl text-gray-400">
+                        <p className="text-xl text-muted">
                             Last updated: December 25, 2025
                         </p>
                     </div>
@@ -38,10 +38,10 @@ export default function PrivacyPolicy() {
 
                 {/* Content */}
                 <section className="relative z-10 px-6 py-16">
-                    <div className="max-w-4xl mx-auto space-y-12 text-gray-300">
+                    <div className="max-w-4xl mx-auto space-y-12 text-muted">
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Lock className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Lock className="w-7 h-7 text-foreground" />
                                 1. Information We Collect
                             </h2>
                             <p>We collect information you provide directly to us, such as when you:</p>
@@ -57,8 +57,8 @@ export default function PrivacyPolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Eye className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Eye className="w-7 h-7 text-foreground" />
                                 2. How We Use Your Information
                             </h2>
                             <p>We use the information we collect to:</p>
@@ -71,8 +71,8 @@ export default function PrivacyPolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <FileText className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <FileText className="w-7 h-7 text-foreground" />
                                 3. Data Protection & Security
                             </h2>
                             <p>
@@ -84,7 +84,7 @@ export default function PrivacyPolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 4. Your Rights
                             </h2>
                             <p>You have the right to:</p>
@@ -97,19 +97,19 @@ export default function PrivacyPolicy() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 5. Contact Us
                             </h2>
                             <p>
                                 If you have any questions about this Privacy Policy or our data practices, please contact us at:
                             </p>
-                            <p className="text-white font-semibold">
+                            <p className="text-foreground font-semibold">
                                 hello@trovina.io
                             </p>
                         </div>
 
-                        <div className="pt-8 border-t border-gray-800">
-                            <p className="text-sm text-gray-500">
+                        <div className="pt-8 border-t border-border">
+                            <p className="text-sm text-subtle">
                                 We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.
                             </p>
                         </div>

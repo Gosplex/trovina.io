@@ -7,6 +7,7 @@ import './index.css'
 import { HelmetProvider } from 'react-helmet-async'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import { AuthProvider } from "./context/AuthProvider";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -20,9 +21,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     >
       <BrowserRouter>
         <HelmetProvider>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </ThemeProvider>
         </HelmetProvider>
       </BrowserRouter>
     </GoogleReCaptchaProvider>

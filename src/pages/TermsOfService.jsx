@@ -16,21 +16,21 @@ export default function TermsOfService() {
                 <meta name="description" content="Read the Terms of Service for using Trovina.io website and services." />
             </Helmet>
 
-            <div className="min-h-screen bg-[#0f0f0f] text-[#f9f9f9] font-poppins">
+            <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}
                 <Navbar onOpenForm={() => setShowForm(true)} />
 
                 {/* Hero Section */}
                 <section className="relative z-10 px-6 py-24 md:py-32">
                     <div className="max-w-4xl mx-auto text-center">
-                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800 border border-gray-700 rounded-full text-sm mb-8">
-                            <FileText className="w-5 h-5 text-white" />
+                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-surface border border-border rounded-full text-sm mb-8">
+                            <FileText className="w-5 h-5 text-foreground" />
                             <span>Terms of Service</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold mb-6">
                             Terms of Service
                         </h1>
-                        <p className="text-xl text-gray-400">
+                        <p className="text-xl text-muted">
                             Last updated: December 25, 2025
                         </p>
                     </div>
@@ -38,10 +38,10 @@ export default function TermsOfService() {
 
                 {/* Content */}
                 <section className="relative z-10 px-6 py-16">
-                    <div className="max-w-4xl mx-auto space-y-12 text-gray-300">
+                    <div className="max-w-4xl mx-auto space-y-12 text-muted">
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Scale className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Scale className="w-7 h-7 text-foreground" />
                                 1. Acceptance of Terms
                             </h2>
                             <p>
@@ -50,8 +50,8 @@ export default function TermsOfService() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Handshake className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Handshake className="w-7 h-7 text-foreground" />
                                 2. Services
                             </h2>
                             <p>
@@ -60,8 +60,8 @@ export default function TermsOfService() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <AlertCircle className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <AlertCircle className="w-7 h-7 text-foreground" />
                                 3. Intellectual Property
                             </h2>
                             <p>
@@ -75,7 +75,7 @@ export default function TermsOfService() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 4. Payment Terms
                             </h2>
                             <p>
@@ -84,7 +84,7 @@ export default function TermsOfService() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 5. Limitation of Liability
                             </h2>
                             <p>
@@ -93,7 +93,7 @@ export default function TermsOfService() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 6. Changes to Terms
                             </h2>
                             <p>
@@ -102,19 +102,19 @@ export default function TermsOfService() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 7. Contact Us
                             </h2>
                             <p>
                                 If you have any questions about these Terms of Service, please contact us at:
                             </p>
-                            <p className="text-white font-semibold">
+                            <p className="text-foreground font-semibold">
                                 hello@trovina.io
                             </p>
                         </div>
 
-                        <div className="pt-8 border-t border-gray-800">
-                            <p className="text-sm text-gray-500">
+                        <div className="pt-8 border-t border-border">
+                            <p className="text-sm text-subtle">
                                 These Terms of Service were last updated on December 25, 2025.
                             </p>
                         </div>

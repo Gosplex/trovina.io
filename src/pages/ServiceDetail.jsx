@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import ProjectFormModal from '../components/ProjectFormModal'
+import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import AnimatedCounter from '../components/ui/AnimatedCounter'
 import {
     ArrowLeft,
+    ArrowRight,
     CheckCircle,
     Star,
     Rocket,
@@ -30,7 +33,7 @@ const serviceData = {
         heroTitle: "Automate Business Tasks And Scale Faster",
         heroDesc:
             "We design intelligent AI automation systems that remove manual work, increase sales, reduce customer waiting time, and help businesses operate up to 10x faster across Nigeria. Our automation tools replace repetitive tasks, eliminate manual errors, and improve customer experience using WhatsApp automation, AI voice receptionists, workflow dashboards, lead generation engines, and predictive optimization.",
-        heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
+        heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "80%", label: "Time Saved" },
@@ -185,7 +188,7 @@ const serviceData = {
         heroTitle: "Build Custom Mobile Apps That Scale",
         heroDesc:
             "We build powerful, secure, and scalable mobile apps for iOS and Android using technologies like Flutter, React Native, Swift, and Kotlin. Our apps are designed for performance, user retention, and world-class UI/UX — helping businesses grow their customer base and generate more revenue across Nigeria and beyond.",
-        heroImage: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop",
+        heroImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&q=80",
         stats: [
             { value: "500K+", label: "App Downloads" },
             { value: "98%", label: "Client Satisfaction" },
@@ -321,7 +324,7 @@ const serviceData = {
         heroTitle: "High Performance Web Apps And Websites",
         heroDesc:
             "We build fast, SEO-optimized, mobile-responsive web applications and websites that deliver stability, performance, security, and business growth. Our platforms increase conversions, improve user experience, boost search rankings, and support long-term scalability for businesses in Nigeria and globally.",
-        heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+        heroImage: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "10M+", label: "Monthly Users" },
@@ -459,7 +462,7 @@ const serviceData = {
         heroTitle: "Cloud Infrastructure Built For Scale",
         heroDesc:
             "We build secure, automated, cloud-based infrastructure designed for uptime, speed, cost efficiency, and continuous deployment. We work with AWS, Azure, and Google Cloud to support companies that want to scale applications reliably while reducing operational overhead.",
-        heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop",
+        heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "99.99%", label: "Uptime" },
@@ -600,7 +603,7 @@ const serviceData = {
             "We deliver data-driven SEO and growth optimization strategies combining technical SEO, keyword research, content systems, and conversion optimization to increase search visibility, attract high-intent traffic, and generate consistent long-term revenue growth for businesses worldwide.",
 
         heroImage:
-            "https://images.klipfolio.com/website/public/297f7872-b3dc-4c28-85c7-e42f1bcce16a/seo-analytics-dashboard.png",
+            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "300%+", label: "Average Organic Traffic Growth" },
@@ -779,7 +782,7 @@ const serviceData = {
             "We design strategic brand identities, logos, and visual systems that communicate clarity, credibility, and value. Our branding solutions help businesses stand out, build trust, and create lasting emotional connections across all digital and offline touchpoints.",
 
         heroImage:
-            "https://www.logoai.com/uploads/articles/2025/01/13/17367608776312887.png",
+            "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "50+", label: "Brands Designed" },
@@ -956,7 +959,7 @@ const serviceData = {
             "We create professional graphic design solutions for social media, advertising, print, and digital marketing. Our designs are crafted to capture attention, communicate value clearly, and drive measurable engagement and conversions.",
 
         heroImage:
-            "https://www.creativefabrica.com/wp-content/uploads/2021/11/08/Flyer-Design-Poster-Social-Media-Post-Graphics-19846711-1.jpg",
+            "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "1000+", label: "Designs Delivered" },
@@ -1133,7 +1136,7 @@ const serviceData = {
             "We deliver high-quality video editing, motion graphics, color grading, and sound design for ads, social media, YouTube, corporate videos, and product demos. Our videos are crafted to capture attention, increase watch time, and drive measurable results.",
 
         heroImage:
-            "https://assets.videomaker.com/2015/05/Stages-of-Editing.jpg",
+            "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "1M+", label: "Views Generated" },
@@ -1354,19 +1357,22 @@ function AccordionItem({ question, answer, isOpen, onClick }) {
     return (
         <motion.div
             initial={false}
-            className="bg-black border border-gray-800 rounded-xl overflow-hidden"
+            className={`overflow-hidden rounded-2xl border bg-surface transition-colors ${
+                isOpen ? 'border-brand-500/40' : 'border-border'
+            }`}
         >
             <button
                 onClick={onClick}
-                className="w-full p-6 flex justify-between items-center text-left hover:bg-gray-900 transition-colors"
+                aria-expanded={isOpen}
+                className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-surface-2"
             >
-                <h3 className="font-bold text-xl pr-4">{question}</h3>
+                <h3 className="pr-4 text-lg font-semibold text-foreground">{question}</h3>
 
                 <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                    <ChevronDown className="w-6 h-6 text-gray-400 flex-shrink-0" />
+                    <ChevronDown className="h-6 w-6 flex-shrink-0 text-brand-500" />
                 </motion.div>
             </button>
 
@@ -1379,7 +1385,7 @@ function AccordionItem({ question, answer, isOpen, onClick }) {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden"
             >
-                <div className="px-6 pb-6 text-gray-400">
+                <div className="px-6 pb-6 leading-relaxed text-muted">
                     {answer}
                 </div>
             </motion.div>
@@ -1452,8 +1458,12 @@ export default function ServiceDetail() {
 
     if (!service)
         return (
-            <div className="text-center text-white p-24 text-3xl font-bold">
-                Service not found
+            <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center text-foreground">
+                <p className="text-7xl font-bold text-gradient">404</p>
+                <h1 className="text-2xl font-bold">Service not found</h1>
+                <button onClick={() => navigate('/services')} className="btn-primary mt-2">
+                    View all services
+                </button>
             </div>
         );
 
@@ -1488,18 +1498,19 @@ export default function ServiceDetail() {
                 )}
             </Helmet>
 
-            <div className="min-h-screen bg-[#0f0f0f] text-white font-sans">
+            <div className="min-h-screen bg-background font-sans text-foreground">
+                <Navbar onOpenForm={() => setShowForm(true)} />
 
                 {/* BACK BUTTON */}
-                <div className="max-w-7xl mx-auto px-6 py-6">
+                <div className="mx-auto max-w-7xl px-6 pt-24 pb-2 lg:px-8">
                     <button
                         onClick={() => {
                             if (from === "home") navigate("/");
                             else navigate("/services");
                         }}
-                        className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
                     >
-                        <ArrowLeft /> {from === "home" ? "Back to Home" : "Back to Services"}
+                        <ArrowLeft className="h-4 w-4" /> {from === "home" ? "Back to Home" : "Back to Services"}
                     </button>
                 </div>
 
@@ -1507,15 +1518,18 @@ export default function ServiceDetail() {
                 <motion.section
                     initial="hidden"
                     animate="show"
-                    variants={{ show: { transition: { staggerChildren: 0.2 } } }}
-                    className="px-6 py-12"
+                    variants={{ show: { transition: { staggerChildren: 0.15 } } }}
+                    className="relative overflow-hidden px-6 pt-8 pb-12 lg:px-8"
                 >
-                    <div className="max-w-7xl mx-auto text-center">
-
+                    <div className="pointer-events-none absolute inset-0 -z-10">
+                        <div className="absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+                        <div className="absolute -top-16 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-500/15 blur-3xl" />
+                    </div>
+                    <div className="mx-auto max-w-4xl text-center">
                         {service.popular && (
                             <motion.span
                                 variants={fadeUp}
-                                className="inline-block mb-4 bg-white text-black px-4 py-2 text-sm font-bold rounded-full"
+                                className="mb-5 inline-block rounded-full bg-brand-gradient px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
                             >
                                 Most Popular Service
                             </motion.span>
@@ -1523,7 +1537,7 @@ export default function ServiceDetail() {
 
                         <motion.h1
                             variants={fadeUp}
-                            className="text-4xl md:text-6xl font-bold mb-6"
+                            className="text-balance text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl"
                         >
                             {service.heroTitle}
                         </motion.h1>
@@ -1531,74 +1545,75 @@ export default function ServiceDetail() {
                 </motion.section>
 
                 {/* IMAGE + TEXT */}
-                <section className="px-6 py-12">
+                <section className="px-6 py-12 lg:px-8">
                     <motion.div
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true }}
                         variants={{ show: { transition: { staggerChildren: 0.2 } } }}
-                        className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center"
+                        className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2"
                     >
                         <motion.div
                             variants={fadeUp}
-                            className="relative overflow-hidden rounded-2xl"
+                            className="relative overflow-hidden rounded-3xl border border-border shadow-card"
                         >
                             <img
                                 src={service.heroImage}
                                 alt={service.title}
-                                className="w-full h-[400px] object-cover"
+                                loading="lazy"
+                                className="h-[400px] w-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
                         </motion.div>
 
                         <motion.div variants={fadeUp}>
-                            <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+                            <p className="mb-8 text-lg leading-relaxed text-muted md:text-xl">
                                 {service.heroDesc}
                             </p>
 
                             <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.96 }}
                                 onClick={() => setShowForm(true)}
-                                className="px-8 py-4 bg-white text-black font-semibold rounded-lg transition-transform"
+                                className="btn-primary btn-lg"
                             >
-                                Start Your Project
+                                Start Your Project <ArrowRight className="h-5 w-5" />
                             </motion.button>
                         </motion.div>
                     </motion.div>
                 </section>
 
                 {/* STATS */}
-                <section className="px-6 py-16 border-t border-gray-800">
+                <section className="border-t border-border bg-surface px-6 py-16 lg:px-8">
                     <motion.div
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true }}
                         variants={{ show: { transition: { staggerChildren: 0.15 } } }}
-                        className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6"
+                        className="mx-auto grid max-w-6xl grid-cols-2 gap-6 md:grid-cols-4"
                     >
                         {service.stats.map((stat, i) => (
                             <motion.div
                                 variants={fadeUp}
                                 key={i}
-                                className="p-6 bg-gradient-to-br from-gray-900 to-[#0f0f0f] rounded-xl border border-gray-800 text-center transition-transform hover:scale-105"
+                                className="card card-hover p-6 text-center"
                             >
-                                <div className="text-3xl font-bold text-white">
-                                    {stat.value}
+                                <div className="bg-brand-gradient bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
+                                    <AnimatedCounter value={stat.value} />
                                 </div>
-                                <div className="text-sm text-gray-400">{stat.label}</div>
+                                <div className="mt-1 text-sm text-muted">{stat.label}</div>
                             </motion.div>
                         ))}
                     </motion.div>
                 </section>
 
                 {/* WHAT YOU GET */}
-                <section className="px-6 py-16">
+                <section className="px-6 py-16 md:py-24 lg:px-8">
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-center mb-10"
+                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
                     >
                         What You Get
                     </motion.h2>
@@ -1608,31 +1623,31 @@ export default function ServiceDetail() {
                         whileInView="show"
                         variants={{ show: { transition: { staggerChildren: 0.1 } } }}
                         viewport={{ once: true }}
-                        className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                        className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
                     >
                         {service.features.map((feature, i) => (
                             <motion.div
                                 variants={fadeUp}
                                 key={i}
-                                className="p-6 bg-gradient-to-br from-gray-900 to-[#0f0f0f] border border-gray-800 rounded-xl transition-all duration-300 ease-in-out hover:scale-105 hover:border-white hover:shadow-lg hover:shadow-white/20"
+                                className="card card-hover p-6"
                             >
-                                <div className="text-white mb-4">
+                                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400">
                                     {feature.icon}
-                                </div>
-                                <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
-                                <p className="text-gray-400 text-sm">{feature.desc}</p>
+                                </span>
+                                <h3 className="mb-2 text-lg font-semibold text-foreground">{feature.title}</h3>
+                                <p className="text-sm leading-relaxed text-muted">{feature.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
                 </section>
 
                 {/* SOLVING REAL CHALLENGES */}
-                <section className="px-6 py-16 bg-gradient-to-b from-[#0f0f0f] to-black border-y border-gray-800">
+                <section className="border-y border-border bg-surface px-6 py-16 md:py-24 lg:px-8">
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-center mb-10"
+                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
                     >
                         Solving Real Challenges
                     </motion.h2>
@@ -1641,28 +1656,28 @@ export default function ServiceDetail() {
                         initial="hidden"
                         whileInView="show"
                         variants={{ show: { transition: { staggerChildren: 0.1 } } }}
-                        className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+                        className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4"
                         viewport={{ once: true }}
                     >
                         {service.painPoints.map((point, i) => (
                             <motion.div
                                 variants={fadeUp}
                                 key={i}
-                                className="p-6 bg-gradient-to-br from-gray-900 to-black text-center rounded-xl border border-gray-800 transition-all duration-300 ease-in-out hover:scale-105 hover:border-white"
+                                className="card card-hover p-6 text-center"
                             >
-                                <p className="font-semibold text-white">{point}</p>
+                                <p className="font-medium text-foreground">{point}</p>
                             </motion.div>
                         ))}
                     </motion.div>
                 </section>
 
                 {/* WHY CHOOSE */}
-                <section className="px-6 py-16 bg-gradient-to-b from-black to-[#0f0f0f]">
+                <section className="px-6 py-16 md:py-24 lg:px-8">
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-center mb-10"
+                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
                     >
                         Why Choose This Service
                     </motion.h2>
@@ -1672,28 +1687,28 @@ export default function ServiceDetail() {
                         whileInView="show"
                         variants={{ show: { transition: { staggerChildren: 0.15 } } }}
                         viewport={{ once: true }}
-                        className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8"
+                        className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3"
                     >
                         {service.benefits.map((b, i) => (
                             <motion.div
                                 variants={fadeUp}
                                 key={i}
-                                className="p-8 bg-gradient-to-br from-gray-900 to-black rounded-xl border border-gray-800 transition-all duration-300 ease-in-out hover:scale-105 hover:border-white hover:shadow-xl hover:shadow-white/20"
+                                className="card card-hover p-8"
                             >
-                                <h3 className="text-2xl font-bold mb-3">{b.title}</h3>
-                                <p className="text-gray-300">{b.desc}</p>
+                                <h3 className="mb-3 text-xl font-bold text-foreground">{b.title}</h3>
+                                <p className="leading-relaxed text-muted">{b.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
                 </section>
 
                 {/* PROCESS */}
-                <section className="px-6 py-16 bg-black border-y border-gray-800">
+                <section className="border-y border-border bg-surface px-6 py-16 md:py-24 lg:px-8">
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-center mb-16"
+                        className="mb-16 text-center text-3xl font-bold tracking-tight md:text-4xl"
                     >
                         Our Process
                     </motion.h2>
@@ -1703,11 +1718,11 @@ export default function ServiceDetail() {
                         whileInView="show"
                         variants={{ show: { transition: { staggerChildren: 0.1 } } }}
                         viewport={{ once: true }}
-                        className="max-w-6xl mx-auto"
+                        className="mx-auto max-w-6xl"
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                        <div className="relative grid grid-cols-1 gap-8 md:grid-cols-4">
 
-                            <div className="hidden md:block absolute top-16 left-0 right-0 h-0.5 bg-white/20" style={{ top: '64px' }} />
+                            <div className="absolute left-0 right-0 hidden h-0.5 bg-border md:block" style={{ top: '32px' }} />
 
                             {service.process.map((p, i) => (
                                 <motion.div
@@ -1718,19 +1733,19 @@ export default function ServiceDetail() {
                                     className="relative"
                                 >
                                     <div className="relative z-10">
-                                        <div className="flex flex-col items-center mb-4">
+                                        <div className="mb-4 flex flex-col items-center">
 
                                             <motion.div
                                                 animate={{
-                                                    scale: hoveredProcess === i ? 1.2 : 1,
+                                                    scale: hoveredProcess === i ? 1.15 : 1,
                                                 }}
                                                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                                                className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center text-2xl font-bold mb-4 border-2 border-white text-white"
+                                                className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-gradient text-2xl font-bold text-white shadow-lift"
                                             >
                                                 {p.step}
                                             </motion.div>
 
-                                            <h3 className="text-xl font-bold text-center">{p.title}</h3>
+                                            <h3 className="text-center text-xl font-semibold text-foreground">{p.title}</h3>
                                         </div>
 
                                         <motion.div
@@ -1742,8 +1757,8 @@ export default function ServiceDetail() {
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className="overflow-hidden"
                                         >
-                                            <div className="mt-4 p-4 bg-gray-900 rounded-lg border border-gray-700">
-                                                <p className="text-gray-300 text-center">{p.desc}</p>
+                                            <div className="mt-4 rounded-xl border border-border bg-background p-4">
+                                                <p className="text-center text-sm leading-relaxed text-muted">{p.desc}</p>
                                             </div>
                                         </motion.div>
                                     </div>
@@ -1758,30 +1773,30 @@ export default function ServiceDetail() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="px-6 py-16"
+                    className="px-6 py-16 md:py-24 lg:px-8"
                 >
-                    <div className="max-w-4xl mx-auto text-center bg-black border border-gray-800 p-12 rounded-xl">
-                        <div className="flex justify-center gap-1 mb-4">
+                    <div className="mx-auto max-w-4xl rounded-3xl border border-border bg-surface p-10 text-center shadow-card md:p-12">
+                        <div className="mb-4 flex justify-center gap-1">
                             {[...Array(service.testimonial.rating)].map((_, i) => (
-                                <Star key={i} className="text-yellow-400 fill-yellow-400" />
+                                <Star key={i} className="h-5 w-5 fill-warning text-warning" />
                             ))}
                         </div>
-                        <p className="text-xl text-gray-300 mb-6">
-                            "{service.testimonial.quote}"
+                        <p className="mb-6 text-xl leading-relaxed text-foreground">
+                            “{service.testimonial.quote}”
                         </p>
-                        <div className="text-gray-400">
+                        <div className="font-medium text-muted">
                             {service.testimonial.author} • {service.testimonial.role}
                         </div>
                     </div>
                 </motion.section>
 
                 {/* TECH */}
-                <section className="px-6 py-16 bg-black border-y border-gray-800">
+                <section className="border-y border-border bg-surface px-6 py-16 md:py-24 lg:px-8">
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-center mb-10"
+                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
                     >
                         Tech We Use
                     </motion.h2>
@@ -1789,16 +1804,16 @@ export default function ServiceDetail() {
                     <motion.div
                         initial="hidden"
                         whileInView="show"
-                        variants={{ show: { transition: { staggerChildren: 0.1 } } }}
+                        variants={{ show: { transition: { staggerChildren: 0.08 } } }}
                         viewport={{ once: true }}
-                        className="max-w-4xl mx-auto flex flex-wrap justify-center gap-4"
+                        className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3"
                     >
                         {service.tech.map((t, i) => (
                             <motion.span
-                                whileHover={{ scale: 1.1 }}
+                                whileHover={{ scale: 1.06 }}
                                 variants={fadeUp}
                                 key={i}
-                                className="px-6 py-3 text-lg border border-gray-700 rounded-xl transition-all hover:border-white hover:shadow-lg hover:shadow-white/20"
+                                className="rounded-xl border border-border bg-background px-5 py-2.5 font-medium text-muted transition-all hover:border-brand-500/40 hover:text-foreground"
                             >
                                 {t}
                             </motion.span>
@@ -1807,14 +1822,14 @@ export default function ServiceDetail() {
                 </section>
 
                 {/* FAQ */}
-                <section className="px-6 py-16">
+                <section className="px-6 py-16 md:py-24 lg:px-8">
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-center mb-10"
+                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
                     >
-                        FAQ
+                        Frequently Asked Questions
                     </motion.h2>
 
                     <motion.div
@@ -1840,17 +1855,17 @@ export default function ServiceDetail() {
                 </section>
 
                 {/* RELATED SERVICES */}
-                <section className="px-6 py-20 bg-black border-t border-gray-800">
+                <section className="border-t border-border bg-surface px-6 py-20 lg:px-8">
                     <motion.h2
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-4xl font-bold text-center mb-12"
+                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
                     >
                         Related Services
                     </motion.h2>
 
-                    <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+                    <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
                         {relatedServicesMap[slug]?.map((relatedSlug) => {
                             const related = serviceData[relatedSlug];
 
@@ -1859,22 +1874,22 @@ export default function ServiceDetail() {
                             return (
                                 <motion.div
                                     key={related.slug}
-                                    whileHover={{ y: -6, scale: 1.03 }}
-                                    className="p-8 bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl hover:border-white transition-all"
+                                    whileHover={{ y: -6 }}
+                                    className="card card-hover p-8"
                                 >
-                                    <h3 className="text-2xl font-bold mb-3">
+                                    <h3 className="mb-3 text-xl font-bold text-foreground">
                                         {related.title}
                                     </h3>
 
-                                    <p className="text-gray-400 mb-6 text-sm">
+                                    <p className="mb-6 text-sm leading-relaxed text-muted">
                                         {related.heroDesc.slice(0, 120)}...
                                     </p>
 
                                     <button
                                         onClick={() => navigate(`/services/${related.slug}`)}
-                                        className="inline-flex items-center gap-2 font-semibold text-white hover:text-gray-300"
+                                        className="inline-flex items-center gap-1 font-semibold text-brand-600 transition-all hover:gap-2 dark:text-brand-400"
                                     >
-                                        Learn More <ChevronDown className="rotate-[-90deg]" />
+                                        Learn More <ArrowRight className="h-4 w-4" />
                                     </button>
                                 </motion.div>
                             );
@@ -1891,34 +1906,37 @@ export default function ServiceDetail() {
 
                 {/* LAST CTA */}
 
-                <section className="px-6 py-24 bg-gradient-to-br from-black via-[#0f0f0f] to-black border-t border-gray-800">
+                <section className="px-6 py-20 md:py-24 lg:px-8">
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
+                        initial={{ opacity: 0, y: 32 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="max-w-4xl mx-auto text-center"
+                        className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl bg-brand-gradient px-8 py-16 text-center shadow-lift md:px-12"
                     >
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                            Ready to Build or Automate Your Business?
-                        </h2>
+                        <div className="pointer-events-none absolute inset-0 bg-grid opacity-20" />
+                        <div className="relative">
+                            <h2 className="text-balance text-3xl font-bold text-white md:text-5xl">
+                                Ready to Build or Automate Your Business?
+                            </h2>
 
-                        <p className="text-xl text-gray-300 mb-10">
-                            Get a free strategy session and see how our experts can help you increase
-                            efficiency, scale faster, and grow revenue using modern technology.
-                        </p>
+                            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
+                                Get a free strategy session and see how our experts can help you increase
+                                efficiency, scale faster, and grow revenue using modern technology.
+                            </p>
 
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setShowForm(true)}
-                            className="px-12 py-5 bg-white text-black font-bold rounded-xl text-lg shadow-xl"
-                        >
-                            Book a Free Strategy Session
-                        </motion.button>
+                            <motion.button
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.96 }}
+                                onClick={() => setShowForm(true)}
+                                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-10 py-4 text-base font-bold text-brand-700 shadow-xl transition-all hover:bg-white/90"
+                            >
+                                Book a Free Strategy Session <ArrowRight className="h-5 w-5" />
+                            </motion.button>
 
-                        <p className="text-gray-400 text-sm mt-6">
-                            No obligation • Response within 2 hours • Trusted by 50+ businesses
-                        </p>
+                            <p className="mt-6 text-sm text-white/80">
+                                No obligation • Response within 2 hours • Trusted by 50+ businesses
+                            </p>
+                        </div>
                     </motion.div>
                 </section>
 

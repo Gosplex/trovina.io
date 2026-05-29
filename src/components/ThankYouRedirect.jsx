@@ -33,7 +33,7 @@ export default function ThankYouRedirect({
     return (
         <AnimatePresence>
             <motion.div
-                className="fixed inset-0 z-[1000] flex items-center justify-center px-4 bg-black/80 backdrop-blur-sm"
+                className="fixed inset-0 z-[1000] flex items-center justify-center bg-foreground/40 px-4 backdrop-blur-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -43,22 +43,22 @@ export default function ThankYouRedirect({
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     exit={{ scale: 0.9, opacity: 0, y: 40 }}
                     transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                    className="w-full max-w-lg bg-gradient-to-br from-gray-900 via-[#0f0f0f] to-black border border-gray-800 rounded-3xl shadow-2xl p-10 text-center"
+                    className="w-full max-w-lg rounded-3xl border border-border bg-surface p-10 text-center shadow-card"
                 >
-                    <h2 className="text-3xl font-bold text-white mb-4">
+                    <h2 className="mb-4 text-3xl font-bold text-foreground">
                         🎉 Thank You!
                     </h2>
 
-                    <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                    <p className="mb-6 text-lg leading-relaxed text-muted">
                         Your request has been successfully submitted.
                         <br />
                         Please select a date and time convenient for you so we can reach
                         out and discuss your project.
                     </p>
 
-                    <div className="text-gray-400 text-sm">
+                    <div className="text-sm text-muted">
                         Redirecting you to our calendar in{' '}
-                        <span className="text-white font-bold text-lg">
+                        <span className="text-lg font-bold text-foreground">
                             {counter}
                         </span>{' '}
                         second{counter !== 1 ? 's' : ''}…

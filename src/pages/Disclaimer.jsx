@@ -15,21 +15,21 @@ export default function Disclaimer() {
                 <meta name="description" content="Read the official disclaimer for Trovina.io website and services." />
             </Helmet>
 
-            <div className="min-h-screen bg-[#0f0f0f] text-[#f9f9f9] font-poppins">
+            <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}
                 <Navbar onOpenForm={() => setShowForm(true)} />
 
                 {/* Hero Section */}
                 <section className="relative z-10 px-6 py-24 md:py-32">
                     <div className="max-w-4xl mx-auto text-center">
-                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800 border border-gray-700 rounded-full text-sm mb-8">
-                            <AlertTriangle className="w-5 h-5 text-white" />
+                        <div className="inline-flex items-center gap-3 px-6 py-3 bg-surface border border-border rounded-full text-sm mb-8">
+                            <AlertTriangle className="w-5 h-5 text-foreground" />
                             <span>Disclaimer</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold mb-6">
                             Disclaimer
                         </h1>
-                        <p className="text-xl text-gray-400">
+                        <p className="text-xl text-muted">
                             Last updated: December 25, 2025
                         </p>
                     </div>
@@ -37,10 +37,10 @@ export default function Disclaimer() {
 
                 {/* Content */}
                 <section className="relative z-10 px-6 py-16">
-                    <div className="max-w-4xl mx-auto space-y-12 text-gray-300">
+                    <div className="max-w-4xl mx-auto space-y-12 text-muted">
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Info className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Info className="w-7 h-7 text-foreground" />
                                 1. General Information
                             </h2>
                             <p>
@@ -49,8 +49,8 @@ export default function Disclaimer() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <FileText className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <FileText className="w-7 h-7 text-foreground" />
                                 2. No Professional Advice
                             </h2>
                             <p>
@@ -59,8 +59,8 @@ export default function Disclaimer() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                                <Shield className="w-7 h-7 text-white" />
+                            <h2 className="text-2xl font-bold text-foreground flex items-center gap-3">
+                                <Shield className="w-7 h-7 text-foreground" />
                                 3. Limitation of Liability
                             </h2>
                             <p>
@@ -69,7 +69,7 @@ export default function Disclaimer() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 4. External Links
                             </h2>
                             <p>
@@ -78,7 +78,7 @@ export default function Disclaimer() {
                         </div>
 
                         <div className="space-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 5. Changes
                             </h2>
                             <p>
@@ -87,19 +87,19 @@ export default function Disclaimer() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-2xl font-bold text-white">
+                            <h2 className="text-2xl font-bold text-foreground">
                                 6. Contact Us
                             </h2>
                             <p>
                                 If you have any questions about this Disclaimer, please contact us at:
                             </p>
-                            <p className="text-white font-semibold">
+                            <p className="text-foreground font-semibold">
                                 hello@trovina.io
                             </p>
                         </div>
 
-                        <div className="pt-8 border-t border-gray-800">
-                            <p className="text-sm text-gray-500">
+                        <div className="pt-8 border-t border-border">
+                            <p className="text-sm text-subtle">
                                 This Disclaimer was last updated on December 25, 2025.
                             </p>
                         </div>

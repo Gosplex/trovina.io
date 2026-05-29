@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Link } from 'react-router-dom'
 
 
 import Home from './pages/Home'
@@ -157,8 +157,15 @@ function App() {
         <Route
           path="*"
           element={
-            <div className="text-center py-20 text-white text-4xl">
-              404 - Page Not Found
+            <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-background px-6 text-center">
+              <p className="text-7xl font-bold text-gradient">404</p>
+              <h1 className="text-2xl font-semibold text-foreground">Page Not Found</h1>
+              <p className="max-w-md text-muted">
+                The page you’re looking for doesn’t exist or has moved.
+              </p>
+              <Link to="/" className="btn-primary">
+                Back to Home
+              </Link>
             </div>
           }
         />
