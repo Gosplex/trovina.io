@@ -9,6 +9,8 @@ import ProjectFormModal from '../components/ProjectFormModal';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Process from '../components/sections/Process';
+import Pricing from '../components/sections/Pricing';
+import FAQ from '../components/sections/FAQ';
 import { Section, Container } from '../components/ui/Section';
 import Button from '../components/ui/Button';
 import { fadeUp, inView } from '../lib/motion';
@@ -78,17 +80,18 @@ export default function Services() {
     return (
         <>
             <Helmet>
-                <title>Trovina Services | Mobile App, Website, AI and Cloud Development</title>
+                <title>Services | Software, AI, Cloud & Growth — Trovina.io</title>
                 <meta
                     name="description"
-                    content="Explore our services: mobile app development, website development, AI automation, cloud infrastructure and DevOps."
+                    content="Full-stack product engineering services: web & mobile app development, AI automation, cloud & DevOps, SEO, branding, and creative. US-based, fixed-scope engagements from $7,500."
                 />
                 <meta
                     name="keywords"
-                    content="software services, app development, website apps, AI development, cloud devops"
+                    content="software development services, web app development, mobile app development company, ai automation services, cloud devops services, saas development agency usa, seo agency"
                 />
-                <meta property="og:title" content="Trovina Services | Digital Development Studio" />
-                <meta property="og:description" content="Mobile app development, website development, AI automation, cloud infrastructure, branding and more." />
+                <link rel="canonical" href="https://trovina.io/services" />
+                <meta property="og:title" content="Services | Trovina.io — US Software & AI Studio" />
+                <meta property="og:description" content="Web & mobile development, AI automation, cloud & DevOps, SEO, branding and creative — under one accountable, US-based partner." />
                 <meta property="og:type" content="website" />
                 <meta property="og:image" content="/og-services.jpg" />
                 <meta property="og:url" content="https://trovina.io/services" />
@@ -111,11 +114,12 @@ export default function Services() {
                                 Our Services
                             </span>
                             <h1 className="text-balance text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-                                Digital Services Designed for <span className="text-gradient">Business Growth</span>
+                                Services Built to Deliver <span className="text-gradient">Business Outcomes</span>
                             </h1>
                             <p className="max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-                                From planning to launch to long term support, we deliver scalable digital solutions that
-                                help businesses grow, stay competitive, and reach more customers.
+                                A US-based product studio covering the full software lifecycle — strategy, design,
+                                engineering, and growth. One accountable partner, fixed-scope pricing, and work
+                                measured by the results it drives.
                             </p>
                         </motion.div>
                     </Container>
@@ -162,6 +166,12 @@ export default function Services() {
                 {/* Process */}
                 <Process variant="surface" />
 
+                {/* Pricing */}
+                <Pricing variant="default" onSelect={() => setShowForm(true)} />
+
+                {/* FAQ */}
+                <FAQ variant="surface" />
+
                 {/* CTA */}
                 <Section>
                     <Container>
@@ -174,11 +184,11 @@ export default function Services() {
                             <div className="pointer-events-none absolute inset-0 bg-grid opacity-20" />
                             <div className="relative">
                                 <h2 className="text-balance text-3xl font-bold text-white md:text-5xl">
-                                    Start Your Project With Expert Support
+                                    Not Sure Which Service You Need?
                                 </h2>
                                 <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
-                                    Share your goals with us and we will help you plan the right mobile app, website, AI
-                                    automation, or cloud solution for your business.
+                                    Book a free 30-minute strategy call. We'll map your goals to the right scope and
+                                    send you a fixed-price plan — no obligation.
                                 </p>
                                 <motion.button
                                     whileHover={{ scale: 1.04 }}
@@ -186,7 +196,7 @@ export default function Services() {
                                     onClick={() => setShowForm(true)}
                                     className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-base font-bold text-brand-700 shadow-xl transition-all hover:bg-white/90"
                                 >
-                                    Book a Free Strategy Session <ArrowRight className="h-5 w-5" />
+                                    Book a Free Strategy Call <ArrowRight className="h-5 w-5" />
                                 </motion.button>
                             </div>
                         </motion.div>

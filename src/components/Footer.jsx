@@ -1,20 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { company } from "../constants/company";
 
 const SERVICE_LINKS = [
-    { to: "/services/mobile-app-development", label: "Mobile App Development" },
     { to: "/services/web-app-website-development", label: "Web & SaaS Development" },
+    { to: "/services/mobile-app-development", label: "Mobile App Development" },
     { to: "/services/ai-automation-workflow-systems", label: "AI Automation Systems" },
     { to: "/services/cloud-infrastructure-devops", label: "Cloud & DevOps" },
-    { to: "/services/seo-growth-optimization", label: "SEO & Growth Optimization" },
-    { to: "/services/branding-visual-identity", label: "Branding & Visual Identity" },
-    { to: "/services/graphics-creative-design", label: "Graphics & Creative Design" },
-    { to: "/services/video-editing-motion-content", label: "Video Editing & Motion Content" },
+    { to: "/services/seo-growth-optimization", label: "SEO & Growth" },
+    { to: "/services/branding-visual-identity", label: "Branding & Identity" },
 ];
 
 const COMPANY_LINKS = [
     { to: "/about", label: "About Us" },
+    { to: "/#pricing", label: "Pricing" },
     { to: "/contact", label: "Contact" },
     { to: "/privacy-policy", label: "Privacy Policy" },
     { to: "/terms-of-service", label: "Terms of Service" },
@@ -33,9 +33,9 @@ export default function Footer() {
                             <h3 className="text-2xl font-bold text-gradient">Trovina.io</h3>
                         </div>
                         <p className="text-sm leading-relaxed text-muted">
-                            We design and build scalable mobile apps, web platforms,
-                            AI automation systems, and cloud infrastructure for
-                            startups and growing businesses worldwide.
+                            A {company.positioning} software, AI &amp; cloud product studio.
+                            We design, build, and scale custom web apps, mobile apps, and AI
+                            automation for startups and enterprises.
                         </p>
                     </div>
 
@@ -73,44 +73,30 @@ export default function Footer() {
                         <ul className="space-y-3 text-sm text-muted">
                             <li>
                                 <a
-                                    href="mailto:hello@trovina.io"
+                                    href={`mailto:${company.email}`}
                                     className="flex items-center gap-2 transition-colors hover:text-foreground"
                                 >
-                                    <Mail className="h-4 w-4" />
-                                    <span>hello@trovina.io</span>
+                                    <Mail className="h-4 w-4 shrink-0" />
+                                    <span>{company.email}</span>
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="tel:+2349037248511"
+                                    href={company.phoneHref}
                                     className="flex items-center gap-2 transition-colors hover:text-foreground"
                                 >
-                                    <Phone className="h-4 w-4" />
-                                    <span>+234 903 724 8511</span>
+                                    <Phone className="h-4 w-4 shrink-0" />
+                                    <span>{company.phone}</span>
                                 </a>
                             </li>
-                            <li>
-                                <a
-                                    href="tel:+919876543210"
-                                    className="flex items-center gap-2 transition-colors hover:text-foreground"
-                                >
-                                    <Phone className="h-4 w-4" />
-                                    <span>+91 98765 43210</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="tel:+919812345678"
-                                    className="flex items-center gap-2 transition-colors hover:text-foreground"
-                                >
-                                    <Phone className="h-4 w-4" />
-                                    <span>+91 98123 45678</span>
-                                </a>
+                            <li className="flex items-start gap-2">
+                                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                                <span>{company.addressText}</span>
                             </li>
                             <li className="flex items-center gap-3 pt-2">
                                 {/* Facebook */}
                                 <a
-                                    href="https://facebook.com/trovinaio"
+                                    href={company.socials.facebook}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Trovina.io on Facebook"
@@ -122,7 +108,7 @@ export default function Footer() {
                                 </a>
                                 {/* LinkedIn */}
                                 <a
-                                    href="https://linkedin.com/company/trovinaio"
+                                    href={company.socials.linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Trovina.io on LinkedIn"
@@ -134,7 +120,7 @@ export default function Footer() {
                                 </a>
                                 {/* YouTube */}
                                 <a
-                                    href="https://youtube.com/@trovinaio"
+                                    href={company.socials.youtube}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Trovina.io on YouTube"
@@ -152,11 +138,11 @@ export default function Footer() {
                 {/* Bottom section */}
                 <div className="border-t border-border pt-6 text-center text-sm text-subtle">
                     <p>
-                        © {new Date().getFullYear()} <span className="font-medium text-muted">Trovina Technologies Limited</span>.
+                        © {new Date().getFullYear()} <span className="font-medium text-muted">{company.legalName}</span>.
                         All rights reserved.
                     </p>
                     <p className="mt-2 text-muted">
-                        Trovina.io is a brand operated by Trovina Technologies Limited.
+                        Trovina.io is a {company.positioning} software, AI &amp; cloud product studio.
                     </p>
                 </div>
             </div>

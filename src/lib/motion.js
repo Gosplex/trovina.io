@@ -31,7 +31,13 @@ export const stagger = {
   },
 };
 
-/** Standard in-view trigger used across sections. */
-export const inView = { once: true, amount: 0.2, margin: '-80px' };
+/**
+ * Standard in-view trigger used across sections.
+ * Uses amount: 'some' (fires once any part enters view) instead of a fixed
+ * fraction — on mobile, grids collapse to a single tall column that can exceed
+ * the viewport height, so a 0.2 threshold may never be met and the container
+ * would stay stuck at opacity 0. The negative margin keeps the reveal tasteful.
+ */
+export const inView = { once: true, amount: 'some', margin: '-80px' };
 
 export { EASE };

@@ -22,7 +22,7 @@ export default function Testimonials({ data = testimonials, variant = 'default',
           initial="hidden"
           whileInView="visible"
           viewport={inView}
-          className="mt-14 grid gap-6 md:grid-cols-2"
+          className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2"
         >
           {data.map((t, i) => (
             <motion.figure key={i} variants={fadeUp} className="card card-hover flex flex-col p-8">
@@ -41,9 +41,7 @@ export default function Testimonials({ data = testimonials, variant = 'default',
                 </span>
                 <span className="flex-1">
                   <span className="block font-semibold text-foreground">{t.name}</span>
-                  <span className="block text-sm text-muted">
-                    {t.role}, {t.company}
-                  </span>
+                  <span className="block text-sm text-muted">{t.role}</span>
                 </span>
                 {t.result ? (
                   <span className="rounded-full bg-success/10 px-3 py-1 text-xs font-semibold text-success">

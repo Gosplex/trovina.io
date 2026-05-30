@@ -172,4 +172,29 @@
     background-image: theme('backgroundImage.grid-light');
     background-size: 56px 56px;
   }
+
+  /* Vertical logo marquee — Technologies section (desktop).
+     Content is duplicated in markup; translating one half loops seamlessly.
+     Honors prefers-reduced-motion via the global guard in @layer base. */
+  .marquee-track {
+    animation: marquee-y var(--marquee-duration, 34s) linear infinite;
+    animation-direction: var(--marquee-direction, normal);
+    will-change: transform;
+  }
+  .marquee-fade {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  }
+  .marquee-pause:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-y {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
 }

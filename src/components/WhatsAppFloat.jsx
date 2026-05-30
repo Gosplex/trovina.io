@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
+import { company } from '../constants/company'
 
 export default function WhatsAppFloat() {
-    const phoneNumber = '2349037248511'
+    const phoneNumber = company.whatsapp
     const message = encodeURIComponent(
         'Hello, I would like to know more about your services.'
     )

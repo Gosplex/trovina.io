@@ -5,6 +5,7 @@ import ProjectFormModal from '../components/ProjectFormModal'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import AnimatedCounter from '../components/ui/AnimatedCounter'
+import { company } from '../constants/company'
 import {
     ArrowLeft,
     ArrowRight,
@@ -27,18 +28,18 @@ const serviceData = {
     "ai-automation-workflow-systems": {
         slug: "ai-automation-workflow-systems",
         title: "AI Automation And Workflow Systems",
-        keyword: "ai automation services nigeria, business workflow automation nigeria, whatsapp business automation nigeria",
+        keyword: "ai automation agency, business workflow automation, ai agents for business, llm automation services usa",
         icon: "🤖",
         popular: true,
         heroTitle: "Automate Business Tasks And Scale Faster",
         heroDesc:
-            "We design intelligent AI automation systems that remove manual work, increase sales, reduce customer waiting time, and help businesses operate up to 10x faster across Nigeria. Our automation tools replace repetitive tasks, eliminate manual errors, and improve customer experience using WhatsApp automation, AI voice receptionists, workflow dashboards, lead generation engines, and predictive optimization.",
+            "We design intelligent AI automation systems that remove manual work, increase sales, reduce customer waiting time, and help lean teams operate up to 10x faster. Our automation replaces repetitive tasks, eliminates manual errors, and improves customer experience using AI agents, voice and chat automation, workflow dashboards, lead-generation engines, and predictive optimization.",
         heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop&q=80",
 
         stats: [
             { value: "80%", label: "Time Saved" },
             { value: "99.9%", label: "Error Accuracy" },
-            { value: "₦350M+", label: "Client Cost Savings" },
+            { value: "$3M+", label: "Client Cost Savings" },
             { value: "24/7", label: "Operations Running" },
         ],
 
@@ -145,15 +146,15 @@ const serviceData = {
         testimonial: {
             quote:
                 "Response time dropped to under 5 seconds and our customer base grew by more than 40% within 60 days. The automation system eliminated manual handling errors and increased our daily sales conversions. It completely changed the way we operate.",
-            author: "Adeola Ahmed",
-            role: "CEO DirectMall Nigeria",
+            author: "Daniel R.",
+            role: "Founder & CEO · E-commerce",
             rating: 5,
         },
 
         faq: [
             {
-                q: "Can this work for Nigerian businesses?",
-                a: "Yes. All automation systems are optimized for Nigerian SMEs and enterprise operations. They support WhatsApp, mobile, local payment processors, CRM platforms, and multiple workflow environments.",
+                q: "Can this work for my business?",
+                a: "Yes. We tailor automation to your stack and workflows — supporting CRMs, ERPs, payment processors, messaging platforms, and custom systems across SMBs and enterprise operations.",
             },
             {
                 q: "Can AI replace manual tasks?",
@@ -183,11 +184,11 @@ const serviceData = {
     "mobile-app-development": {
         slug: "mobile-app-development",
         title: "Mobile App Development",
-        keyword: "mobile app development services nigeria, ios developers nigeria, android developers nigeria",
+        keyword: "mobile app development company, ios app developers usa, android app development agency, react native development",
         icon: "📱",
         heroTitle: "Build Custom Mobile Apps That Scale",
         heroDesc:
-            "We build powerful, secure, and scalable mobile apps for iOS and Android using technologies like Flutter, React Native, Swift, and Kotlin. Our apps are designed for performance, user retention, and world-class UI/UX — helping businesses grow their customer base and generate more revenue across Nigeria and beyond.",
+            "We build powerful, secure, and scalable mobile apps for iOS and Android using Flutter, React Native, Swift, and Kotlin. Our apps are engineered for performance, user retention, and world-class UI/UX — helping businesses grow their customer base and generate more revenue.",
         heroImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&q=80",
         stats: [
             { value: "500K+", label: "App Downloads" },
@@ -281,8 +282,8 @@ const serviceData = {
         testimonial: {
             quote:
                 "Trovina built a beautiful and high-performance app that helped us scale to thousands of users. The process was smooth, the team was on time, and the results exceeded expectations.",
-            author: "Sarah Chen",
-            role: "CEO FitTrack",
+            author: "Sarah C.",
+            role: "CEO · Consumer Fitness App",
             rating: 5,
         },
 
@@ -319,11 +320,11 @@ const serviceData = {
     "web-app-website-development": {
         slug: "web-app-website-development",
         title: "Web App And Website Development",
-        keyword: "web development services nigeria, website development nigeria, custom web app nigeria",
+        keyword: "web app development company, custom web application development, saas development agency usa, react next.js development",
         icon: "🌍",
         heroTitle: "High Performance Web Apps And Websites",
         heroDesc:
-            "We build fast, SEO-optimized, mobile-responsive web applications and websites that deliver stability, performance, security, and business growth. Our platforms increase conversions, improve user experience, boost search rankings, and support long-term scalability for businesses in Nigeria and globally.",
+            "We build fast, SEO-optimized, mobile-responsive web applications and websites that deliver stability, performance, security, and business growth. Our platforms increase conversions, improve user experience, boost search rankings, and support long-term scalability as you grow.",
         heroImage: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop&q=80",
 
         stats: [
@@ -419,8 +420,8 @@ const serviceData = {
         testimonial: {
             quote:
                 "Our conversions doubled, bounce rate dropped drastically, and page load time improved immediately. The site architecture was clean, fast, and SEO ready — exactly what we needed to scale.",
-            author: "Michael Rodriguez",
-            role: "Founder GreenLeaf",
+            author: "Michael R.",
+            role: "Founder · DTC E-commerce Brand",
             rating: 5,
         },
 
@@ -457,7 +458,7 @@ const serviceData = {
     "cloud-infrastructure-devops": {
         slug: "cloud-infrastructure-devops",
         title: "Cloud Infrastructure And DevOps",
-        keyword: "cloud infrastructure services nigeria, devops nigeria, cloud migration nigeria",
+        keyword: "cloud infrastructure services, devops consulting usa, aws cloud migration, kubernetes managed services",
         icon: "☁️",
         heroTitle: "Cloud Infrastructure Built For Scale",
         heroDesc:
@@ -556,8 +557,8 @@ const serviceData = {
         testimonial: {
             quote:
                 "Deployment time went from 30 minutes to under 5 minutes. Infrastructure became fully automated and downtime issues disappeared. Support has been excellent.",
-            author: "David Kumar",
-            role: "CTO DataFlow",
+            author: "David K.",
+            role: "CTO · Data Infrastructure SaaS",
             rating: 5,
         },
 
@@ -600,7 +601,7 @@ const serviceData = {
 
         heroTitle: "SEO & Growth Strategies That Drive Sustainable Organic Traffic",
         heroDesc:
-            "We deliver data-driven SEO and growth optimization strategies combining technical SEO, keyword research, content systems, and conversion optimization to increase search visibility, attract high-intent traffic, and generate consistent long-term revenue growth for businesses worldwide.",
+            "We deliver data-driven SEO and growth optimization strategies combining technical SEO, keyword research, content systems, and conversion optimization to increase search visibility, attract high-intent traffic, and generate consistent long-term revenue growth.",
 
         heroImage:
             "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&q=80",
@@ -1401,12 +1402,21 @@ const buildServiceSchema = (service) => ({
     "description": service.heroDesc,
     "provider": {
         "@type": "Organization",
-        "name": "Trovina",
-        "url": "https://trovina.io",
+        "name": company.legalName,
+        "url": company.url,
+        "telephone": company.phone,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": company.address.line1,
+            "addressLocality": company.address.city,
+            "addressRegion": company.address.state,
+            "postalCode": company.address.zip,
+            "addressCountry": company.address.country,
+        },
     },
     "areaServed": {
-        "@type": "Place",
-        "name": "Worldwide"
+        "@type": "Country",
+        "name": "United States"
     },
     "serviceType": service.title,
     "url": `https://trovina.io/services/${service.slug}`,
@@ -1427,13 +1437,26 @@ const buildFAQSchema = (faq = []) => ({
 
 const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Trovina",
-    "url": "https://trovina.io",
-    "logo": "https://trovina.io/logo.png",
+    "@type": ["Organization", "ProfessionalService"],
+    "name": company.legalName,
+    "alternateName": company.brand,
+    "url": company.url,
+    "logo": `${company.url}/logo.png`,
+    "email": company.email,
+    "telephone": company.phone,
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": company.address.line1,
+        "addressLocality": company.address.city,
+        "addressRegion": company.address.state,
+        "postalCode": company.address.zip,
+        "addressCountry": company.address.country,
+    },
+    "areaServed": { "@type": "Country", "name": "United States" },
     "sameAs": [
-        "https://www.linkedin.com/company/trovinaio",
-        "https://www.facebook.com/trovinaio"
+        company.socials.linkedin,
+        company.socials.facebook,
+        company.socials.youtube,
     ]
 };
 

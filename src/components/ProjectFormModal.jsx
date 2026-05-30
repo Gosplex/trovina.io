@@ -15,7 +15,7 @@ export default function ProjectFormModal({ open, onClose }) {
     const { executeRecaptcha } = useGoogleReCaptcha()
 
     const [phone, setPhone] = useState('')
-    const [country, setCountry] = useState('ng')
+    const [country, setCountry] = useState('us')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [showThankYou, setShowThankYou] = useState(false)
 
@@ -212,43 +212,46 @@ export default function ProjectFormModal({ open, onClose }) {
                                 />
                             )}
 
-                            {/* Phone */}
-                            <div className="flex h-[56px] items-center overflow-hidden rounded-xl border border-border bg-surface focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15">
-                                <PhoneInput
-                                    country={country}
-                                    value={phone}
-                                    onChange={setPhone}
-                                    inputClassName="!h-full !w-full !border-none !bg-transparent !pl-4 !pr-3 !text-foreground !outline-none"
-                                    countrySelectorStyleProps={{
-                                        buttonClassName: '!h-full !border-none !bg-transparent !px-4 !text-foreground',
-                                        dropdownStyleProps: { className: '!bg-surface !border !border-border !text-foreground' },
-                                    }}
-                                    className="w-full"
-                                />
-                            </div>
+                            {/* Phone + Service — kept on one row to avoid scrolling */}
+                            <div className="grid gap-4 md:grid-cols-2">
+                                {/* Phone */}
+                                <div className="flex h-[52px] items-center overflow-hidden rounded-xl border border-border bg-surface focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15">
+                                    <PhoneInput
+                                        country={country}
+                                        value={phone}
+                                        onChange={setPhone}
+                                        inputClassName="!h-full !w-full !border-none !bg-transparent !pl-4 !pr-3 !text-foreground !outline-none"
+                                        countrySelectorStyleProps={{
+                                            buttonClassName: '!h-full !border-none !bg-transparent !px-4 !text-foreground',
+                                            dropdownStyleProps: { className: '!bg-surface !border !border-border !text-foreground' },
+                                        }}
+                                        className="w-full"
+                                    />
+                                </div>
 
-                            {/* Service */}
-                            <select
-                                name="service"
-                                value={form.service}
-                                onChange={updateForm}
-                                className="input"
-                                required
-                            >
-                                <option value="">Select a Service *</option>
-                                <option>Mobile App Development</option>
-                                <option>Web App / Website</option>
-                                <option>AI Automation & Workflow</option>
-                                <option>Cloud Infrastructure & DevOps</option>
-                                <option>Other</option>
-                            </select>
+                                {/* Service */}
+                                <select
+                                    name="service"
+                                    value={form.service}
+                                    onChange={updateForm}
+                                    className="input h-[52px]"
+                                    required
+                                >
+                                    <option value="">Select a Service *</option>
+                                    <option>Mobile App Development</option>
+                                    <option>Web App / Website</option>
+                                    <option>AI Automation & Workflow</option>
+                                    <option>Cloud Infrastructure & DevOps</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
 
                             {/* Description */}
                             <textarea
                                 name="description"
                                 value={form.description}
                                 onChange={updateForm}
-                                rows="5"
+                                rows="4"
                                 placeholder="Describe your project in detail... *"
                                 className="input resize-none"
                                 required

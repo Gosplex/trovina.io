@@ -13,6 +13,7 @@ import toast from 'react-hot-toast'
 import { PhoneInput } from 'react-international-phone'
 import { Container } from '../components/ui/Section'
 import { fadeUp, inView } from '../lib/motion'
+import { company } from '../constants/company'
 
 export default function ContactUs() {
     const [showForm, setShowForm] = useState(false)
@@ -30,7 +31,7 @@ export default function ContactUs() {
     }
 
     const [phone, setPhone] = useState('')
-    const [country] = useState('ng')
+    const [country] = useState('us')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -78,13 +79,14 @@ export default function ContactUs() {
     return (
         <>
             <Helmet>
-                <title>Contact Trovina.io | Start Your Project</title>
+                <title>Contact | Book a Free Strategy Call — Trovina.io</title>
                 <meta
                     name="description"
-                    content="Get in touch with Trovina to start your mobile app, website, AI or cloud development project today."
+                    content="Talk to a US-based product team about your software, AI, or cloud project. Tell us your goals and get a fixed-scope plan and price — we respond within one business day."
                 />
-                <meta property="og:title" content="Contact Trovina.io | Start Your Project" />
-                <meta property="og:description" content="Reach out to start your mobile app, website, AI automation or cloud project with Trovina." />
+                <link rel="canonical" href="https://trovina.io/contact" />
+                <meta property="og:title" content="Contact Trovina.io | Book a Free Strategy Call" />
+                <meta property="og:description" content="Reach out to start your web, mobile, AI automation, or cloud project with a US-based product studio." />
                 <meta property="og:type" content="website" />
                 <meta property="og:image" content="/og-contact.jpg" />
                 <meta property="og:url" content="https://trovina.io/contact" />
@@ -107,10 +109,11 @@ export default function ContactUs() {
                                 Get in Touch
                             </span>
                             <h1 className="text-balance text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-                                Let’s Build <span className="text-gradient">Something Great</span>
+                                Let's Scope <span className="text-gradient">Your Project</span>
                             </h1>
                             <p className="max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-                                Whether you are ready to start a project or want expert guidance, our team is here to help.
+                                Tell us your goals and we'll send back a fixed-scope plan and price. No pressure, no
+                                obligation — and a reply within one business day.
                             </p>
                         </motion.div>
                     </Container>
@@ -227,12 +230,13 @@ export default function ContactUs() {
                             >
                                 <h2 className="text-2xl font-bold md:text-3xl">How to Reach Us</h2>
                                 <p className="mt-3 text-muted">
-                                    Prefer to reach out directly? We typically respond within a few hours.
+                                    Prefer to reach out directly? We're a US-based, remote-first team and reply within
+                                    one business day. {company.hours}.
                                 </p>
                                 <div className="mt-8 space-y-4">
-                                    <Info icon={<Mail className="h-5 w-5" />} label="Email" value="hello@trovina.io" href="mailto:hello@trovina.io" />
-                                    <Info icon={<Phone className="h-5 w-5" />} label="Phone" value="+2349037248511, +917777914539" />
-                                    <Info icon={<MapPin className="h-5 w-5" />} label="Location" value="Remote First Teams" />
+                                    <Info icon={<Mail className="h-5 w-5" />} label="Email" value={company.email} href={`mailto:${company.email}`} />
+                                    <Info icon={<Phone className="h-5 w-5" />} label="Phone" value={company.phone} href={company.phoneHref} />
+                                    <Info icon={<MapPin className="h-5 w-5" />} label="Headquarters" value={`${company.address.city}, ${company.address.state} · US-Based, Remote-First`} />
                                 </div>
                             </motion.div>
                         </div>

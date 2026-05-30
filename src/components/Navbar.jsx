@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
@@ -8,8 +8,9 @@ import ThemeToggle from './ui/ThemeToggle';
 const NAV_LINKS = [
   { path: '/', label: 'Home' },
   { path: '/services', label: 'Services' },
-  { path: '/about', label: 'About Us' },
-  { path: '/contact', label: 'Contact Us' },
+  { path: '/#pricing', label: 'Pricing' },
+  { path: '/about', label: 'About' },
+  { path: '/contact', label: 'Contact' },
 ];
 
 export default function Navbar({ onOpenForm }) {
@@ -45,35 +46,46 @@ export default function Navbar({ onOpenForm }) {
               />
               <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-border" />
             </div>
-            <span className="hidden text-xl font-bold text-gradient sm:block md:text-2xl">Trovina.io</span>
+            <span className="text-xl font-bold text-gradient md:text-2xl">Trovina.io</span>
           </NavLink>
         </motion.div>
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                isActive
-                  ? 'relative text-sm font-semibold text-foreground'
-                  : 'relative text-sm font-medium text-muted transition-colors hover:text-foreground'
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  {item.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1.5 left-0 h-0.5 w-full rounded-full bg-brand-gradient"
-                    />
-                  )}
-                </>
-              )}
-            </NavLink>
-          ))}
+          {NAV_LINKS.map((item) =>
+            item.path.includes('#') ? (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="relative text-sm font-medium text-muted transition-colors hover:text-foreground"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === '/'}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'relative text-sm font-semibold text-foreground'
+                    : 'relative text-sm font-medium text-muted transition-colors hover:text-foreground'
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {item.label}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute -bottom-1.5 left-0 h-0.5 w-full rounded-full bg-brand-gradient"
+                      />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ),
+          )}
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
@@ -83,7 +95,7 @@ export default function Navbar({ onOpenForm }) {
               onClick={onOpenForm}
               className="btn-primary"
             >
-              Request Quote <ArrowRight className="h-4 w-4" />
+              Book a Call <ArrowRight className="h-4 w-4" />
             </motion.button>
           </div>
         </div>
@@ -114,20 +126,32 @@ export default function Navbar({ onOpenForm }) {
             className="overflow-hidden border-t border-border bg-background/95 backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-5">
-              {NAV_LINKS.map((item) => (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    `rounded-xl px-4 py-3 text-center font-medium transition-colors ${
-                      isActive ? 'bg-surface-2 text-foreground' : 'text-muted hover:bg-surface-2 hover:text-foreground'
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
+              {NAV_LINKS.map((item) =>
+                item.path.includes('#') ? (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setOpen(false)}
+                    className="rounded-xl px-4 py-3 text-center font-medium text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    end={item.path === '/'}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `rounded-xl px-4 py-3 text-center font-medium transition-colors ${
+                        isActive ? 'bg-surface-2 text-foreground' : 'text-muted hover:bg-surface-2 hover:text-foreground'
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ),
+              )}
               <button
                 onClick={() => {
                   setOpen(false);
@@ -135,7 +159,7 @@ export default function Navbar({ onOpenForm }) {
                 }}
                 className="btn-primary mt-3 w-full"
               >
-                Request Quote <ArrowRight className="h-4 w-4" />
+                Book a Call <ArrowRight className="h-4 w-4" />
               </button>
             </div>
           </motion.div>

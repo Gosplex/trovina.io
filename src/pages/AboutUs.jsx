@@ -23,26 +23,27 @@ export default function AboutUs() {
     ];
 
     const stats = [
-        { number: '500+', label: 'Digital Products Built' },
-        { number: '98%', label: 'Client Success Rating' },
-        { number: '50+', label: 'Countries Served' },
-        { number: '24/7', label: 'Support & Maintenance' },
+        { number: '500+', label: 'Products Shipped' },
+        { number: '98%', label: 'Client Retention' },
+        { number: '10+', label: 'Years Combined Senior Experience' },
+        { number: '24/7', label: 'Support & Monitoring' },
     ];
 
     return (
         <>
             <Helmet>
-                <title>About Trovina.io | Modern Digital Studio</title>
+                <title>About | US Software, AI & Cloud Studio — Trovina.io</title>
                 <meta
                     name="description"
-                    content="Learn about Trovina — a mobile, web, AI and cloud software studio building scalable digital products for global clients."
+                    content="Trovina is a US-based, remote-first software studio. Meet the senior team building custom web apps, mobile apps, AI automation, and cloud systems for startups and enterprises."
                 />
                 <meta
                     name="keywords"
-                    content="about trovina, software studio, app development company, technology company africa"
+                    content="about trovina, us software development company, product studio, custom software agency usa, software engineering team"
                 />
-                <meta property="og:title" content="About Trovina.io" />
-                <meta property="og:description" content="Learn about our mission, values, and vision. Trovina builds modern digital products that power business growth." />
+                <link rel="canonical" href="https://trovina.io/about" />
+                <meta property="og:title" content="About Trovina.io | US Software & AI Studio" />
+                <meta property="og:description" content="A US-based, remote-first product studio. Senior engineers and designers building software that drives measurable business growth." />
                 <meta property="og:type" content="website" />
                 <meta property="og:image" content="/og-about.jpg" />
                 <meta property="og:url" content="https://trovina.io/about" />
@@ -62,14 +63,15 @@ export default function AboutUs() {
                         <motion.div variants={stagger} initial="hidden" animate="visible" className="flex flex-col items-center gap-6">
                             <motion.span variants={fadeUp} className="eyebrow">
                                 <Activity className="h-4 w-4 animate-pulse text-brand-500" />
-                                About Trovina Web Studio
+                                US-Based · Remote-First
                             </motion.span>
                             <motion.h1 variants={fadeUp} className="text-balance text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-                                We Create Digital Experiences That <span className="text-gradient">Move Businesses Forward</span>
+                                The Product Team Behind <span className="text-gradient">Software That Performs</span>
                             </motion.h1>
                             <motion.p variants={fadeUp} className="max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-                                Trovina creates mobile apps, websites, AI automation, and cloud systems that help
-                                businesses grow faster, operate smarter, and connect with customers around the world.
+                                Trovina is a US-based, remote-first software studio. We pair senior engineers and
+                                designers with startups and enterprises to build web apps, mobile apps, AI automation,
+                                and cloud systems — measured by the business results they drive.
                             </motion.p>
                         </motion.div>
                     </Container>
@@ -94,9 +96,9 @@ export default function AboutUs() {
                                 </span>
                                 <h2 className="text-2xl font-bold md:text-3xl">Our Mission</h2>
                                 <p className="mt-4 text-lg leading-relaxed text-muted">
-                                    Our mission is to help businesses build digital products that deliver real results.
-                                    We focus on quality, scalability, and long term success by creating technology that
-                                    solves real problems and supports measurable growth.
+                                    To be the most trusted product partner for ambitious US companies — turning ideas
+                                    into software that ships fast, scales cleanly, and delivers measurable returns.
+                                    We tie our work to your business outcomes, not just lines of code.
                                 </p>
                             </motion.div>
                             <motion.div variants={fadeUp} className="card p-8 md:p-10">
@@ -105,9 +107,9 @@ export default function AboutUs() {
                                 </span>
                                 <h2 className="text-2xl font-bold md:text-3xl">Our Vision</h2>
                                 <p className="mt-4 text-lg leading-relaxed text-muted">
-                                    Our vision is to become a global leader in mobile, web, AI, and cloud development by
-                                    delivering technology that inspires innovation, improves lives, and helps businesses
-                                    grow in every market.
+                                    A world where any company — from seed-stage startup to enterprise — can access
+                                    senior-level engineering and design without the overhead of building a large
+                                    in-house team. Elite product work, made accessible and accountable.
                                 </p>
                             </motion.div>
                         </motion.div>
@@ -121,13 +123,14 @@ export default function AboutUs() {
                             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={inView}>
                                 <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Our Story</h2>
                                 <p className="mt-6 text-lg leading-relaxed text-muted">
-                                    Trovina was created to help businesses bring their ideas to life through technology.
-                                    Our approach is simple. We listen, we plan carefully, and we build digital products
-                                    that are fast, secure, and easy to use.
+                                    Trovina was founded on a simple frustration: too many companies pay agency rates and
+                                    get junior work, slow timelines, and surprise invoices. We built the studio we wished
+                                    existed — senior talent, fixed-scope pricing, and weekly working demos.
                                 </p>
                                 <p className="mt-4 text-lg leading-relaxed text-muted">
-                                    We focus on strong communication, modern development tools, and long term
-                                    partnerships that support our clients as they scale and evolve.
+                                    Today we operate as a US-based, remote-first team partnering with founders and
+                                    product leaders across SaaS, FinTech, health tech, and beyond — and most of them
+                                    stay with us long after their first launch.
                                 </p>
                             </motion.div>
                             <motion.div
