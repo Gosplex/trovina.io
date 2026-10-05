@@ -114,10 +114,10 @@ export default function LeadDetailView() {
                     <div className="grid md:grid-cols-2 gap-8">
                         <div>
                             <h1 className="text-4xl font-bold text-white mb-2">
-                                {lead.businessName || "—"}
+                                {lead.businessName || "-"}
                             </h1>
                             <p className="text-xl text-gray-300">
-                                {lead.fullName || "—"}
+                                {lead.fullName || "-"}
                             </p>
                         </div>
                         <div className="grid grid-cols-2 gap-6">
@@ -128,7 +128,7 @@ export default function LeadDetailView() {
                             <div>
                                 <p className="text-gray-400 text-sm mb-1">Source</p>
                                 <p className="font-medium text-white">
-                                    {lead.source || "—"}
+                                    {lead.source || "-"}
                                 </p>
                             </div>
                         </div>
@@ -187,7 +187,7 @@ export default function LeadDetailView() {
 
                 <StatCard title="Project Description">
                     <p className="text-gray-300 whitespace-pre-wrap">
-                        {lead.projectDescription || "—"}
+                        {lead.projectDescription || "-"}
                     </p>
                 </StatCard>
 

@@ -1,0 +1,121 @@
+# Trovina: full details for language models
+
+Last updated: 2026-10-05
+Website: https://trovina.io
+
+## Summary
+
+Trovina is a software and digital product studio. A small senior team of designers and engineers designs, builds and supports websites, web applications, mobile apps and AI automation for startups and growing businesses. Every project has a written scope and a fixed price agreed before work begins, weekly working demos, and included support after launch. Clients own 100% of the code, designs and accounts.
+
+Industries served and typical builds:
+- Real estate: property listing websites, tenant and rent portals, estate and facility management.
+- Schools and institutions: school management systems, parent and student portals, online fees and e-learning.
+- E-commerce and supermarkets: online stores and delivery, POS and inventory, loyalty and WhatsApp ordering.
+- Healthcare: hospital ERP, appointment booking, pharmacy and lab systems.
+- Logistics and transport: fleet tracking, dispatch and delivery apps, waybill and trip records.
+- Fintech and cooperatives: savings and loan apps, member portals, payments and wallets.
+- Oil, gas and energy: asset and maintenance tracking, HSE incident reporting, field team apps.
+- Hospitality: hotel booking websites, restaurant ordering, event and ticketing.
+
+## Contact and location
+
+- Company: Trovina Technologies Limited (brand: Trovina.io)
+- Address: 42 Obiwali Road, Rumuigbo, Port Harcourt, Rivers State, Nigeria
+- Phone and WhatsApp: +234 903 724 8511
+- Email: hello@trovina.io
+- Hours: Monday to Friday, 9:00am–6:00pm West Africa Time (WAT, UTC+1)
+- Works with clients remotely across Africa, Europe and North America
+- Enquiry form: https://trovina.io/contact
+- LinkedIn: https://linkedin.com/company/trovinaio
+
+## Pricing (starting points; final price is a fixed quote after a scoping call)
+
+Local clients are invoiced in Naira (NGN); international clients in US dollars (USD).
+
+| Plan | From (NGN) | From (USD) | Typical timeline | Includes |
+|---|---|---|---|---|
+| Website | ₦450,000 | $750 | 2–3 weeks | Up to 8 custom pages, mobile-first, CMS, on-page SEO and Google Business setup, forms, WhatsApp and analytics, 30 days support |
+| Web app | ₦1,800,000 | $2,800 | 6–10 weeks | Everything in Website plus user accounts, admin dashboard, payments (Paystack, Flutterwave or Stripe), integrations, weekly demos, 60 days support |
+| Product | ₦4,500,000 | $7,500 | 10–16 weeks | Everything in Web app plus iOS and Android app, AI automation, cloud setup and monitoring, security review, 90 days support |
+| Monthly care plan | ₦150,000 / month | $250 / month | Ongoing | Updates, maintenance, SEO and design support |
+
+Starting prices by service:
+- Websites & web apps: from ₦450,000 / $750 per project
+- Mobile apps: from ₦2,500,000 / $3,500 per project
+- AI automation: from ₦600,000 / $900 per project
+- Cloud & DevOps: from ₦350,000 / $600 per project
+- SEO & growth: from ₦150,000 / $250 per month
+- Branding & identity: from ₦250,000 / $400 per project
+- Graphics & creative: from ₦60,000 / $100 per design pack
+- Video & motion: from ₦40,000 / $80 per video
+
+Payment terms: usually a 50% deposit to start, with the balance split across agreed milestones.
+
+## Services
+
+### Websites & web apps
+Fast, search-friendly websites and web applications built with React, Next.js, Tailwind CSS and Laravel: company websites, online stores, booking platforms, customer portals and SaaS products.
+https://trovina.io/services/web-app-website-development
+
+### Mobile apps
+iOS and Android apps built in Flutter, React Native, Swift or Kotlin, from MVPs to production apps.
+https://trovina.io/services/mobile-app-development
+
+### AI automation
+WhatsApp assistants, AI receptionists, lead capture and follow-up, billing automation and CRM-connected workflows using OpenAI, LangChain, n8n, Make and Zapier. Most systems are deployed in 2–4 weeks.
+https://trovina.io/services/ai-automation-workflow-systems
+
+### Cloud & DevOps
+Hosting and infrastructure on AWS, Google Cloud and Azure with Docker, Kubernetes, CI/CD pipelines, monitoring, backups and cost management.
+https://trovina.io/services/cloud-infrastructure-devops
+
+### SEO & growth
+Technical SEO, keyword research, content systems and conversion optimisation to grow organic enquiries.
+https://trovina.io/services/seo-growth-optimization
+
+### Branding & identity
+Logos, colour palettes, typography, brand guidelines and visual assets.
+https://trovina.io/services/branding-visual-identity
+
+### Graphics & creative
+Social media, advertising and marketing design.
+https://trovina.io/services/graphics-creative-design
+
+### Video & motion
+Video editing, motion graphics and colour grading for reels, ads, YouTube and product videos.
+https://trovina.io/services/video-editing-motion-content
+
+## Recent work
+
+- Hospital ERP (SaaS): cloud hospital management platform with patient records, appointments, billing and HMO claims, pharmacy, laboratory, inventory and reports. Multi-tenant, with role-based access for clinical and admin staff.
+- HR management system (white label): HR platform resold by partners under their own brand and domain. Employee records, leave and attendance, payroll with statutory deductions, appraisals and an employee self-service portal.
+- Transport and fleet tracking system (web admin + mobile app): live GPS tracking, trip history, driver assignment, fuel and maintenance logs, and speeding and idling alerts. Web admin for dispatchers; iOS and Android app for drivers.
+
+## How a project runs
+
+1. Discovery: a short call and workshop to understand the business, customers and goals.
+2. Scope & quote: a written scope, timeline and fixed price; nothing starts until it is approved.
+3. Design: wireframes and clickable designs reviewed before code is written.
+4. Build: weekly sprints with a working demo every Friday.
+5. Launch: testing, speed and security checks, analytics and go-live.
+6. Support: included support after launch, then optional monthly care.
+
+## Frequently asked questions
+
+Q: How much does a website or app cost?
+A: Business websites start from ₦450,000 (US$750), web apps and online stores from ₦1,800,000 (US$2,800), and full web and mobile products from ₦4,500,000 (US$7,500). Trovina sends a fixed quote after a short call.
+
+Q: How long does a project take?
+A: Websites usually launch in 2–3 weeks, web apps in 6–10 weeks, and full web and mobile products in 10–16 weeks.
+
+Q: How do payments work?
+A: Usually a 50% deposit, with the rest split across milestones. Naira invoices for local clients, US dollars for international clients.
+
+Q: Where is the team based?
+A: The studio is in Port Harcourt, Nigeria, and works with clients remotely worldwide.
+
+Q: Who owns the code and designs?
+A: The client owns all source code, designs and assets.
+
+Q: Can Trovina take over an existing website or app?
+A: Yes. Audits, fixes, modernisation and partial rebuilds of existing products.

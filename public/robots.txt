@@ -1,4 +1,39 @@
+# Trovina.io | https://trovina.io
 User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /free-website-promo
+
+# AI assistants and answer engines are welcome to read public pages.
+# A plain-text summary for language models lives at /llms.txt
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://trovina.io/sitemap.xml

@@ -63,8 +63,8 @@ export default function AdminProjects() {
 
                 rows.push({
                     id: d.id,
-                    title: data.projectTitle || "—",
-                    owner: data.projectOwnerSnapshot?.fullName || "—",
+                    title: data.projectTitle || "-",
+                    owner: data.projectOwnerSnapshot?.fullName || "-",
                     status: data.projectStatus || PROJECT_STATUS.PENDING,
                     totalPrice: Number(data.totalPrice) || 0,
                     amountPaid: Number(data.amountPaid) || 0,

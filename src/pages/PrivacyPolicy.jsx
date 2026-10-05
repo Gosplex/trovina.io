@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import { Helmet } from 'react-helmet-async';
+import Seo from '../components/Seo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Shield, Lock, Eye, FileText } from 'lucide-react';
@@ -11,10 +11,7 @@ export default function PrivacyPolicy() {
 
     return (
         <>
-            <Helmet>
-                <title>Privacy Policy | Trovina.io</title>
-                <meta name="description" content="Learn how Trovina.io collects, uses, and protects your personal information." />
-            </Helmet>
+            <Seo title="Privacy Policy | Trovina" description="How Trovina collects, uses and protects personal information shared through our website, forms and project work." path="/privacy-policy" />
 
             <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}

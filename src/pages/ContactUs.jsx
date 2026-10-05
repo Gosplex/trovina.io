@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion'
-import { Helmet } from 'react-helmet-async'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import ProjectFormModal from '../components/ProjectFormModal'
-import { Activity, Mail, Phone, Send, MapPin } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import Seo from '../components/Seo'
+import CtaBand from '../components/sections/CtaBand'
+import { organizationSchema, breadcrumbSchema } from '../lib/schema'
+import { services } from '../constants/siteContent'
 
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import toast from 'react-hot-toast'
 import { PhoneInput } from 'react-international-phone'
 import { Container } from '../components/ui/Section'
-import { fadeUp, inView } from '../lib/motion'
 import { company } from '../constants/company'
 
 export default function ContactUs() {
@@ -31,7 +31,7 @@ export default function ContactUs() {
     }
 
     const [phone, setPhone] = useState('')
-    const [country] = useState('us')
+    const [country] = useState('ng')
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -71,6 +71,7 @@ export default function ContactUs() {
             toast.success('Thank you! We’ll contact you within 24 hours.')
         } catch (err) {
             console.error('Contact form error:', err)
+            toast.error('Your message could not be sent. Please email us or try again.')
         } finally {
             setIsSubmitting(false)
         }
@@ -78,170 +79,142 @@ export default function ContactUs() {
 
     return (
         <>
-            <Helmet>
-                <title>Contact | Book a Free Strategy Call — Trovina.io</title>
-                <meta
-                    name="description"
-                    content="Talk to a US-based product team about your software, AI, or cloud project. Tell us your goals and get a fixed-scope plan and price — we respond within one business day."
-                />
-                <link rel="canonical" href="https://trovina.io/contact" />
-                <meta property="og:title" content="Contact Trovina.io | Book a Free Strategy Call" />
-                <meta property="og:description" content="Reach out to start your web, mobile, AI automation, or cloud project with a US-based product studio." />
-                <meta property="og:type" content="website" />
-                <meta property="og:image" content="/og-contact.jpg" />
-                <meta property="og:url" content="https://trovina.io/contact" />
-                <meta property="og:site_name" content="Trovina.io" />
-            </Helmet>
+            <Seo
+                title="Contact Trovina | Web & App Development Studio"
+                description="Tell us about your website, app or automation project. Trovina replies within one working day with next steps and a fixed quote. Call, WhatsApp or email us."
+                path="/contact"
+                image="/og-contact.jpg"
+                jsonLd={[
+                    organizationSchema,
+                    breadcrumbSchema([
+                        { name: 'Home', path: '/' },
+                        { name: 'Contact', path: '/contact' },
+                    ]),
+                ]}
+            />
 
             <div className="min-h-screen bg-background font-sans text-foreground">
                 <Navbar onOpenForm={() => setShowForm(true)} />
 
-                {/* Hero */}
-                <section className="relative overflow-hidden pt-32 pb-12 md:pt-40 md:pb-16">
-                    <div className="pointer-events-none absolute inset-0 -z-10">
-                        <div className="absolute inset-0 bg-grid opacity-60 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
-                        <div className="absolute -top-20 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-brand-500/15 blur-3xl" />
-                    </div>
-                    <Container className="max-w-4xl text-center">
-                        <motion.div variants={fadeUp} initial="hidden" animate="visible" className="flex flex-col items-center gap-6">
-                            <span className="eyebrow">
-                                <Activity className="h-4 w-4 animate-pulse text-brand-500" />
-                                Get in Touch
-                            </span>
-                            <h1 className="text-balance text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-                                Let's Scope <span className="text-gradient">Your Project</span>
-                            </h1>
-                            <p className="max-w-2xl text-lg leading-relaxed text-muted md:text-xl">
-                                Tell us your goals and we'll send back a fixed-scope plan and price. No pressure, no
-                                obligation — and a reply within one business day.
+                <main id="main">
+                    <section className="pb-12 pt-28 md:pb-16 md:pt-36">
+                        <Container>
+                            <h1 className="display-xl max-w-4xl text-balance">Let’s talk about your project.</h1>
+                            <p className="lede mt-6 max-w-2xl">
+                                Tell us what you want to build. We reply within one working day with questions,
+                                next steps and a rough budget. No obligation.
                             </p>
-                        </motion.div>
-                    </Container>
-                </section>
+                        </Container>
+                    </section>
 
-                {/* Contact */}
-                <section className="relative z-10 pb-20 pt-8">
-                    <Container className="max-w-6xl">
-                        <div className="grid gap-10 lg:grid-cols-5 lg:gap-16">
-                            {/* FORM */}
-                            <motion.div
-                                initial={{ opacity: 0, x: -40 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={inView}
-                                className="card p-8 md:p-10 lg:col-span-3"
-                            >
-                                <h2 className="text-2xl font-bold md:text-3xl">Tell Us About Your Project</h2>
-
-                                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                                    <div>
-                                        <label className="mb-2 block text-sm font-medium text-muted">Your Name</label>
-                                        <input
-                                            name="name"
-                                            value={form.name}
-                                            onChange={updateForm}
-                                            required
-                                            className="input"
-                                            placeholder="Your full name"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="mb-2 block text-sm font-medium text-muted">Email Address</label>
-                                        <input
-                                            name="email"
-                                            type="email"
-                                            value={form.email}
-                                            onChange={updateForm}
-                                            required
-                                            className="input"
-                                            placeholder="john@example.com"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="mb-2 block text-sm font-medium text-muted">Phone Number</label>
-                                        <div className="flex h-[52px] items-center overflow-hidden rounded-xl border border-border bg-surface transition-colors focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15">
-                                            <PhoneInput
-                                                country={country}
-                                                value={phone}
-                                                onChange={setPhone}
-                                                className="h-full w-full"
-                                                inputClassName="!h-full !w-full !border-none !bg-transparent !pl-3 !pr-4 !text-foreground !outline-none"
-                                                countrySelectorStyleProps={{
-                                                    buttonClassName: '!h-full !border-none !bg-transparent !px-3 !text-foreground hover:!bg-surface-2',
-                                                    dropdownStyleProps: { className: '!bg-surface !border !border-border !text-foreground' },
-                                                }}
-                                            />
+                    <section className="pb-20 md:pb-28">
+                        <Container>
+                            <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                                {/* FORM */}
+                                <div className="lg:col-span-7">
+                                    <form className="grid gap-6 sm:grid-cols-2" onSubmit={handleSubmit}>
+                                        <div>
+                                            <label htmlFor="c-name" className="mb-2 block text-sm font-medium text-foreground">Name</label>
+                                            <input id="c-name" name="name" value={form.name} onChange={updateForm} required autoComplete="name" className="input" placeholder="Your full name" />
                                         </div>
-                                    </div>
 
-                                    <div>
-                                        <label className="mb-2 block text-sm font-medium text-muted">Interested In</label>
-                                        <select name="service" value={form.service} onChange={updateForm} required className="input">
-                                            <option value="">Select a service</option>
-                                            <option>Mobile App Development</option>
-                                            <option>Website Development</option>
-                                            <option>AI Automation</option>
-                                            <option>Cloud Infrastructure</option>
-                                            <option>Multiple Services</option>
-                                            <option>Just Exploring</option>
-                                        </select>
-                                    </div>
+                                        <div>
+                                            <label htmlFor="c-email" className="mb-2 block text-sm font-medium text-foreground">Email</label>
+                                            <input id="c-email" name="email" type="email" value={form.email} onChange={updateForm} required autoComplete="email" className="input" placeholder="you@company.com" />
+                                        </div>
 
-                                    <div>
-                                        <label className="mb-2 block text-sm font-medium text-muted">Message</label>
-                                        <textarea
-                                            name="message"
-                                            value={form.message}
-                                            onChange={updateForm}
-                                            rows="6"
-                                            required
-                                            className="input resize-none"
-                                            placeholder="Describe your idea or question..."
-                                        />
-                                    </div>
+                                        <div>
+                                            <label htmlFor="c-phone" className="mb-2 block text-sm font-medium text-foreground">Phone or WhatsApp</label>
+                                            <div className="flex h-[50px] items-center overflow-hidden rounded-xl border border-border bg-background transition-colors focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15">
+                                                <PhoneInput
+                                                    defaultCountry={country}
+                                                    value={phone}
+                                                    onChange={setPhone}
+                                                    inputProps={{ id: 'c-phone' }}
+                                                    className="h-full w-full"
+                                                    inputClassName="!h-full !w-full !border-none !bg-transparent !pl-3 !pr-4 !text-foreground !outline-none"
+                                                    countrySelectorStyleProps={{
+                                                        buttonClassName: '!h-full !border-none !bg-transparent !px-3 !text-foreground hover:!bg-surface-2',
+                                                        dropdownStyleProps: { className: '!bg-surface !border !border-border !text-foreground' },
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
 
-                                    <motion.button
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        disabled={isSubmitting}
-                                        className="btn-primary btn-lg w-full"
-                                    >
-                                        {isSubmitting ? (
-                                            <>
-                                                <span className="h-5 w-5 animate-spin rounded-full border-2 border-primary-foreground/40 border-t-transparent" />
-                                                Sending...
-                                            </>
-                                        ) : (
-                                            <>
-                                                Send Message <Send className="h-5 w-5" />
-                                            </>
-                                        )}
-                                    </motion.button>
-                                </form>
-                            </motion.div>
+                                        <div>
+                                            <label htmlFor="c-service" className="mb-2 block text-sm font-medium text-foreground">What do you need?</label>
+                                            <select id="c-service" name="service" value={form.service} onChange={updateForm} required className="input">
+                                                <option value="">Choose a service</option>
+                                                {services.map((s) => (
+                                                    <option key={s.slug}>{s.title}</option>
+                                                ))}
+                                                <option>More than one service</option>
+                                                <option>Not sure yet</option>
+                                            </select>
+                                        </div>
 
-                            {/* INFO */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 40 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={inView}
-                                className="flex flex-col justify-center lg:col-span-2"
-                            >
-                                <h2 className="text-2xl font-bold md:text-3xl">How to Reach Us</h2>
-                                <p className="mt-3 text-muted">
-                                    Prefer to reach out directly? We're a US-based, remote-first team and reply within
-                                    one business day. {company.hours}.
-                                </p>
-                                <div className="mt-8 space-y-4">
-                                    <Info icon={<Mail className="h-5 w-5" />} label="Email" value={company.email} href={`mailto:${company.email}`} />
-                                    <Info icon={<Phone className="h-5 w-5" />} label="Phone" value={company.phone} href={company.phoneHref} />
-                                    <Info icon={<MapPin className="h-5 w-5" />} label="Headquarters" value={`${company.address.city}, ${company.address.state} · US-Based, Remote-First`} />
+                                        <div className="sm:col-span-2">
+                                            <label htmlFor="c-message" className="mb-2 block text-sm font-medium text-foreground">About the project</label>
+                                            <textarea id="c-message" name="message" value={form.message} onChange={updateForm} rows="6" required className="input resize-y" placeholder="What are you building, who is it for, and when do you need it?" />
+                                        </div>
+
+                                        <div className="sm:col-span-2 flex flex-col gap-4 sm:flex-row sm:items-center">
+                                            <button type="submit" disabled={isSubmitting} className="btn-primary btn-lg">
+                                                {isSubmitting ? (
+                                                    <>
+                                                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/40 border-t-transparent" aria-hidden="true" />
+                                                        Sending…
+                                                    </>
+                                                ) : (
+                                                    'Send message'
+                                                )}
+                                            </button>
+                                            <p className="text-sm text-muted">We reply within one working day.</p>
+                                        </div>
+                                    </form>
                                 </div>
-                            </motion.div>
-                        </div>
-                    </Container>
-                </section>
+
+                                {/* DETAILS */}
+                                <aside className="lg:col-span-4 lg:col-start-9">
+                                    <dl className="divide-y divide-border border-y border-border">
+                                        <Info label="Email" value={company.email} href={`mailto:${company.email}`} />
+                                        <Info label="Phone" value={company.phone} href={company.phoneHref} />
+                                        <Info
+                                            label="WhatsApp"
+                                            value="Chat with us"
+                                            href={`https://wa.me/${company.whatsapp}`}
+                                            external
+                                        />
+                                        <Info label="Studio" value={company.addressText} href={company.mapsUrl} external />
+                                        <Info label="Hours" value={company.hours} />
+                                    </dl>
+                                </aside>
+                            </div>
+                        </Container>
+                    </section>
+
+                    {/* MAP */}
+                    <section aria-label="Map" className="pb-20 md:pb-28">
+                        <Container>
+                            <div className="overflow-hidden rounded-3xl border border-border bg-surface-2">
+                                <iframe
+                                    title={`Map showing ${company.addressText}`}
+                                    src={company.mapsEmbed}
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    className="block h-[360px] w-full md:h-[440px] dark:opacity-90 dark:invert-[0.9] dark:hue-rotate-180"
+                                />
+                            </div>
+                        </Container>
+                    </section>
+
+                    <CtaBand
+                        title="Prefer a quick call?"
+                        description="Book a free 30-minute call. We will talk through your idea and tell you honestly what it would take."
+                        primaryLabel="Book a call"
+                        onPrimary={() => setShowForm(true)}
+                    />
+                </main>
 
                 <ProjectFormModal open={showForm} onClose={() => setShowForm(false)} />
                 <Footer />
@@ -250,23 +223,24 @@ export default function ContactUs() {
     )
 }
 
-function Info({ icon, label, value, href }) {
-    const content = (
-        <div className="flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-brand-500/40">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400">
-                {icon}
-            </div>
-            <div className="min-w-0">
-                <p className="text-sm text-muted">{label}</p>
-                <p className="truncate text-lg font-semibold text-foreground">{value}</p>
-            </div>
+function Info({ label, value, href, external }) {
+    return (
+        <div className="py-5">
+            <dt className="text-sm text-muted">{label}</dt>
+            <dd className="mt-1">
+                {href ? (
+                    <a
+                        href={href}
+                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className="group inline-flex items-start gap-1 text-lg font-medium text-foreground hover:text-brand-600 dark:hover:text-brand-400"
+                    >
+                        {value}
+                        {external && <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 opacity-60" aria-hidden="true" />}
+                    </a>
+                ) : (
+                    <span className="text-lg font-medium text-foreground">{value}</span>
+                )}
+            </dd>
         </div>
-    )
-    return href ? (
-        <a href={href} className="block">
-            {content}
-        </a>
-    ) : (
-        content
     )
 }

@@ -1,0 +1,13 @@
+{
+  "name": "Trovina — Website, App & AI Development Studio",
+  "short_name": "Trovina",
+  "description": "Websites, web apps, mobile apps and AI automation for growing businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#802FB5",
+  "icons": [
+    { "src": "/logo-mark-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-mark-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

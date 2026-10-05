@@ -53,12 +53,12 @@ export default function SocialProofPopup({ pause }) {
             }, 5000);
         };
 
-        // 🔥 FIRST POPUP — FAST (3–6s)
+        // 🔥 FIRST POPUP, FAST (3–6s)
         firstTimeout = setTimeout(() => {
             showPopup();
         }, Math.floor(Math.random() * (6000 - 3000)) + 3000);
 
-        // 🔁 FOLLOW-UP POPUPS — RANDOM 20–45s
+        // 🔁 FOLLOW-UP POPUPS, RANDOM 20–45s
         interval = setInterval(() => {
             showPopup();
         }, Math.floor(Math.random() * (45000 - 20000)) + 20000);

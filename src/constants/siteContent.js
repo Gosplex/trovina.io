@@ -1,392 +1,325 @@
 /**
- * Centralized marketing content for the premium agency sections.
- * Structured as plain data (icons are lucide component references, not JSX) so
- * these can later be swapped for a CMS / Firestore source without touching the
- * presentation components.
+ * Centralized marketing content. Plain data so it can move to a CMS / Firestore
+ * later without touching the presentation components.
  *
- * Positioning: Trovina is a US-based software, AI & cloud product studio.
- * Copy is outcome-driven and written for funded startups, SaaS companies, and
- * mid-market / enterprise teams in the US market.
+ * Testimonial avatars are illustrations generated from Micah Lanier's
+ * "Avatar Illustration System" (CC BY 4.0) via DiceBear; see /public/avatars.
  */
-import {
-  Code2,
-  Server,
-  Smartphone,
-  Cloud,
-  BrainCircuit,
-  GitBranch,
-  Rocket,
-  Compass,
-  PenTool,
-  Wrench,
-  TrendingUp,
-  Zap,
-  ShieldCheck,
-  MessageSquare,
-  Gauge,
-  Layers,
-  Building2,
-  Users,
-  CalendarCheck,
-  FileCheck,
-  Lock,
-  Headphones,
-} from 'lucide-react';
+import { photos } from './images';
 
 /* ----------------------------------------------------------------
-   TECHNOLOGIES WE USE — grouped stack
+   SERVICES, shared by Home, Services and the footer
 ----------------------------------------------------------------- */
-export const techStack = [
+export const services = [
   {
-    category: 'Frontend',
-    icon: Code2,
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Vue', 'Framer Motion'],
+    slug: 'web-app-website-development',
+    title: 'Websites & web apps',
+    desc: 'Fast, search-friendly websites and web applications built with React and Next.js, from company sites to online stores and customer portals.',
   },
   {
-    category: 'Backend',
-    icon: Server,
-    items: ['Node.js', 'NestJS', 'Python', 'FastAPI', 'Laravel', 'GraphQL'],
+    slug: 'mobile-app-development',
+    title: 'Mobile apps',
+    desc: 'iOS and Android apps in Flutter or React Native that customers keep using after the first download.',
   },
   {
-    category: 'Mobile',
-    icon: Smartphone,
-    items: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Expo'],
+    slug: 'ai-automation-workflow-systems',
+    title: 'AI automation',
+    desc: 'WhatsApp assistants, lead follow-up and back-office workflows that take repetitive work off your team.',
   },
   {
-    category: 'Cloud & Infra',
-    icon: Cloud,
-    items: ['AWS', 'Google Cloud', 'Azure', 'Vercel', 'Firebase', 'Cloudflare'],
+    slug: 'cloud-infrastructure-devops',
+    title: 'Cloud & DevOps',
+    desc: 'Reliable hosting on AWS, Google Cloud or Azure with automated deployments, monitoring and backups.',
   },
   {
-    category: 'AI & Data',
-    icon: BrainCircuit,
-    items: ['OpenAI', 'LangChain', 'Pinecone', 'TensorFlow', 'Hugging Face'],
+    slug: 'seo-growth-optimization',
+    title: 'SEO & growth',
+    desc: 'Technical SEO, content and conversion work that turns your website into a steady source of enquiries.',
   },
   {
-    category: 'DevOps',
-    icon: GitBranch,
-    items: ['Docker', 'Kubernetes', 'GitHub Actions', 'Terraform', 'Grafana'],
+    slug: 'branding-visual-identity',
+    title: 'Branding & identity',
+    desc: 'Logos, colour, type and brand guidelines that make a young company look established.',
+  },
+  {
+    slug: 'graphics-creative-design',
+    title: 'Graphics & creative',
+    desc: 'Social, ad and marketing creative that stays on brand and gets the message across quickly.',
+  },
+  {
+    slug: 'video-editing-motion-content',
+    title: 'Video & motion',
+    desc: 'Edited product videos, reels and motion graphics for launches, ads and social channels.',
   },
 ];
 
 /* ----------------------------------------------------------------
-   PROCESS — Discovery → Strategy → Design → Development → Launch → Scale
+   TECHNOLOGIES, grouped stack (names only; logos live in TechStack)
+----------------------------------------------------------------- */
+export const techStack = [
+  { category: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Vue'] },
+  { category: 'Backend', items: ['Node.js', 'NestJS', 'Python', 'FastAPI', 'Laravel', 'GraphQL'] },
+  { category: 'Mobile', items: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Expo'] },
+  { category: 'Cloud', items: ['AWS', 'Google Cloud', 'Azure', 'Vercel', 'Firebase', 'Cloudflare'] },
+  { category: 'AI & data', items: ['OpenAI', 'LangChain', 'Pinecone', 'TensorFlow', 'Hugging Face'] },
+  { category: 'DevOps', items: ['Docker', 'Kubernetes', 'GitHub Actions', 'Terraform', 'Grafana'] },
+];
+
+/* ----------------------------------------------------------------
+   PROCESS, a real sequence, so numbering is meaningful
 ----------------------------------------------------------------- */
 export const processSteps = [
   {
-    icon: Compass,
     title: 'Discovery',
-    desc: 'We start with your business model, users, and goals — defining what success looks like and what it should be worth before we write a line of code.',
+    desc: 'A short call and workshop to understand your business, your customers and what success should look like.',
   },
   {
-    icon: Layers,
-    title: 'Strategy',
-    desc: 'We turn findings into a clear, fixed-scope roadmap — architecture, milestones, and a budget tied directly to measurable business outcomes.',
+    title: 'Scope & quote',
+    desc: 'You get a written scope, timeline and fixed price. Nothing starts until you approve it.',
   },
   {
-    icon: PenTool,
     title: 'Design',
-    desc: 'We craft intuitive, on-brand interfaces and clickable prototypes, validating the experience with real users before we build.',
+    desc: 'Wireframes and clickable designs you can review and comment on before any code is written.',
   },
   {
-    icon: Code2,
-    title: 'Development',
-    desc: 'We engineer clean, scalable, well-tested code in weekly sprints — you see working software every Friday and can steer in real time.',
+    title: 'Build',
+    desc: 'Weekly sprints with a working demo every Friday, so you always see real progress.',
   },
   {
-    icon: Rocket,
     title: 'Launch',
-    desc: 'We ship with confidence — performance, security, and analytics dialed in for a smooth go-live and a measurable baseline from day one.',
+    desc: 'Testing, speed and security checks, analytics, and a calm go-live with us on hand.',
   },
   {
-    icon: TrendingUp,
-    title: 'Scale',
-    desc: 'We monitor, optimize, and evolve your product with long-term support — turning your launch into compounding growth.',
+    title: 'Support',
+    desc: 'Included support after launch, then optional monthly care for updates, SEO and new features.',
   },
 ];
 
 /* ----------------------------------------------------------------
-   WHY CHOOSE US — premium credibility
+   WHY US, principles (used on About)
 ----------------------------------------------------------------- */
 export const whyChooseUs = [
   {
-    icon: Users,
-    title: 'Senior Team, Direct Access',
-    desc: 'You work directly with the senior engineers and designers building your product — never a sales rep, junior hand-off, or account-manager black box.',
+    title: 'You talk to the people doing the work',
+    desc: 'Your designers and engineers are on every call. No account-manager relay.',
   },
   {
-    icon: TrendingUp,
-    title: 'Outcomes, Not Output',
-    desc: 'We tie scope to business results — conversions, revenue, efficiency — and measure success by what your product earns, not the hours we bill.',
+    title: 'Fixed scope, fixed price',
+    desc: 'You approve the number up front. No surprise invoices halfway through.',
   },
   {
-    icon: ShieldCheck,
-    title: 'Security & Compliance First',
-    desc: 'Secure-by-design architecture, best-practice auth, and rigorous reviews — ready for SOC 2, HIPAA, and enterprise procurement when you need it.',
+    title: 'Built to last',
+    desc: 'Clean, documented, tested code that another team could pick up tomorrow.',
   },
   {
-    icon: Gauge,
-    title: 'Engineering Quality',
-    desc: 'Clean, documented, automatically tested code with performance budgets — products that stay fast and reliable as they scale to millions of users.',
+    title: 'Security and data protection',
+    desc: 'Sensible defaults for auth, backups and access, aligned with NDPA and GDPR requirements.',
   },
   {
-    icon: MessageSquare,
-    title: 'Radical Transparency',
-    desc: 'Weekly demos, a shared roadmap, and fixed-scope pricing. You always know what is shipping, what it costs, and when it lands.',
+    title: 'Open communication',
+    desc: 'A shared roadmap, weekly demos and a WhatsApp or Slack channel with your team.',
   },
   {
-    icon: Wrench,
-    title: 'Partners After Launch',
-    desc: 'We stay on with monitoring, maintenance, and iteration — most clients keep us as their long-term product partner well beyond v1.',
+    title: 'We stay after launch',
+    desc: 'Most clients keep us on for maintenance and new features long after version one.',
   },
 ];
 
 /* ----------------------------------------------------------------
-   TESTIMONIALS — social proof.
-   Anonymized by role + industry (no named companies) so every quote is honest
-   to swap for real, attributable references before launch.
+   TESTIMONIALS
 ----------------------------------------------------------------- */
 export const testimonials = [
   {
     quote:
-      'Trovina rebuilt our platform from the ground up. Page loads dropped from 6 seconds to under one, and our trial-to-paid conversion climbed 38% in the first quarter after launch.',
+      'Trovina rebuilt our platform from the ground up. Pages now load in under a second and our trial-to-paid conversion went up 38% in the first quarter.',
     name: 'Daniel R.',
-    role: 'Founder & CEO',
-    company: 'B2B SaaS · Series A',
+    role: 'Founder & CEO, B2B SaaS',
     initials: 'DR',
-    result: '+38% conversions',
+    avatar: '/avatars/daniel-r.svg',
   },
   {
     quote:
-      'Their AI automation now handles thousands of customer messages a day. Response time went from hours to under five seconds, and my team finally spends its time on growth instead of triage.',
+      'Their WhatsApp automation handles thousands of customer messages a day. Replies went from hours to seconds and my team finally works on growth instead of triage.',
     name: 'Marcus T.',
-    role: 'VP of Operations',
-    company: 'National Logistics Company',
+    role: 'Head of Operations, logistics company',
     initials: 'MT',
-    result: '10x faster ops',
+    avatar: '/avatars/marcus-t.svg',
   },
   {
     quote:
-      'From discovery to launch in eight weeks, fully HIPAA-conscious. Communication was flawless and the product looked like it came out of a top-tier studio. Easily our best agency experience.',
+      'From discovery to launch in eight weeks. Communication was clear the whole way through and the product feels like it came from a much bigger studio.',
     name: 'Priya S.',
-    role: 'Founder',
-    company: 'Digital Health Startup',
+    role: 'Founder, digital health startup',
     initials: 'PS',
-    result: '8-week launch',
+    avatar: '/avatars/priya-s.svg',
   },
   {
     quote:
-      'We came with an idea and left with a scalable platform and paying customers. Trovina operated like an in-house team that genuinely cared about our numbers, not just shipping features.',
+      'We came with an idea and left with a working platform and paying customers. They behaved like an in-house team that cared about our numbers.',
     name: 'Jordan K.',
-    role: 'Co-founder',
-    company: 'FinTech Startup',
+    role: 'Co-founder, fintech startup',
     initials: 'JK',
-    result: 'MVP → revenue',
+    avatar: '/avatars/jordan-k.svg',
   },
 ];
 
 /* ----------------------------------------------------------------
-   RESULTS — representative outcomes, anonymized by industry.
-   Illustrative of typical engagements; replace with attributable case studies.
+   RESULTS, selected work, anonymised by industry
 ----------------------------------------------------------------- */
 export const results = [
   {
-    industry: 'B2B SaaS',
-    stage: 'Series A',
-    headline: 'Platform rebuild → +38% trial-to-paid',
-    detail: 'Re-architected a legacy web app for speed and reliability. Page loads fell from 6s to under 1s and qualified trial conversions rose 38% in one quarter.',
-    metrics: [
-      { value: '6s→<1s', label: 'Load time' },
-      { value: '+38%', label: 'Conversions' },
-    ],
+    industry: 'Healthcare SaaS',
+    headline: 'Hospital ERP',
+    detail:
+      'A cloud hospital management platform that runs a facility from the front desk to the pharmacy. Each hospital gets its own secure workspace, with role-based access for doctors, nurses, cashiers and administrators.',
+    tags: ['Patient records', 'Appointments', 'Billing & HMO claims', 'Pharmacy', 'Laboratory', 'Inventory', 'Reports'],
+    photo: photos.pairDesk,
   },
   {
-    industry: 'Logistics',
-    stage: 'Mid-market',
-    headline: 'AI ops automation → 10x throughput',
-    detail: 'Built an AI workflow layer that handles thousands of daily customer messages and order updates. Response time dropped from hours to seconds.',
-    metrics: [
-      { value: '<5s', label: 'Response time' },
-      { value: '10x', label: 'Ops throughput' },
-    ],
+    industry: 'White-label HR software',
+    headline: 'HR management system',
+    detail:
+      'An HR platform that partners resell under their own brand, logo and domain. It covers employee records, leave and attendance, payroll with statutory deductions, appraisals and an employee self-service portal.',
+    tags: ['White label', 'Payroll', 'Leave & attendance', 'Self-service portal'],
+    photo: '/team/gospel-john.svg',
   },
   {
-    industry: 'Digital Health',
-    stage: 'Seed',
-    headline: 'HIPAA-conscious telehealth MVP in 8 weeks',
-    detail: 'Shipped a compliant patient + provider platform from discovery to launch in eight weeks, ready for the first cohort of paying customers.',
-    metrics: [
-      { value: '8 wks', label: 'To launch' },
-      { value: 'HIPAA', label: 'Compliant build' },
-    ],
+    industry: 'Transport & logistics',
+    headline: 'Fleet tracking system',
+    detail:
+      'Live vehicle tracking with a web admin for dispatchers and a mobile app for drivers. Includes trip history, driver assignment, fuel and maintenance logs, and alerts for speeding and idling.',
+    tags: ['Web admin', 'Driver app (iOS & Android)', 'Live GPS', 'Alerts'],
+    photo: photos.pairLaptops,
   },
 ];
 
 /* ----------------------------------------------------------------
-   PRICING — engagement tiers ("starting at" anchors, value-led)
------------------------------------------------------------------ */
-export const pricingTiers = [
-  {
-    icon: Rocket,
-    name: 'Launch',
-    price: '$7,500',
-    priceNote: 'starting',
-    summary: 'For founders validating an idea and getting to market fast.',
-    features: [
-      'Discovery & product strategy sprint',
-      'UX/UI design system',
-      'MVP web app, marketing site, or landing funnel',
-      'Launch + analytics setup',
-      '30 days post-launch support',
-    ],
-    cta: 'Start Your Launch',
-    popular: false,
-  },
-  {
-    icon: TrendingUp,
-    name: 'Growth',
-    price: '$20,000',
-    priceNote: 'starting',
-    summary: 'For companies scaling a live product with real users and revenue.',
-    features: [
-      'Everything in Launch',
-      'Full web + mobile application',
-      'Third-party & payment integrations',
-      'AI automation & workflow systems',
-      'Dedicated product manager + weekly demos',
-      'Performance, SEO & conversion optimization',
-    ],
-    cta: 'Plan Your Growth',
-    popular: true,
-  },
-  {
-    icon: Building2,
-    name: 'Enterprise',
-    price: 'Custom',
-    priceNote: 'tailored',
-    summary: 'For teams with complex, mission-critical, or compliance-heavy systems.',
-    features: [
-      'Everything in Growth',
-      'Dedicated cross-functional team',
-      'Cloud architecture & DevOps at scale',
-      'Security & compliance (SOC 2 / HIPAA)',
-      'SLA-backed support & monitoring',
-      'Long-term product partnership',
-    ],
-    cta: 'Talk to Us',
-    popular: false,
-  },
-];
-
-/* ----------------------------------------------------------------
-   GUARANTEE — risk reversal / what every engagement includes
+   GUARANTEE, what every engagement includes (shown with pricing)
 ----------------------------------------------------------------- */
 export const guarantees = [
-  {
-    icon: FileCheck,
-    title: 'Fixed scope, fixed price',
-    desc: 'You approve a clear scope and budget up front. No surprise invoices, no scope-creep games.',
-  },
-  {
-    icon: CalendarCheck,
-    title: 'Weekly working demos',
-    desc: 'See real, running software every week — and steer the build before anything is locked in.',
-  },
-  {
-    icon: Lock,
-    title: 'You own 100% of the IP',
-    desc: 'All code, designs, and assets are yours. Full handover, clean repos, complete documentation.',
-  },
-  {
-    icon: Headphones,
-    title: '30 days support, included',
-    desc: 'Every launch ships with a month of support and monitoring at no extra cost — then optional retainers.',
-  },
+  { title: 'Fixed price', desc: 'Approved in writing before work starts.' },
+  { title: 'Weekly demos', desc: 'See working software every Friday.' },
+  { title: 'You own it all', desc: 'Code, designs and accounts are handed over to you.' },
+  { title: 'Support included', desc: 'Post-launch support on every plan.' },
 ];
 
 /* ----------------------------------------------------------------
-   INDUSTRIES — markets we serve (US-focused framing)
+   INDUSTRIES
 ----------------------------------------------------------------- */
 export const industries = [
-  { name: 'SaaS & Startups', desc: 'MVPs, full SaaS platforms, subscription billing, and AI-powered web and mobile products built to raise and scale.' },
-  { name: 'FinTech', desc: 'Payment systems, lending platforms, and secure, compliance-ready transaction technology with enterprise-grade auth.' },
-  { name: 'Healthcare & Health Tech', desc: 'HIPAA-conscious telehealth, patient and provider portals, scheduling, and care-management platforms.' },
-  { name: 'E-Commerce & Retail', desc: 'High-converting storefronts, headless commerce, marketplaces, and integrated fulfillment and payment systems.' },
-  { name: 'Logistics & Supply Chain', desc: 'Real-time tracking, fleet and route optimization, and AI-driven warehouse and operations platforms.' },
-  { name: 'Professional & B2B Services', desc: 'Internal tools, client portals, automation, and dashboards that remove manual work and unlock capacity.' },
+  {
+    name: 'Real estate',
+    icon: 'Building2',
+    builds: ['Property listing websites', 'Tenant and rent portals', 'Estate and facility management'],
+  },
+  {
+    name: 'Schools & institutions',
+    icon: 'GraduationCap',
+    builds: ['School management systems', 'Parent and student portals', 'Online fees and e-learning'],
+  },
+  {
+    name: 'E-commerce & supermarkets',
+    icon: 'ShoppingCart',
+    builds: ['Online stores and delivery', 'POS and inventory', 'Loyalty and WhatsApp ordering'],
+  },
+  {
+    name: 'Healthcare',
+    icon: 'HeartPulse',
+    builds: ['Hospital ERP', 'Appointment booking', 'Pharmacy and lab systems'],
+  },
+  {
+    name: 'Logistics & transport',
+    icon: 'Truck',
+    builds: ['Fleet tracking', 'Dispatch and delivery apps', 'Waybill and trip records'],
+  },
+  {
+    name: 'Fintech & cooperatives',
+    icon: 'Landmark',
+    builds: ['Savings and loan apps', 'Member portals', 'Payments and wallets'],
+  },
+  {
+    name: 'Oil, gas & energy',
+    icon: 'Fuel',
+    builds: ['Asset and maintenance tracking', 'HSE incident reporting', 'Field team apps'],
+  },
+  {
+    name: 'Hospitality',
+    icon: 'UtensilsCrossed',
+    builds: ['Hotel booking websites', 'Restaurant ordering', 'Event and ticketing'],
+  },
 ];
 
 /* ----------------------------------------------------------------
-   FAQ — homepage commercial-intent questions
+   FAQ, homepage commercial-intent questions
 ----------------------------------------------------------------- */
 export const faqs = [
   {
-    q: 'How much does a project cost?',
-    a: 'Most engagements start at $7,500 for an MVP or marketing build (Launch), $20,000+ for a full product (Growth), and scale into custom enterprise programs. After a short discovery call we give you a fixed scope and price — no open-ended hourly billing.',
+    q: 'How much does a website or app cost?',
+    a: 'Business websites start from ₦450,000 (US$750 for international clients), web apps and online stores from ₦1,800,000 (US$2,800), and full web and mobile products from ₦4,500,000 (US$7,500). After a short call we send a fixed quote, so the price you approve is the price you pay.',
   },
   {
-    q: 'How long does it take to build?',
-    a: 'MVPs and websites typically launch in 4–8 weeks. Full web and mobile products run 8–16 weeks depending on scope. We work in weekly sprints, so you see progress and can adjust priorities throughout.',
+    q: 'How long does a project take?',
+    a: 'Most websites launch in 2–3 weeks. Web apps take 6–10 weeks and full web and mobile products 10–16 weeks, depending on scope. You see a working demo every week.',
   },
   {
-    q: 'Do you work with startups or established companies?',
-    a: 'Both. We partner with funded startups shipping their first product and with mid-market and enterprise teams modernizing or scaling existing systems. The process flexes to your stage.',
+    q: 'How do payments work?',
+    a: 'We usually take a 50% deposit to begin and split the rest across agreed milestones. We invoice in Naira for local clients and in US dollars for international clients.',
   },
   {
     q: 'Where is your team based?',
-    a: 'Trovina is a US-based, remote-first studio. You work directly with senior engineers and designers, with overlapping US business hours and clear, async-friendly communication.',
+    a: 'Our studio is in Port Harcourt and we work with clients remotely across Africa, Europe and North America, with calls scheduled around your time zone.',
   },
   {
-    q: 'Do I own the code and design?',
-    a: 'Yes — 100%. You retain full ownership of all source code, designs, and assets, with a clean handover, documented repositories, and no vendor lock-in.',
+    q: 'Do I own the code and designs?',
+    a: 'Yes. You own all source code, designs and assets. We hand over repositories, accounts and documentation at the end of the project.',
   },
   {
-    q: 'Can you take over or fix an existing product?',
-    a: 'Absolutely. We regularly audit, rescue, and modernize existing codebases — improving performance, security, and UX, or rebuilding the parts holding you back.',
+    q: 'Can you take over an existing website or app?',
+    a: 'Yes. We regularly audit, fix and modernise existing products, improving speed, security and design, or rebuilding the parts that hold you back.',
   },
 ];
 
 /* ----------------------------------------------------------------
-   TEAM — supports future dynamic data (photo falls back to initials)
+   TEAM: illustrated avatars (public/team). Swap `photo` for real headshots
 ----------------------------------------------------------------- */
 export const team = [
   {
     name: 'Gospel John',
     role: 'Founder & CEO',
-    bio: 'Sets product vision and partners directly with clients to align technology with measurable business growth.',
+    bio: 'Sets product direction and works directly with clients to connect technology to business goals.',
     initials: 'GJ',
-    photo: 'https://api.dicebear.com/9.x/notionists/svg?seed=Gospel%20John&backgroundColor=b6e3f4,c0aede,d1d4f9&radius=20',
+    photo: '/team/gospel-john.svg',
   },
   {
-    name: 'Madhav Patadiya',
-    role: 'Head of Design',
-    bio: 'Leads the design studio end-to-end — research, UX, and pixel-perfect, conversion-focused interfaces.',
-    initials: 'MP',
-    photo: 'https://api.dicebear.com/9.x/notionists/svg?seed=Madhav%20Patadiya&backgroundColor=ffd5dc,ffdfbf,d1d4f9&radius=20',
+    name: 'Pamenas Danlami',
+    role: 'Co-Founder',
+    bio: 'Shapes company strategy and growth, and turns client ideas into practical technology plans.',
+    initials: 'PD',
+    photo: '/team/pamenas-danlami.svg',
   },
   {
     name: 'Chinedu Okafor',
     role: 'Lead Software Engineer',
-    bio: 'Ships scalable web, mobile, and cloud systems with a relentless focus on quality, security, and performance.',
+    bio: 'Builds scalable web, mobile and cloud systems with a focus on quality, security and performance.',
     initials: 'CO',
-    photo: 'https://api.dicebear.com/9.x/notionists/svg?seed=Chinedu%20Okafor&backgroundColor=c0aede,b6e3f4,ffd5dc&radius=20',
+    photo: '/team/chinedu-okafor.svg',
   },
   {
     name: 'Ananya Sharma',
     role: 'AI & Automation Lead',
-    bio: 'Designs intelligent workflows and AI systems that remove manual work and accelerate operations.',
+    bio: 'Designs the AI workflows and automations that take manual work off client teams.',
     initials: 'AS',
-    photo: 'https://api.dicebear.com/9.x/notionists/svg?seed=Ananya%20Sharma&backgroundColor=d1d4f9,ffdfbf,b6e3f4&radius=20',
+    photo: '/team/ananya-sharma.svg',
   },
 ];
 
 export default {
+  services,
   techStack,
   processSteps,
   whyChooseUs,
   testimonials,
   results,
-  pricingTiers,
   guarantees,
   industries,
   faqs,

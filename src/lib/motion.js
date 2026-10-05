@@ -1,5 +1,5 @@
 /**
- * Shared framer-motion variants — tasteful, premium reveals.
+ * Shared framer-motion variants, tasteful, premium reveals.
  * Centralized so every section animates with the same rhythm and easing.
  * Respects reduced-motion automatically via framer-motion's reducedMotion config
  * where used, and the CSS guard in index.css.
@@ -34,7 +34,7 @@ export const stagger = {
 /**
  * Standard in-view trigger used across sections.
  * Uses amount: 'some' (fires once any part enters view) instead of a fixed
- * fraction — on mobile, grids collapse to a single tall column that can exceed
+ * fraction, on mobile, grids collapse to a single tall column that can exceed
  * the viewport height, so a 0.2 threshold may never be met and the container
  * would stay stuck at opacity 0. The negative margin keeps the reveal tasteful.
  */

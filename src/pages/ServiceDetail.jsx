@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-import ProjectFormModal from '../components/ProjectFormModal'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import AnimatedCounter from '../components/ui/AnimatedCounter'
-import { company } from '../constants/company'
+import React, { useState } from "react";
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 import {
     ArrowLeft,
-    ArrowRight,
+    ArrowUpRight,
     CheckCircle,
-    Star,
-    Rocket,
+    Plus,
     Zap,
     Target,
     TrendingUp,
@@ -19,16 +14,23 @@ import {
     Users,
     Clock,
     Award,
-    ChevronDown,
 } from "lucide-react";
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
+import Seo from "../components/Seo";
+import ProjectFormModal from '../components/ProjectFormModal'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import CtaBand from '../components/sections/CtaBand'
+import { Container } from '../components/ui/Section'
+import { servicePricing } from '../constants/pricing'
+import { useCurrency } from '../context/CurrencyProvider'
+import { photos, img } from '../constants/images'
+import { organizationSchema, serviceSchema, faqSchema, breadcrumbSchema } from '../lib/schema'
 
 const serviceData = {
     "ai-automation-workflow-systems": {
         slug: "ai-automation-workflow-systems",
         title: "AI Automation And Workflow Systems",
-        keyword: "ai automation agency, business workflow automation, ai agents for business, llm automation services usa",
+        keyword: "ai automation agency, business workflow automation, ai agents for business, llm automation services",
         icon: "🤖",
         popular: true,
         heroTitle: "Automate Business Tasks And Scale Faster",
@@ -38,8 +40,8 @@ const serviceData = {
 
         stats: [
             { value: "80%", label: "Time Saved" },
-            { value: "99.9%", label: "Error Accuracy" },
-            { value: "$3M+", label: "Client Cost Savings" },
+            { value: "99.9%", label: "Task Accuracy" },
+            { value: "2–4 wks", label: "Typical Rollout" },
             { value: "24/7", label: "Operations Running" },
         ],
 
@@ -154,7 +156,7 @@ const serviceData = {
         faq: [
             {
                 q: "Can this work for my business?",
-                a: "Yes. We tailor automation to your stack and workflows — supporting CRMs, ERPs, payment processors, messaging platforms, and custom systems across SMBs and enterprise operations.",
+                a: "Yes. We tailor automation to your stack and workflows, supporting CRMs, ERPs, payment processors, messaging platforms, and custom systems across SMBs and enterprise operations.",
             },
             {
                 q: "Can AI replace manual tasks?",
@@ -184,11 +186,11 @@ const serviceData = {
     "mobile-app-development": {
         slug: "mobile-app-development",
         title: "Mobile App Development",
-        keyword: "mobile app development company, ios app developers usa, android app development agency, react native development",
+        keyword: "mobile app development company, ios app developers, android app development agency, react native development",
         icon: "📱",
         heroTitle: "Build Custom Mobile Apps That Scale",
         heroDesc:
-            "We build powerful, secure, and scalable mobile apps for iOS and Android using Flutter, React Native, Swift, and Kotlin. Our apps are engineered for performance, user retention, and world-class UI/UX — helping businesses grow their customer base and generate more revenue.",
+            "We build powerful, secure, and scalable mobile apps for iOS and Android using Flutter, React Native, Swift, and Kotlin. Our apps are engineered for performance, user retention, and world-class UI/UX, helping businesses grow their customer base and generate more revenue.",
         heroImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop&q=80",
         stats: [
             { value: "500K+", label: "App Downloads" },
@@ -200,7 +202,7 @@ const serviceData = {
         features: [
             {
                 title: "Cross Platform",
-                desc: "Write once, deploy everywhere — fast and cost-effective cross-platform development for iOS and Android.",
+                desc: "Write once, deploy everywhere. Fast and cost-effective cross-platform development for iOS and Android.",
                 icon: <Zap className="w-6 h-6" />,
             },
             {
@@ -320,7 +322,7 @@ const serviceData = {
     "web-app-website-development": {
         slug: "web-app-website-development",
         title: "Web App And Website Development",
-        keyword: "web app development company, custom web application development, saas development agency usa, react next.js development",
+        keyword: "web app development company, custom web application development, saas development agency, react next.js development",
         icon: "🌍",
         heroTitle: "High Performance Web Apps And Websites",
         heroDesc:
@@ -419,7 +421,7 @@ const serviceData = {
 
         testimonial: {
             quote:
-                "Our conversions doubled, bounce rate dropped drastically, and page load time improved immediately. The site architecture was clean, fast, and SEO ready — exactly what we needed to scale.",
+                "Our conversions doubled, bounce rate dropped drastically, and page load time improved immediately. The site architecture was clean, fast, and SEO ready. Exactly what we needed to scale.",
             author: "Michael R.",
             role: "Founder · DTC E-commerce Brand",
             rating: 5,
@@ -458,7 +460,7 @@ const serviceData = {
     "cloud-infrastructure-devops": {
         slug: "cloud-infrastructure-devops",
         title: "Cloud Infrastructure And DevOps",
-        keyword: "cloud infrastructure services, devops consulting usa, aws cloud migration, kubernetes managed services",
+        keyword: "cloud infrastructure services, devops consulting, aws cloud migration, kubernetes managed services",
         icon: "☁️",
         heroTitle: "Cloud Infrastructure Built For Scale",
         heroDesc:
@@ -533,7 +535,7 @@ const serviceData = {
             },
             {
                 title: "Cost Efficient",
-                desc: "Only pay for resources needed — no wasted infrastructure spending.",
+                desc: "Only pay for resources needed, with no wasted infrastructure spending.",
             },
         ],
 
@@ -1354,112 +1356,48 @@ const relatedServicesMap = {
 
 
 
-function AccordionItem({ question, answer, isOpen, onClick }) {
-    return (
-        <motion.div
-            initial={false}
-            className={`overflow-hidden rounded-2xl border bg-surface transition-colors ${
-                isOpen ? 'border-brand-500/40' : 'border-border'
-            }`}
-        >
-            <button
-                onClick={onClick}
-                aria-expanded={isOpen}
-                className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-surface-2"
-            >
-                <h3 className="pr-4 text-lg font-semibold text-foreground">{question}</h3>
-
-                <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                    <ChevronDown className="h-6 w-6 flex-shrink-0 text-brand-500" />
-                </motion.div>
-            </button>
-
-            <motion.div
-                initial={false}
-                animate={{
-                    height: isOpen ? "auto" : 0,
-                    opacity: isOpen ? 1 : 0,
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden"
-            >
-                <div className="px-6 pb-6 leading-relaxed text-muted">
-                    {answer}
-                </div>
-            </motion.div>
-        </motion.div>
-    );
-}
-
-
-const buildServiceSchema = (service) => ({
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": service.title,
-    "description": service.heroDesc,
-    "provider": {
-        "@type": "Organization",
-        "name": company.legalName,
-        "url": company.url,
-        "telephone": company.phone,
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": company.address.line1,
-            "addressLocality": company.address.city,
-            "addressRegion": company.address.state,
-            "postalCode": company.address.zip,
-            "addressCountry": company.address.country,
-        },
-    },
-    "areaServed": {
-        "@type": "Country",
-        "name": "United States"
-    },
-    "serviceType": service.title,
-    "url": `https://trovina.io/services/${service.slug}`,
-});
-
-const buildFAQSchema = (faq = []) => ({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faq.map(item => ({
-        "@type": "Question",
-        "name": item.q,
-        "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item.a
-        }
-    }))
-});
-
-const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": ["Organization", "ProfessionalService"],
-    "name": company.legalName,
-    "alternateName": company.brand,
-    "url": company.url,
-    "logo": `${company.url}/logo.png`,
-    "email": company.email,
-    "telephone": company.phone,
-    "address": {
-        "@type": "PostalAddress",
-        "streetAddress": company.address.line1,
-        "addressLocality": company.address.city,
-        "addressRegion": company.address.state,
-        "postalCode": company.address.zip,
-        "addressCountry": company.address.country,
-    },
-    "areaServed": { "@type": "Country", "name": "United States" },
-    "sameAs": [
-        company.socials.linkedin,
-        company.socials.facebook,
-        company.socials.youtube,
-    ]
+/** Hero imagery per service, people photos for collaborative work. */
+const HERO_PHOTOS = {
+    "web-app-website-development": photos.pairLaptops,
+    "ai-automation-workflow-systems": photos.pairWorking,
+    "branding-visual-identity": photos.designer,
+    "seo-growth-optimization": photos.soloLaptop,
+    "mobile-app-development": photos.pairDesk,
+    "cloud-infrastructure-devops": photos.groupLaptop,
 };
 
+function AccordionItem({ id, question, answer, isOpen, onClick }) {
+    return (
+        <div className="border-b border-border">
+            <h3>
+                <button
+                    type="button"
+                    id={`${id}-q`}
+                    onClick={onClick}
+                    aria-expanded={isOpen}
+                    aria-controls={`${id}-a`}
+                    className="flex w-full items-start justify-between gap-6 py-6 text-left"
+                >
+                    <span className="text-lg font-medium text-foreground">{question}</span>
+                    <motion.span animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.2 }} className="mt-1 shrink-0 text-muted" aria-hidden="true">
+                        <Plus className="h-5 w-5" />
+                    </motion.span>
+                </button>
+            </h3>
+            <motion.div
+                id={`${id}-a`}
+                role="region"
+                aria-labelledby={`${id}-q`}
+                initial={false}
+                animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+            >
+                <p className="max-w-prose pb-6 leading-relaxed text-muted">{answer}</p>
+            </motion.div>
+        </div>
+    );
+}
 
 export default function ServiceDetail() {
     const { slug } = useParams();
@@ -1468,503 +1406,271 @@ export default function ServiceDetail() {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from;
+    const { format } = useCurrency();
 
-    const [showForm, setShowForm] = useState(false)
-
-
-    const [openFaqIndex, setOpenFaqIndex] = useState(null);
-    const [hoveredProcess, setHoveredProcess] = useState(null);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    const [showForm, setShowForm] = useState(false);
+    const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
     if (!service)
         return (
-            <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center text-foreground">
-                <p className="text-7xl font-bold text-gradient">404</p>
-                <h1 className="text-2xl font-bold">Service not found</h1>
-                <button onClick={() => navigate('/services')} className="btn-primary mt-2">
-                    View all services
-                </button>
-            </div>
+            <main className="flex min-h-screen flex-col items-start justify-center gap-6 bg-background px-6 text-foreground md:px-16">
+                <Seo title="Service not found | Trovina" description="This service page does not exist." path={location.pathname} noindex />
+                <p className="text-sm text-muted">404</p>
+                <h1 className="display-lg">We couldn’t find that service.</h1>
+                <Link to="/services" className="btn-primary">See all services</Link>
+            </main>
         );
 
-
-    const fadeUp = {
-        hidden: { opacity: 0, y: 30 },
-        show: { opacity: 1, y: 0 },
-    };
+    const price = servicePricing[slug];
+    const heroPhoto = HERO_PHOTOS[slug];
+    const heroSrc = heroPhoto ? img(heroPhoto.id, 1400, 1050) : service.heroImage.replace('w=800&h=600', 'w=1400&h=1050');
+    const heroAlt = heroPhoto ? heroPhoto.alt : service.title;
+    const metaDescription = service.heroDesc.length > 158 ? `${service.heroDesc.slice(0, 155).replace(/\s+\S*$/, '')}…` : service.heroDesc;
 
     return (
         <>
-            <Helmet>
-                <title>{service.title} | Trovina.io</title>
-                <meta name="description" content={service.heroDesc} />
-                <meta name="keywords" content={service.keyword} />
-
-                {/* Organization Schema */}
-                <script type="application/ld+json">
-                    {JSON.stringify(organizationSchema)}
-                </script>
-
-                {/* Service Schema */}
-                <script type="application/ld+json">
-                    {JSON.stringify(buildServiceSchema(service))}
-                </script>
-
-                {/* FAQ Schema */}
-                {service.faq?.length > 0 && (
-                    <script type="application/ld+json">
-                        {JSON.stringify(buildFAQSchema(service.faq))}
-                    </script>
-                )}
-            </Helmet>
+            <Seo
+                title={`${service.title} | Trovina`}
+                description={metaDescription}
+                path={`/services/${service.slug}`}
+                image="/og-services.jpg"
+                jsonLd={[
+                    organizationSchema,
+                    serviceSchema({ name: service.title, description: service.heroDesc, slug: service.slug, price }),
+                    service.faq?.length ? faqSchema(service.faq) : null,
+                    breadcrumbSchema([
+                        { name: 'Home', path: '/' },
+                        { name: 'Services', path: '/services' },
+                        { name: service.title, path: `/services/${service.slug}` },
+                    ]),
+                ]}
+            />
 
             <div className="min-h-screen bg-background font-sans text-foreground">
                 <Navbar onOpenForm={() => setShowForm(true)} />
 
-                {/* BACK BUTTON */}
-                <div className="mx-auto max-w-7xl px-6 pt-24 pb-2 lg:px-8">
-                    <button
-                        onClick={() => {
-                            if (from === "home") navigate("/");
-                            else navigate("/services");
-                        }}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
-                    >
-                        <ArrowLeft className="h-4 w-4" /> {from === "home" ? "Back to Home" : "Back to Services"}
-                    </button>
-                </div>
-
-                {/* HERO */}
-                <motion.section
-                    initial="hidden"
-                    animate="show"
-                    variants={{ show: { transition: { staggerChildren: 0.15 } } }}
-                    className="relative overflow-hidden px-6 pt-8 pb-12 lg:px-8"
-                >
-                    <div className="pointer-events-none absolute inset-0 -z-10">
-                        <div className="absolute inset-0 bg-grid opacity-50 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
-                        <div className="absolute -top-16 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-brand-500/15 blur-3xl" />
-                    </div>
-                    <div className="mx-auto max-w-4xl text-center">
-                        {service.popular && (
-                            <motion.span
-                                variants={fadeUp}
-                                className="mb-5 inline-block rounded-full bg-brand-gradient px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
-                            >
-                                Most Popular Service
-                            </motion.span>
-                        )}
-
-                        <motion.h1
-                            variants={fadeUp}
-                            className="text-balance text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl"
-                        >
-                            {service.heroTitle}
-                        </motion.h1>
-                    </div>
-                </motion.section>
-
-                {/* IMAGE + TEXT */}
-                <section className="px-6 py-12 lg:px-8">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true }}
-                        variants={{ show: { transition: { staggerChildren: 0.2 } } }}
-                        className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2"
-                    >
-                        <motion.div
-                            variants={fadeUp}
-                            className="relative overflow-hidden rounded-3xl border border-border shadow-card"
-                        >
-                            <img
-                                src={service.heroImage}
-                                alt={service.title}
-                                loading="lazy"
-                                className="h-[400px] w-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
-                        </motion.div>
-
-                        <motion.div variants={fadeUp}>
-                            <p className="mb-8 text-lg leading-relaxed text-muted md:text-xl">
-                                {service.heroDesc}
-                            </p>
-
-                            <motion.button
-                                whileHover={{ scale: 1.04 }}
-                                whileTap={{ scale: 0.96 }}
-                                onClick={() => setShowForm(true)}
-                                className="btn-primary btn-lg"
-                            >
-                                Start Your Project <ArrowRight className="h-5 w-5" />
-                            </motion.button>
-                        </motion.div>
-                    </motion.div>
-                </section>
-
-                {/* STATS */}
-                <section className="border-t border-border bg-surface px-6 py-16 lg:px-8">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true }}
-                        variants={{ show: { transition: { staggerChildren: 0.15 } } }}
-                        className="mx-auto grid max-w-6xl grid-cols-2 gap-6 md:grid-cols-4"
-                    >
-                        {service.stats.map((stat, i) => (
-                            <motion.div
-                                variants={fadeUp}
-                                key={i}
-                                className="card card-hover p-6 text-center"
-                            >
-                                <div className="bg-brand-gradient bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
-                                    <AnimatedCounter value={stat.value} />
-                                </div>
-                                <div className="mt-1 text-sm text-muted">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </section>
-
-                {/* WHAT YOU GET */}
-                <section className="px-6 py-16 md:py-24 lg:px-8">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
-                    >
-                        What You Get
-                    </motion.h2>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        variants={{ show: { transition: { staggerChildren: 0.1 } } }}
-                        viewport={{ once: true }}
-                        className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
-                    >
-                        {service.features.map((feature, i) => (
-                            <motion.div
-                                variants={fadeUp}
-                                key={i}
-                                className="card card-hover p-6"
-                            >
-                                <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400">
-                                    {feature.icon}
-                                </span>
-                                <h3 className="mb-2 text-lg font-semibold text-foreground">{feature.title}</h3>
-                                <p className="text-sm leading-relaxed text-muted">{feature.desc}</p>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </section>
-
-                {/* SOLVING REAL CHALLENGES */}
-                <section className="border-y border-border bg-surface px-6 py-16 md:py-24 lg:px-8">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
-                    >
-                        Solving Real Challenges
-                    </motion.h2>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        variants={{ show: { transition: { staggerChildren: 0.1 } } }}
-                        className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4"
-                        viewport={{ once: true }}
-                    >
-                        {service.painPoints.map((point, i) => (
-                            <motion.div
-                                variants={fadeUp}
-                                key={i}
-                                className="card card-hover p-6 text-center"
-                            >
-                                <p className="font-medium text-foreground">{point}</p>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </section>
-
-                {/* WHY CHOOSE */}
-                <section className="px-6 py-16 md:py-24 lg:px-8">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
-                    >
-                        Why Choose This Service
-                    </motion.h2>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        variants={{ show: { transition: { staggerChildren: 0.15 } } }}
-                        viewport={{ once: true }}
-                        className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3"
-                    >
-                        {service.benefits.map((b, i) => (
-                            <motion.div
-                                variants={fadeUp}
-                                key={i}
-                                className="card card-hover p-8"
-                            >
-                                <h3 className="mb-3 text-xl font-bold text-foreground">{b.title}</h3>
-                                <p className="leading-relaxed text-muted">{b.desc}</p>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </section>
-
-                {/* PROCESS */}
-                <section className="border-y border-border bg-surface px-6 py-16 md:py-24 lg:px-8">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-16 text-center text-3xl font-bold tracking-tight md:text-4xl"
-                    >
-                        Our Process
-                    </motion.h2>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        variants={{ show: { transition: { staggerChildren: 0.1 } } }}
-                        viewport={{ once: true }}
-                        className="mx-auto max-w-6xl"
-                    >
-                        <div className="relative grid grid-cols-1 gap-8 md:grid-cols-4">
-
-                            <div className="absolute left-0 right-0 hidden h-0.5 bg-border md:block" style={{ top: '32px' }} />
-
-                            {service.process.map((p, i) => (
-                                <motion.div
-                                    variants={fadeUp}
-                                    key={i}
-                                    onMouseEnter={() => setHoveredProcess(i)}
-                                    onMouseLeave={() => setHoveredProcess(null)}
-                                    className="relative"
+                <main id="main">
+                    {/* HERO */}
+                    <section className="pb-16 pt-24 md:pb-24 md:pt-32">
+                        <Container>
+                            <nav aria-label="Breadcrumb" className="mb-10">
+                                <button
+                                    type="button"
+                                    onClick={() => navigate(from === "home" ? "/" : "/services")}
+                                    className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
                                 >
-                                    <div className="relative z-10">
-                                        <div className="mb-4 flex flex-col items-center">
+                                    <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                                    {from === "home" ? "Home" : "All services"}
+                                </button>
+                            </nav>
 
-                                            <motion.div
-                                                animate={{
-                                                    scale: hoveredProcess === i ? 1.15 : 1,
-                                                }}
-                                                transition={{ duration: 0.3, ease: "easeInOut" }}
-                                                className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-gradient text-2xl font-bold text-white shadow-lift"
-                                            >
-                                                {p.step}
-                                            </motion.div>
-
-                                            <h3 className="text-center text-xl font-semibold text-foreground">{p.title}</h3>
-                                        </div>
-
-                                        <motion.div
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{
-                                                opacity: hoveredProcess === i ? 1 : 0,
-                                                height: hoveredProcess === i ? "auto" : 0,
-                                            }}
-                                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                                            className="overflow-hidden"
-                                        >
-                                            <div className="mt-4 rounded-xl border border-border bg-background p-4">
-                                                <p className="text-center text-sm leading-relaxed text-muted">{p.desc}</p>
-                                            </div>
-                                        </motion.div>
+                            <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+                                <div className="lg:col-span-6">
+                                    <p className="text-sm text-muted">{service.title}</p>
+                                    <h1 className="display-lg mt-3 text-balance">{service.heroTitle}</h1>
+                                    <p className="mt-6 text-lg leading-relaxed text-muted">{service.heroDesc}</p>
+                                    <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                                        <button type="button" onClick={() => setShowForm(true)} className="btn-primary btn-lg">
+                                            Start your project
+                                        </button>
+                                        {price && (
+                                            <p className="text-sm text-muted">
+                                                From <span className="text-base font-medium tabular-nums text-foreground">{format(price)}</span>
+                                                {price.unit !== 'project' && <> per {price.unit}</>}
+                                            </p>
+                                        )}
                                     </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.div>
-                </section>
+                                </div>
+                                <div className="overflow-hidden rounded-3xl bg-surface-2 lg:col-span-6">
+                                    <img
+                                        src={heroSrc}
+                                        alt={heroAlt}
+                                        width="1400"
+                                        height="1050"
+                                        fetchpriority="high"
+                                        decoding="async"
+                                        className="aspect-[4/3] w-full object-cover"
+                                    />
+                                </div>
+                            </div>
+                        </Container>
+                    </section>
 
-                {/* TESTIMONIAL */}
-                <motion.section
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="px-6 py-16 md:py-24 lg:px-8"
-                >
-                    <div className="mx-auto max-w-4xl rounded-3xl border border-border bg-surface p-10 text-center shadow-card md:p-12">
-                        <div className="mb-4 flex justify-center gap-1">
-                            {[...Array(service.testimonial.rating)].map((_, i) => (
-                                <Star key={i} className="h-5 w-5 fill-warning text-warning" />
-                            ))}
-                        </div>
-                        <p className="mb-6 text-xl leading-relaxed text-foreground">
-                            “{service.testimonial.quote}”
-                        </p>
-                        <div className="font-medium text-muted">
-                            {service.testimonial.author} • {service.testimonial.role}
-                        </div>
-                    </div>
-                </motion.section>
-
-                {/* TECH */}
-                <section className="border-y border-border bg-surface px-6 py-16 md:py-24 lg:px-8">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
-                    >
-                        Tech We Use
-                    </motion.h2>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-                        viewport={{ once: true }}
-                        className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3"
-                    >
-                        {service.tech.map((t, i) => (
-                            <motion.span
-                                whileHover={{ scale: 1.06 }}
-                                variants={fadeUp}
-                                key={i}
-                                className="rounded-xl border border-border bg-background px-5 py-2.5 font-medium text-muted transition-all hover:border-brand-500/40 hover:text-foreground"
-                            >
-                                {t}
-                            </motion.span>
-                        ))}
-                    </motion.div>
-                </section>
-
-                {/* FAQ */}
-                <section className="px-6 py-16 md:py-24 lg:px-8">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
-                    >
-                        Frequently Asked Questions
-                    </motion.h2>
-
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        variants={{
-                            show: { transition: { staggerChildren: 0.1 } },
-                        }}
-                        viewport={{ once: true }}
-                        className="max-w-4xl mx-auto space-y-4"
-                    >
-                        {service.faq.map((faq, i) => (
-                            <motion.div key={i} variants={fadeUp}>
-                                <AccordionItem
-                                    question={faq.q}
-                                    answer={faq.a}
-                                    isOpen={openFaqIndex === i}
-                                    onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
-                                />
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </section>
-
-                {/* RELATED SERVICES */}
-                <section className="border-t border-border bg-surface px-6 py-20 lg:px-8">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-12 text-center text-3xl font-bold tracking-tight md:text-4xl"
-                    >
-                        Related Services
-                    </motion.h2>
-
-                    <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
-                        {relatedServicesMap[slug]?.map((relatedSlug) => {
-                            const related = serviceData[relatedSlug];
-
-                            if (!related) return null;
-
-                            return (
-                                <motion.div
-                                    key={related.slug}
-                                    whileHover={{ y: -6 }}
-                                    className="card card-hover p-8"
-                                >
-                                    <h3 className="mb-3 text-xl font-bold text-foreground">
-                                        {related.title}
-                                    </h3>
-
-                                    <p className="mb-6 text-sm leading-relaxed text-muted">
-                                        {related.heroDesc.slice(0, 120)}...
-                                    </p>
-
-                                    <button
-                                        onClick={() => navigate(`/services/${related.slug}`)}
-                                        className="inline-flex items-center gap-1 font-semibold text-brand-600 transition-all hover:gap-2 dark:text-brand-400"
+                    {/* STATS */}
+                    <div className="border-y border-border">
+                        <Container>
+                            <dl className="grid grid-cols-2 md:grid-cols-4">
+                                {service.stats.map((stat, i) => (
+                                    <div
+                                        key={stat.label}
+                                        className={[
+                                            'flex flex-col py-8',
+                                            i % 2 === 1 ? 'border-l border-border pl-6' : '',
+                                            i > 0 ? 'md:border-l md:border-border md:pl-8' : '',
+                                            i > 1 ? 'border-t border-border md:border-t-0' : '',
+                                        ].join(' ')}
                                     >
-                                        Learn More <ArrowRight className="h-4 w-4" />
-                                    </button>
-                                </motion.div>
-                            );
-                        })}
+                                        <dt className="order-2 mt-1 text-sm text-muted">{stat.label}</dt>
+                                        <dd className="order-1 text-3xl font-semibold tracking-tight tabular-nums">{stat.value}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </Container>
                     </div>
-                </section>
 
+                    {/* WHAT YOU GET */}
+                    <section className="py-20 md:py-28">
+                        <Container>
+                            <h2 className="heading-lg max-w-2xl">What you get</h2>
+                            <dl className="mt-12 grid gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
+                                {service.features.map((feature) => (
+                                    <div key={feature.title} className="border-t border-border py-7">
+                                        <dt className="flex items-center gap-3 text-lg font-medium text-foreground">
+                                            <span className="text-brand-600 dark:text-brand-400 [&>svg]:h-5 [&>svg]:w-5" aria-hidden="true">
+                                                {feature.icon}
+                                            </span>
+                                            {feature.title}
+                                        </dt>
+                                        <dd className="mt-2 leading-relaxed text-muted">{feature.desc}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </Container>
+                    </section>
 
+                    {/* PROBLEMS + BENEFITS */}
+                    <section className="bg-surface py-20 md:py-28">
+                        <Container>
+                            <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+                                <div className="lg:col-span-5">
+                                    <h2 className="heading-lg">Sound familiar?</h2>
+                                    <ul className="mt-8 space-y-4">
+                                        {service.painPoints.map((point) => (
+                                            <li key={point} className="border-l-2 border-brand-500 pl-4 text-lg leading-snug text-foreground">
+                                                {point}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="lg:col-span-6 lg:col-start-7">
+                                    <h2 className="heading-lg">What changes</h2>
+                                    <dl className="mt-8">
+                                        {service.benefits.map((b) => (
+                                            <div key={b.title} className="border-t border-border py-6">
+                                                <dt className="flex items-center gap-3 text-lg font-medium text-foreground">
+                                                    <CheckCircle className="h-5 w-5 text-success" aria-hidden="true" />
+                                                    {b.title}
+                                                </dt>
+                                                <dd className="mt-2 leading-relaxed text-muted">{b.desc}</dd>
+                                            </div>
+                                        ))}
+                                    </dl>
+                                </div>
+                            </div>
+                        </Container>
+                    </section>
 
-                <ProjectFormModal
-                    open={showForm}
-                    onClose={() => setShowForm(false)}
-                />
+                    {/* PROCESS */}
+                    <section className="py-20 md:py-28">
+                        <Container>
+                            <h2 className="heading-lg">How it works</h2>
+                            <ol className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+                                {service.process.map((p, i) => (
+                                    <li key={p.title} className="border-t border-border pt-6">
+                                        <span className="text-sm font-medium tabular-nums text-brand-600 dark:text-brand-400">
+                                            {String(i + 1).padStart(2, '0')}
+                                        </span>
+                                        <h3 className="mt-3 text-xl font-medium text-foreground">{p.title}</h3>
+                                        <p className="mt-2 leading-relaxed text-muted">{p.desc}</p>
+                                    </li>
+                                ))}
+                            </ol>
+                        </Container>
+                    </section>
 
-                {/* LAST CTA */}
+                    {/* TESTIMONIAL + TECH */}
+                    <section className="border-t border-border py-20 md:py-28">
+                        <Container>
+                            <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+                                <figure className="lg:col-span-7">
+                                    <blockquote className="text-balance text-2xl font-medium leading-snug tracking-tight text-foreground md:text-[1.75rem]">
+                                        “{service.testimonial.quote}”
+                                    </blockquote>
+                                    <figcaption className="mt-6 text-muted">
+                                        <span className="font-medium text-foreground">{service.testimonial.author}</span>,{' '}
+                                        {service.testimonial.role.replace(' · ', ', ')}
+                                    </figcaption>
+                                </figure>
+                                <div className="lg:col-span-4 lg:col-start-9">
+                                    <h2 className="text-sm font-medium text-foreground">Tools we use</h2>
+                                    <ul className="mt-4 flex flex-wrap gap-2">
+                                        {service.tech.map((t) => (
+                                            <li key={t} className="rounded-full border border-border px-3 py-1 text-sm text-muted">
+                                                {t}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </Container>
+                    </section>
 
-                <section className="px-6 py-20 md:py-24 lg:px-8">
-                    <motion.div
-                        initial={{ opacity: 0, y: 32 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl bg-brand-gradient px-8 py-16 text-center shadow-lift md:px-12"
-                    >
-                        <div className="pointer-events-none absolute inset-0 bg-grid opacity-20" />
-                        <div className="relative">
-                            <h2 className="text-balance text-3xl font-bold text-white md:text-5xl">
-                                Ready to Build or Automate Your Business?
-                            </h2>
+                    {/* FAQ */}
+                    <section className="bg-surface py-20 md:py-28">
+                        <Container>
+                            <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+                                <h2 className="heading-lg lg:col-span-4">Common questions</h2>
+                                <div className="border-t border-border lg:col-span-8">
+                                    {service.faq.map((faq, i) => (
+                                        <AccordionItem
+                                            key={faq.q}
+                                            id={`svc-faq-${i}`}
+                                            question={faq.q}
+                                            answer={faq.a}
+                                            isOpen={openFaqIndex === i}
+                                            onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </Container>
+                    </section>
 
-                            <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">
-                                Get a free strategy session and see how our experts can help you increase
-                                efficiency, scale faster, and grow revenue using modern technology.
-                            </p>
+                    {/* RELATED */}
+                    <section className="py-20 md:py-28">
+                        <Container>
+                            <h2 className="heading-lg">Related services</h2>
+                            <ul className="mt-10 border-t border-border">
+                                {relatedServicesMap[slug]?.map((relatedSlug) => {
+                                    const related = serviceData[relatedSlug];
+                                    if (!related) return null;
+                                    return (
+                                        <li key={related.slug} className="border-b border-border">
+                                            <Link
+                                                to={`/services/${related.slug}`}
+                                                className="group flex items-center justify-between gap-6 py-6"
+                                            >
+                                                <span className="text-xl font-medium tracking-tight text-foreground transition-colors group-hover:text-brand-600 md:text-2xl dark:group-hover:text-brand-400">
+                                                    {related.title}
+                                                </span>
+                                                <ArrowUpRight className="h-6 w-6 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Container>
+                    </section>
 
-                            <motion.button
-                                whileHover={{ scale: 1.04 }}
-                                whileTap={{ scale: 0.96 }}
-                                onClick={() => setShowForm(true)}
-                                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-10 py-4 text-base font-bold text-brand-700 shadow-xl transition-all hover:bg-white/90"
-                            >
-                                Book a Free Strategy Session <ArrowRight className="h-5 w-5" />
-                            </motion.button>
+                    <CtaBand
+                        title="Ready to get started?"
+                        description="Book a free call. We will talk through your goals and send a fixed quote within a few days."
+                        primaryLabel="Book a free call"
+                        onPrimary={() => setShowForm(true)}
+                    />
+                </main>
 
-                            <p className="mt-6 text-sm text-white/80">
-                                No obligation • Response within 2 hours • Trusted by 50+ businesses
-                            </p>
-                        </div>
-                    </motion.div>
-                </section>
-
-
-                {/* Footer */}
+                <ProjectFormModal open={showForm} onClose={() => setShowForm(false)} />
                 <Footer />
             </div>
         </>

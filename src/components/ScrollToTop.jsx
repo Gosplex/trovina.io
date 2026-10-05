@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 /**
  * Resets scroll on route change. If the location carries a hash (e.g. /#pricing),
- * smooth-scrolls to that section instead — enabling anchor links from the navbar.
+ * smooth-scrolls to that section instead, enabling anchor links from the navbar.
  */
 export default function ScrollToTop() {
     const { pathname, hash } = useLocation();

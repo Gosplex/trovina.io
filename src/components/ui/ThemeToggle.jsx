@@ -16,7 +16,7 @@ export default function ThemeToggle({ className = '' }) {
       whileTap={{ scale: 0.9 }}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className={`relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-foreground transition-colors hover:bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}
+      className={`relative inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}
     >
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
@@ -27,7 +27,7 @@ export default function ThemeToggle({ className = '' }) {
             exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
             transition={{ duration: 0.2 }}
           >
-            <Moon className="h-5 w-5" />
+            <Moon className="h-[18px] w-[18px]" />
           </motion.span>
         ) : (
           <motion.span
@@ -37,7 +37,7 @@ export default function ThemeToggle({ className = '' }) {
             exit={{ rotate: -90, opacity: 0, scale: 0.6 }}
             transition={{ duration: 0.2 }}
           >
-            <Sun className="h-5 w-5" />
+            <Sun className="h-[18px] w-[18px]" />
           </motion.span>
         )}
       </AnimatePresence>

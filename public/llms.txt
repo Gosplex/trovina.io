@@ -1,0 +1,37 @@
+# Trovina
+
+> Trovina (trovina.io) is a software and digital product studio that designs and builds websites, web apps, mobile apps and AI automation for startups and growing businesses. Projects are fixed-price, run in weekly sprints with live demos, and include support after launch. The studio is based in Port Harcourt, Nigeria, and works with clients remotely worldwide.
+
+Key facts:
+- Services: website and web app development, mobile apps (iOS/Android), AI and WhatsApp automation, cloud and DevOps, SEO, branding, graphic design, video editing.
+- Starting prices: websites from ₦450,000 (US$750); web apps and online stores from ₦1,800,000 (US$2,800); web + mobile products from ₦4,500,000 (US$7,500); monthly care plans from ₦150,000 (US$250).
+- Typical timelines: websites 2–3 weeks; web apps 6–10 weeks; full products 10–16 weeks.
+- Industries: real estate, schools and institutions, e-commerce and supermarkets, healthcare, logistics and transport, fintech and cooperatives, oil, gas and energy, hospitality.
+- Recent work: a multi-tenant hospital ERP (SaaS), a white-label HR management system, and a fleet tracking system with web admin and driver mobile app.
+- Clients own all code, designs and accounts at hand-over.
+- Company: Trovina Technologies Limited.
+- Contact: hello@trovina.io, +234 903 724 8511 (phone and WhatsApp), Mon–Fri 9:00–18:00 WAT.
+
+## Main pages
+
+- [Home](https://trovina.io/): Overview, recent work, process, pricing and FAQ
+- [Services](https://trovina.io/services): All services with starting prices
+- [About](https://trovina.io/about): Team, story and working principles
+- [Contact](https://trovina.io/contact): Project enquiry form, phone, WhatsApp, email and studio address
+
+## Services
+
+- [Websites & web apps](https://trovina.io/services/web-app-website-development): React and Next.js websites, online stores, portals and SaaS
+- [Mobile apps](https://trovina.io/services/mobile-app-development): Flutter, React Native, Swift and Kotlin apps
+- [AI automation](https://trovina.io/services/ai-automation-workflow-systems): WhatsApp assistants, lead follow-up and workflow automation
+- [Cloud & DevOps](https://trovina.io/services/cloud-infrastructure-devops): AWS, Google Cloud and Azure hosting, CI/CD, monitoring
+- [SEO & growth](https://trovina.io/services/seo-growth-optimization): Technical SEO, content and conversion optimisation
+- [Branding & identity](https://trovina.io/services/branding-visual-identity): Logos, visual identity and brand guidelines
+- [Graphics & creative](https://trovina.io/services/graphics-creative-design): Social, ad and marketing design
+- [Video & motion](https://trovina.io/services/video-editing-motion-content): Video editing, reels and motion graphics
+
+## Optional
+
+- [Full plain-text details](https://trovina.io/llms-full.txt): Pricing tables, process, FAQ and contact details in one file
+- [Privacy policy](https://trovina.io/privacy-policy)
+- [Terms of service](https://trovina.io/terms-of-service)

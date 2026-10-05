@@ -1,8 +1,8 @@
 /**
- * Tailwind configuration — Trovina.io design system.
+ * Tailwind configuration, Trovina.io design system.
  * Semantic colors map to CSS variables declared in src/index.css, so a single
  * token set drives both light and dark mode (toggled via the `dark` class on
- * <html>). The `brand` scale is the existing Trovina purple (#A855F7 = 500).
+ * <html>). The `brand` scale is sampled from the Trovina logo gradient (#802FB5 = 600, #4D1077 = 900).
  */
 
 /** rgb(var(--token) / <alpha-value>) keeps opacity utilities (e.g. bg-surface/60) working. */
@@ -40,17 +40,17 @@ export default {
         ring: withVar('--ring'),
         // Static brand purple scale (identical in both modes)
         brand: {
-          50: '#FAF5FF',
-          100: '#F3E8FF',
-          200: '#E9D5FF',
-          300: '#D8B4FE',
-          400: '#C084FC',
-          500: '#A855F7',
-          600: '#9333EA',
-          700: '#7E22CE',
-          800: '#6B21A8',
-          900: '#581C87',
-          950: '#3B0764',
+          50: '#F8F2FC',
+          100: '#EFE1F9',
+          200: '#DFC4F2',
+          300: '#C9A0EB',
+          400: '#B57BE0',
+          500: '#A35FD3',
+          600: '#802FB5',
+          700: '#6A229D',
+          800: '#561886',
+          900: '#4D1077',
+          950: '#2C0848',
         },
         success: '#22C55E',
         warning: '#F59E0B',
@@ -65,10 +65,10 @@ export default {
       boxShadow: {
         soft: '0 1px 2px rgba(15,15,18,0.04), 0 8px 24px -12px rgba(15,15,18,0.12)',
         card: '0 1px 3px rgba(15,15,18,0.05), 0 12px 32px -16px rgba(15,15,18,0.18)',
-        lift: '0 8px 40px -12px rgba(124,58,237,0.28)',
+        lift: '0 8px 40px -12px rgba(128,47,181,0.28)',
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(90deg, #6B21A8, #A855F7, #C084FC)',
+        'brand-gradient': 'linear-gradient(90deg, #802FB5, #4D1077)',
         'grid-light':
           'linear-gradient(to right, rgba(15,15,18,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(15,15,18,0.04) 1px, transparent 1px)',
       },

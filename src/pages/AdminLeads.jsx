@@ -64,14 +64,14 @@ export default function AdminLeads() {
 
                 allLeads.push({
                     id: d.id,
-                    businessName: data.businessName || "—",
-                    fullName: data.fullName || "—",
-                    email: data.emailAddress || "—",
-                    phone: data.phoneNumber || "—",
-                    businessType: data.businessType || "—",
+                    businessName: data.businessName || "-",
+                    fullName: data.fullName || "-",
+                    email: data.emailAddress || "-",
+                    phone: data.phoneNumber || "-",
+                    businessType: data.businessType || "-",
                     hasWebsite: data.hasAWebsite ? "Yes" : "No",
                     status: data.leadStatus,
-                    country: data.country || "—",
+                    country: data.country || "-",
                     createdAt: data.createdAt,
                 });
             }

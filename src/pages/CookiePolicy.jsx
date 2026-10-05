@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../components/Seo';
 import { useState } from "react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -10,10 +10,7 @@ export default function CookiePolicy() {
     const [showForm, setShowForm] = useState(false)
     return (
         <>
-            <Helmet>
-                <title>Cookie Policy | Trovina.io</title>
-                <meta name="description" content="Learn about how Trovina.io uses cookies and similar technologies on our website." />
-            </Helmet>
+            <Seo title="Cookie Policy | Trovina" description="Which cookies the Trovina website uses, why we use them and how you can control them." path="/cookie-policy" />
 
             <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}

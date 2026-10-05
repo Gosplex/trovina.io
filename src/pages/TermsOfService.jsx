@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import { Helmet } from 'react-helmet-async';
+import Seo from '../components/Seo';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { FileText, Scale, Handshake, AlertCircle } from 'lucide-react';
@@ -11,10 +11,7 @@ export default function TermsOfService() {
 
     return (
         <>
-            <Helmet>
-                <title>Terms of Service | Trovina.io</title>
-                <meta name="description" content="Read the Terms of Service for using Trovina.io website and services." />
-            </Helmet>
+            <Seo title="Terms of Service | Trovina" description="The terms that apply when you use the Trovina website or work with us on a project." path="/terms-of-service" />
 
             <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}

@@ -1,36 +1,31 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
-import { Section, Container } from '../ui/Section';
-import AnimatedCounter from '../ui/AnimatedCounter';
-import { stagger, fadeUp, inView } from '../../lib/motion';
+import { Container } from '../ui/Section';
 
-/**
- * Animated stats band. Accepts `stats` as [{ value | number, label }].
- * Reused on the Home page and service detail pages — numbers count up on scroll.
- */
-export default function StatsBand({ stats = [], variant = 'surface', className = '' }) {
+/** Plain stats row with hairline dividers. Accepts [{ value | number, label }]. */
+export default function StatsBand({ stats = [], className = '' }) {
   if (!stats.length) return null;
   return (
-    <Section size="sm" variant={variant} bordered className={className}>
+    <div className={`border-y border-border ${className}`}>
       <Container>
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={inView}
-          className="grid grid-cols-2 gap-8 md:grid-cols-4"
-        >
+        <dl className="grid grid-cols-2 md:grid-cols-4">
           {stats.map((stat, i) => (
-            <motion.div key={i} variants={fadeUp} className="text-center">
-              <div className="bg-brand-gradient bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
-                <AnimatedCounter value={stat.value ?? stat.number} />
-              </div>
-              <div className="mt-2 text-sm text-muted md:text-base">{stat.label}</div>
-            </motion.div>
+            <div
+              key={stat.label}
+              className={[
+                'flex flex-col py-8 md:py-10',
+                i % 2 === 1 ? 'border-l border-border pl-6' : '',
+                i > 0 ? 'md:border-l md:border-border md:pl-8' : '',
+                i > 1 ? 'border-t border-border md:border-t-0' : '',
+              ].join(' ')}
+            >
+              <dt className="order-2 mt-1 text-sm text-muted">{stat.label}</dt>
+              <dd className="order-1 text-3xl font-semibold tracking-tight tabular-nums text-foreground md:text-4xl">
+                {stat.value ?? stat.number}
+              </dd>
+            </div>
           ))}
-        </motion.div>
+        </dl>
       </Container>
-    </Section>
+    </div>
   );
 }

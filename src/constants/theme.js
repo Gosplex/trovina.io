@@ -1,10 +1,10 @@
 /**
- * Trovina.io — Design Tokens
+ * Trovina.io, Design Tokens
  * --------------------------
  * Non-color design primitives: typography, spacing rhythm, radii, shadows,
  * motion and breakpoints. Color tokens live in `./colors.js`. These are the
  * documented, centralized values that the Tailwind config and components build
- * on — change them here and the system follows.
+ * on, change them here and the system follows.
  */
 
 export const typography = {
@@ -43,7 +43,7 @@ export const shadows = {
 
 export const motion = {
   duration: { fast: 0.2, base: 0.45, slow: 0.7 },
-  ease: [0.22, 1, 0.36, 1], // expo-out — smooth, premium reveal
+  ease: [0.22, 1, 0.36, 1], // expo-out, smooth, premium reveal
   viewport: { once: true, amount: 0.25 },
 };
 

@@ -133,10 +133,10 @@ export default function ProjectDetailView() {
                     <div className="grid md:grid-cols-2 gap-8">
                         <div>
                             <h1 className="text-4xl font-bold text-white mb-2">
-                                {project.projectTitle || "—"}
+                                {project.projectTitle || "-"}
                             </h1>
                             <p className="text-xl text-gray-300">
-                                {project.projectOwnerSnapshot?.fullName || "—"}
+                                {project.projectOwnerSnapshot?.fullName || "-"}
                             </p>
                         </div>
 
@@ -201,7 +201,7 @@ export default function ProjectDetailView() {
                 {/* DESCRIPTION */}
                 <StatCard title="Project Description">
                     <p className="text-gray-300 whitespace-pre-wrap">
-                        {project.projectDescription || "—"}
+                        {project.projectDescription || "-"}
                     </p>
                 </StatCard>
 

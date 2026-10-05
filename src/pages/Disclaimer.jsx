@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../components/Seo';
 import { useState } from "react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -10,10 +10,7 @@ export default function Disclaimer() {
     const [showForm, setShowForm] = useState(false)
     return (
         <>
-            <Helmet>
-                <title>Disclaimer | Trovina.io</title>
-                <meta name="description" content="Read the official disclaimer for Trovina.io website and services." />
-            </Helmet>
+            <Seo title="Disclaimer | Trovina" description="Important information about the content on the Trovina website and how it should be used." path="/disclaimer" />
 
             <div className="min-h-screen bg-background text-foreground font-sans">
                 {/* Navigation */}
@@ -83,6 +80,20 @@ export default function Disclaimer() {
                             </h2>
                             <p>
                                 We reserve the right to modify or update this disclaimer at any time without prior notice. Your continued use of the website following any changes constitutes acceptance of those changes.
+                            </p>
+                        </div>
+
+                        <div className="space-y-4">
+                            <h2 className="text-2xl font-bold text-foreground">
+                                Image credits
+                            </h2>
+                            <p>
+                                Photography from Unsplash by Ninthgrid and Oluwakemi Solaja, used under the Unsplash License.
+                                Team and testimonial illustrations are based on{' '}
+                                <a className="link" href="https://www.figma.com/community/file/829741575478342595" target="_blank" rel="noopener noreferrer">“Avatar Illustration System”</a>{' '}
+                                by Micah Lanier, licensed under{' '}
+                                <a className="link" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>,
+                                generated with DiceBear. Technology logos are trademarks of their respective owners.
                             </p>
                         </div>
 

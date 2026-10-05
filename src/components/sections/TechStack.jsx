@@ -1,154 +1,109 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
-import { Layers } from 'lucide-react';
 import { Section, Container, SectionHeading } from '../ui/Section';
-import { fadeUp, inView } from '../../lib/motion';
 
 /**
- * "Technologies We Build With" — official brand logos presented on a vertically
- * rolling marquee (desktop) and a clean static grid (mobile).
+ * "Tools we build with": two rows of self-hosted brand logos that drift in
+ * opposite directions. Hover or keyboard focus pauses the motion; visitors who
+ * prefer reduced motion get a static, wrapped layout instead (see index.css).
  *
- * Logos: 29 sourced live from the Simple Icons CDN (brand-colored SVGs); 4 that
- * Simple Icons doesn't carry (AWS, Azure, OpenAI, Pinecone) are bundled locally
- * under /public/tech. Any image that fails to load falls back to an initials
- * badge, so a broken CDN never leaves an empty tile.
+ * Logos live in /public/tech. Monochrome marks ship a `-dark` variant so they
+ * stay visible in dark mode.
  */
-const si = (slug) => `https://cdn.simpleicons.org/${slug}`;
+const t = (name, file, opts = {}) => ({ name, file, ...opts });
 
-const TECHNOLOGIES = [
-  // Frontend
-  { name: 'React', logo: si('react') },
-  { name: 'Next.js', logo: si('nextdotjs') },
-  { name: 'TypeScript', logo: si('typescript') },
-  { name: 'Tailwind CSS', logo: si('tailwindcss') },
-  { name: 'Vue', logo: si('vuedotjs') },
-  { name: 'Framer Motion', logo: si('framer') },
-  // Backend
-  { name: 'Node.js', logo: si('nodedotjs') },
-  { name: 'NestJS', logo: si('nestjs') },
-  { name: 'Python', logo: si('python') },
-  { name: 'FastAPI', logo: si('fastapi') },
-  { name: 'Laravel', logo: si('laravel') },
-  { name: 'GraphQL', logo: si('graphql') },
-  // Mobile
-  { name: 'React Native', logo: si('react') },
-  { name: 'Flutter', logo: si('flutter') },
-  { name: 'Swift', logo: si('swift') },
-  { name: 'Kotlin', logo: si('kotlin') },
-  { name: 'Expo', logo: si('expo') },
-  // Cloud & Infra
-  { name: 'AWS', logo: '/tech/aws.svg' },
-  { name: 'Google Cloud', logo: si('googlecloud') },
-  { name: 'Azure', logo: '/tech/azure.svg' },
-  { name: 'Vercel', logo: si('vercel') },
-  { name: 'Firebase', logo: si('firebase') },
-  { name: 'Cloudflare', logo: si('cloudflare') },
-  // AI & Data
-  { name: 'OpenAI', logo: '/tech/openai.svg' },
-  { name: 'LangChain', logo: si('langchain') },
-  { name: 'Pinecone', logo: '/tech/pinecone.png' },
-  { name: 'TensorFlow', logo: si('tensorflow') },
-  { name: 'Hugging Face', logo: si('huggingface') },
-  // DevOps
-  { name: 'Docker', logo: si('docker') },
-  { name: 'Kubernetes', logo: si('kubernetes') },
-  { name: 'GitHub Actions', logo: si('githubactions') },
-  { name: 'Terraform', logo: si('terraform') },
-  { name: 'Grafana', logo: si('grafana') },
+const ROW_ONE = [
+  t('React', 'react.svg'),
+  t('Next.js', 'nextjs.svg', { dark: 'nextjs-dark.svg' }),
+  t('TypeScript', 'typescript.svg'),
+  t('Tailwind CSS', 'tailwind.svg'),
+  t('Vue', 'vue.svg'),
+  t('Node.js', 'nodejs.svg'),
+  t('NestJS', 'nestjs.svg'),
+  t('Python', 'python.svg'),
+  t('FastAPI', 'fastapi.svg'),
+  t('Laravel', 'laravel.svg'),
+  t('GraphQL', 'graphql.svg'),
+  t('React Native', 'react.svg'),
+  t('Flutter', 'flutter.svg'),
+  t('Swift', 'swift.svg'),
+  t('Kotlin', 'kotlin.svg'),
+  t('Expo', 'expo.svg', { dark: 'expo-dark.svg' }),
+  t('Figma', 'figma.svg'),
 ];
 
-const initialsOf = (name) => {
-  const words = name.replace(/[.]/g, '').split(/\s+/).filter(Boolean);
-  return (words.length > 1 ? words[0][0] + words[1][0] : name.slice(0, 2)).toUpperCase();
-};
+const ROW_TWO = [
+  t('AWS', 'aws.svg', { dark: 'aws-dark.svg' }),
+  t('Google Cloud', 'googlecloud.svg'),
+  t('Azure', 'azure.svg'),
+  t('Vercel', 'vercel.svg', { dark: 'vercel-dark.svg' }),
+  t('Firebase', 'firebase.svg'),
+  t('Cloudflare', 'cloudflare.svg'),
+  t('PostgreSQL', 'postgresql.svg'),
+  t('MongoDB', 'mongodb.svg'),
+  t('OpenAI', 'openai.svg', { dark: 'openai-dark.svg' }),
+  t('LangChain', 'langchain.svg'),
+  t('Pinecone', 'pinecone-mark.png', { dark: 'pinecone-mark-dark.png' }),
+  t('TensorFlow', 'tensorflow.svg'),
+  t('Hugging Face', 'huggingface.svg'),
+  t('n8n', 'n8n.svg'),
+  t('Docker', 'docker.svg'),
+  t('Kubernetes', 'kubernetes.svg'),
+  t('GitHub Actions', 'githubactions.svg'),
+  t('Terraform', 'terraform.svg'),
+  t('Grafana', 'grafana.svg'),
+  t('Stripe', 'stripe.svg'),
+];
 
-/** Swap a failed logo image for its initials badge — keeps every tile filled. */
-const handleLogoError = (e) => {
-  e.currentTarget.style.display = 'none';
-  const badge = e.currentTarget.nextElementSibling;
-  if (badge) badge.style.display = 'flex';
-};
-
-function TechTile({ name, logo }) {
+function Logo({ item }) {
+  const common = { width: 28, height: 28, loading: 'lazy', decoding: 'async', alt: '' };
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-border bg-white px-4 py-3 shadow-soft">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center">
-        <img
-          src={logo}
-          alt={`${name} logo`}
-          loading="lazy"
-          className="h-8 w-8 object-contain"
-          onError={handleLogoError}
-        />
-        <span
-          aria-hidden="true"
-          className="hidden h-9 w-9 items-center justify-center rounded-lg bg-brand-gradient text-[11px] font-bold text-white"
-        >
-          {initialsOf(name)}
-        </span>
+    <li className="flex shrink-0 items-center gap-3 rounded-full border border-border bg-background py-2.5 pl-3 pr-5">
+      <span className="flex h-7 w-7 items-center justify-center">
+        <img src={`/tech/${item.file}`} {...common} className={`h-7 w-7 object-contain ${item.dark ? 'dark:hidden' : ''}`} />
+        {item.dark && <img src={`/tech/${item.dark}`} {...common} className="hidden h-7 w-7 object-contain dark:block" />}
       </span>
-      <span className="text-sm font-semibold text-slate-800">{name}</span>
+      <span className="whitespace-nowrap text-[15px] font-medium text-foreground">{item.name}</span>
+    </li>
+  );
+}
+
+function MarqueeRow({ items, duration, reverse = false, label }) {
+  return (
+    <div className="marquee-pause marquee-fade-x overflow-hidden" role="group" aria-label={label}>
+      <div
+        className="marquee-x flex w-max gap-3"
+        style={{ '--marquee-duration': duration, '--marquee-direction': reverse ? 'reverse' : 'normal' }}
+      >
+        <ul className="flex gap-3">
+          {items.map((item) => (
+            <Logo key={item.name} item={item} />
+          ))}
+        </ul>
+        {/* duplicate set for a seamless loop; hidden from assistive tech */}
+        <ul className="marquee-dup flex gap-3" aria-hidden="true">
+          {items.map((item) => (
+            <Logo key={`${item.name}-dup`} item={item} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
 
-// Distribute round-robin so each marquee column carries a balanced mix.
-const COLUMNS = 3;
-const columns = Array.from({ length: COLUMNS }, (_, c) =>
-  TECHNOLOGIES.filter((_, i) => i % COLUMNS === c)
-);
-// Alternate scroll direction + speed per column for an organic, premium feel.
-const COLUMN_STYLE = [
-  { '--marquee-duration': '36s', '--marquee-direction': 'normal' },
-  { '--marquee-duration': '30s', '--marquee-direction': 'reverse' },
-  { '--marquee-duration': '40s', '--marquee-direction': 'normal' },
-];
-
-export default function TechStack({ variant = 'surface', id = 'technologies' }) {
+export default function TechStack({ variant = 'default', id = 'technologies' }) {
   return (
     <Section id={id} variant={variant}>
       <Container>
         <SectionHeading
-          eyebrow="Our Stack"
-          eyebrowIcon={Layers}
-          title="Technologies We Build With"
-          description="A modern, battle-tested toolchain across frontend, backend, mobile, cloud, AI, and DevOps — chosen to keep your product fast, secure, and scalable."
+          layout="split"
+          title="Tools we build with"
+          description="Proven, well-supported technology chosen for speed, security and easy hand-over to your own team later."
         />
-
-        {/* Desktop (lg+): vertically rolling logo marquee */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={inView}
-          className="marquee-pause marquee-fade mt-14 hidden h-[34rem] grid-cols-3 gap-5 overflow-hidden lg:grid"
-        >
-          {columns.map((col, ci) => (
-            <div key={ci} className="relative">
-              <div className="marquee-track flex flex-col gap-5" style={COLUMN_STYLE[ci]}>
-                {/* duplicated set enables a seamless loop */}
-                {[...col, ...col].map((tech, i) => (
-                  <TechTile key={`${tech.name}-${i}`} {...tech} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Mobile / tablet (<lg): clean static logo grid */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={inView}
-          className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:hidden"
-        >
-          {TECHNOLOGIES.map((tech) => (
-            <TechTile key={tech.name} {...tech} />
-          ))}
-        </motion.div>
       </Container>
+      <div className="mt-14 space-y-3">
+        <MarqueeRow items={ROW_ONE} duration="55s" label="Frontend, backend and mobile tools" />
+        <MarqueeRow items={ROW_TWO} duration="60s" reverse label="Cloud, data, AI and DevOps tools" />
+      </div>
     </Section>
   );
 }

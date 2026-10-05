@@ -1,151 +1,120 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
-import { company } from "../constants/company";
-
-const SERVICE_LINKS = [
-    { to: "/services/web-app-website-development", label: "Web & SaaS Development" },
-    { to: "/services/mobile-app-development", label: "Mobile App Development" },
-    { to: "/services/ai-automation-workflow-systems", label: "AI Automation Systems" },
-    { to: "/services/cloud-infrastructure-devops", label: "Cloud & DevOps" },
-    { to: "/services/seo-growth-optimization", label: "SEO & Growth" },
-    { to: "/services/branding-visual-identity", label: "Branding & Identity" },
-];
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { company } from '../constants/company';
+import { services } from '../constants/siteContent';
 
 const COMPANY_LINKS = [
-    { to: "/about", label: "About Us" },
-    { to: "/#pricing", label: "Pricing" },
-    { to: "/contact", label: "Contact" },
-    { to: "/privacy-policy", label: "Privacy Policy" },
-    { to: "/terms-of-service", label: "Terms of Service" },
+  { to: '/about', label: 'About' },
+  { to: '/services', label: 'Services' },
+  { to: '/#pricing', label: 'Pricing' },
+  { to: '/contact', label: 'Contact' },
+];
+
+const LEGAL_LINKS = [
+  { to: '/privacy-policy', label: 'Privacy' },
+  { to: '/terms-of-service', label: 'Terms' },
+  { to: '/cookie-policy', label: 'Cookies' },
+  { to: '/disclaimer', label: 'Disclaimer' },
+];
+
+const SOCIALS = [
+  { href: company.socials.linkedin, label: 'LinkedIn' },
+  { href: company.socials.facebook, label: 'Facebook' },
+  { href: company.socials.youtube, label: 'YouTube' },
 ];
 
 export default function Footer() {
-    return (
-        <footer className="relative z-10 border-t border-border bg-surface">
-            <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-                {/* Top section */}
-                <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-4">
-                    {/* Brand */}
-                    <div>
-                        <div className="mb-3 flex items-center gap-3">
-                            <img src="/logo.png" alt="Trovina.io logo" className="h-10 w-10 rounded-full object-contain" />
-                            <h3 className="text-2xl font-bold text-gradient">Trovina.io</h3>
-                        </div>
-                        <p className="text-sm leading-relaxed text-muted">
-                            A {company.positioning} software, AI &amp; cloud product studio.
-                            We design, build, and scale custom web apps, mobile apps, and AI
-                            automation for startups and enterprises.
-                        </p>
-                    </div>
+  return (
+    <footer className="border-t border-border bg-surface" itemScope itemType="https://schema.org/Organization">
+      <meta itemProp="name" content={company.brand} />
+      <meta itemProp="url" content={company.url} />
+      <div className="mx-auto max-w-7xl px-6 pb-10 pt-16 lg:px-8 lg:pt-20">
+        <div className="grid gap-12 lg:grid-cols-12">
+          {/* Brand + contact */}
+          <div className="lg:col-span-5">
+            <Link to="/" className="inline-flex items-center gap-2.5" aria-label="Trovina.io home">
+              <img src="/logo-mark.png" alt="" width="34" height="34" loading="lazy" className="h-[34px] w-[34px] object-contain" />
+              <span className="text-lg font-semibold tracking-tight text-foreground">Trovina</span>
+            </Link>
+            <p className="mt-5 max-w-sm leading-relaxed text-muted">
+              We design and build websites, apps and automation for businesses that want to grow online.
+            </p>
 
-                    {/* Services */}
-                    <div>
-                        <h4 className="mb-4 text-lg font-semibold text-foreground">Services</h4>
-                        <ul className="space-y-3 text-sm text-muted">
-                            {SERVICE_LINKS.map((s) => (
-                                <li key={s.to}>
-                                    <Link to={s.to} className="transition-colors hover:text-foreground">
-                                        {s.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+            <address className="mt-8 space-y-2 text-sm not-italic text-muted">
+              <p itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <span itemProp="streetAddress">{company.address.line1}</span>,{' '}
+                <span itemProp="addressLocality">{company.address.city}</span>,{' '}
+                <span itemProp="addressRegion">{company.address.state}</span>,{' '}
+                <span itemProp="addressCountry">{company.address.countryName}</span>
+              </p>
+              <p>
+                <a href={company.phoneHref} className="link" itemProp="telephone">
+                  {company.phone}
+                </a>
+              </p>
+              <p>
+                <a href={`mailto:${company.email}`} className="link" itemProp="email">
+                  {company.email}
+                </a>
+              </p>
+            </address>
+          </div>
 
-                    {/* Company */}
-                    <div>
-                        <h4 className="mb-4 text-lg font-semibold text-foreground">Company</h4>
-                        <ul className="space-y-3 text-sm text-muted">
-                            {COMPANY_LINKS.map((c) => (
-                                <li key={c.to}>
-                                    <Link to={c.to} className="transition-colors hover:text-foreground">
-                                        {c.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+          <nav aria-label="Services" className="lg:col-span-3">
+            <h2 className="text-sm font-medium text-foreground">Services</h2>
+            <ul className="mt-4 space-y-3 text-sm text-muted">
+              {services.slice(0, 6).map((s) => (
+                <li key={s.slug}>
+                  <Link to={`/services/${s.slug}`} className="transition-colors hover:text-foreground">
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-                    {/* Contact */}
-                    <div>
-                        <h4 className="mb-4 text-lg font-semibold text-foreground">Contact</h4>
-                        <ul className="space-y-3 text-sm text-muted">
-                            <li>
-                                <a
-                                    href={`mailto:${company.email}`}
-                                    className="flex items-center gap-2 transition-colors hover:text-foreground"
-                                >
-                                    <Mail className="h-4 w-4 shrink-0" />
-                                    <span>{company.email}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href={company.phoneHref}
-                                    className="flex items-center gap-2 transition-colors hover:text-foreground"
-                                >
-                                    <Phone className="h-4 w-4 shrink-0" />
-                                    <span>{company.phone}</span>
-                                </a>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                                <span>{company.addressText}</span>
-                            </li>
-                            <li className="flex items-center gap-3 pt-2">
-                                {/* Facebook */}
-                                <a
-                                    href={company.socials.facebook}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Trovina.io on Facebook"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                                        <path d="M22.675 0h-21.35C.597 0 0 .597 0 1.326v21.348C0 23.403.597 24 1.326 24h11.495v-9.294H9.692V11.01h3.129V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.696h-3.12V24h6.116C23.403 24 24 23.403 24 22.674V1.326C24 .597 23.403 0 22.675 0z" />
-                                    </svg>
-                                </a>
-                                {/* LinkedIn */}
-                                <a
-                                    href={company.socials.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Trovina.io on LinkedIn"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                                        <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zM7.2 19H4.1V9.4h3.1V19zM5.65 8.1C4.7 8.1 4 7.4 4 6.5s.7-1.6 1.65-1.6S7.3 5.6 7.3 6.5 6.6 8.1 5.65 8.1zM20 19h-3.1v-4.9c0-1.2 0-2.7-1.65-2.7s-1.9 1.3-1.9 2.6V19H10.2V9.4h3v1.3h.05c.42-.8 1.45-1.65 2.98-1.65 3.18 0 3.77 2.1 3.77 4.8V19z" />
-                                    </svg>
-                                </a>
-                                {/* YouTube */}
-                                <a
-                                    href={company.socials.youtube}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label="Trovina.io on YouTube"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                                        <path d="M23.498 6.186a3.01 3.01 0 0 0-2.12-2.13C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.378.556a3.01 3.01 0 0 0-2.12 2.13A31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .502 5.814 3.01 3.01 0 0 0 2.12 2.13C4.5 20.5 12 20.5 12 20.5s7.5 0 9.378-.556a3.01 3.01 0 0 0 2.12-2.13A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z" />
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+          <nav aria-label="Company" className="lg:col-span-2">
+            <h2 className="text-sm font-medium text-foreground">Company</h2>
+            <ul className="mt-4 space-y-3 text-sm text-muted">
+              {COMPANY_LINKS.map((c) => (
+                <li key={c.to}>
+                  <Link to={c.to} className="transition-colors hover:text-foreground">
+                    {c.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-                {/* Bottom section */}
-                <div className="border-t border-border pt-6 text-center text-sm text-subtle">
-                    <p>
-                        © {new Date().getFullYear()} <span className="font-medium text-muted">{company.legalName}</span>.
-                        All rights reserved.
-                    </p>
-                    <p className="mt-2 text-muted">
-                        Trovina.io is a {company.positioning} software, AI &amp; cloud product studio.
-                    </p>
-                </div>
-            </div>
-        </footer>
-    );
+          <nav aria-label="Social" className="lg:col-span-2">
+            <h2 className="text-sm font-medium text-foreground">Follow</h2>
+            <ul className="mt-4 space-y-3 text-sm text-muted">
+              {SOCIALS.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground" itemProp="sameAs">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <div className="mt-16 flex flex-col gap-4 border-t border-border pt-6 text-sm text-subtle md:flex-row md:items-center md:justify-between">
+          <p>
+            © {new Date().getFullYear()} {company.legalName}. All rights reserved.
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {LEGAL_LINKS.map((l) => (
+              <li key={l.to}>
+                <Link to={l.to} className="transition-colors hover:text-foreground">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </footer>
+  );
 }

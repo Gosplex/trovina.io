@@ -1,5 +1,5 @@
 export function formatDate(date) {
-    if (!date) return "—";
+    if (!date) return "-";
 
     // Normalize Firebase Timestamp / ISO string / Date
     const parsedDate =
@@ -9,7 +9,7 @@ export function formatDate(date) {
                 ? date
                 : new Date(date);
 
-    if (isNaN(parsedDate.getTime())) return "—";
+    if (isNaN(parsedDate.getTime())) return "-";
 
     return (
         parsedDate.toLocaleDateString("en-US", {

@@ -15,7 +15,7 @@ export default function ProjectFormModal({ open, onClose }) {
     const { executeRecaptcha } = useGoogleReCaptcha()
 
     const [phone, setPhone] = useState('')
-    const [country, setCountry] = useState('us')
+    const [country, setCountry] = useState('ng')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [showThankYou, setShowThankYou] = useState(false)
 
@@ -212,12 +212,13 @@ export default function ProjectFormModal({ open, onClose }) {
                                 />
                             )}
 
-                            {/* Phone + Service — kept on one row to avoid scrolling */}
+                            {/* Phone + Service, kept on one row to avoid scrolling */}
                             <div className="grid gap-4 md:grid-cols-2">
                                 {/* Phone */}
                                 <div className="flex h-[52px] items-center overflow-hidden rounded-xl border border-border bg-surface focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-500/15">
                                     <PhoneInput
-                                        country={country}
+                                        key={country}
+                                        defaultCountry={country}
                                         value={phone}
                                         onChange={setPhone}
                                         inputClassName="!h-full !w-full !border-none !bg-transparent !pl-4 !pr-3 !text-foreground !outline-none"

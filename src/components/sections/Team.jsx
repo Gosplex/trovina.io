@@ -1,49 +1,55 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
-import { Users } from 'lucide-react';
 import { Section, Container, SectionHeading } from '../ui/Section';
-import { stagger, fadeUp, inView } from '../../lib/motion';
 import { team } from '../../constants/siteContent';
+import { img } from '../../constants/images';
 
-/**
- * "Meet the Team" — reusable cards that fall back to initials avatars when no
- * photo is provided, ready for future dynamic data.
- */
-export default function Team({ data = team, variant = 'surface', id = 'team' }) {
+/** Portrait crop centred on faces (Unsplash `crop=faces`). */
+const faceCrop = (id, w) => `${img(id, w, Math.round(w * 1.25))}&crop=faces`;
+const faceSrcSet = (id) => [320, 480, 640].map((w) => `${faceCrop(id, w)} ${w}w`).join(', ');
+
+/** Team grid. Shows a photo when `photo` is set, otherwise an initials tile. */
+export default function Team({ data = team, variant = 'default', id = 'team' }) {
   return (
     <Section id={id} variant={variant}>
       <Container>
         <SectionHeading
-          eyebrow="Our People"
-          eyebrowIcon={Users}
-          title="Meet the Team Behind Your Product"
-          description="A senior, multidisciplinary team of designers, engineers, and specialists who treat your product like our own."
+          layout="split"
+          title="The people you will work with"
+          description="A small senior team of designers and engineers. The people on your first call are the people who build your product."
         />
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={inView}
-          className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-        >
+        <ul className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {data.map((member) => (
-            <motion.div key={member.role} variants={fadeUp} className="card card-hover p-6 text-center">
-              <div className="mx-auto mb-5 h-24 w-24 overflow-hidden rounded-2xl">
+            <li key={member.name}>
+              <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-[#efe1f9]">
                 {member.photo ? (
-                  <img src={member.photo} alt={member.name} className="h-full w-full object-cover" loading="lazy" />
+                  <img
+                    src={typeof member.photo === 'string' ? member.photo : faceCrop(member.photo.id, 640)}
+                    srcSet={typeof member.photo === 'string' ? undefined : faceSrcSet(member.photo.id)}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    alt={typeof member.photo === 'string' ? `Illustration of ${member.name}` : member.photo.alt}
+                    width="640"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                    className={`h-full w-full ${typeof member.photo === 'string' ? 'object-contain object-bottom pt-6' : 'object-cover'}`}
+                  />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-brand-gradient text-2xl font-bold text-white">
-                    {member.initials}
+                  <div
+                    aria-hidden="true"
+                    className="flex h-full w-full items-end bg-brand-100 p-6 dark:bg-brand-950"
+                  >
+                    <span className="text-6xl font-semibold tracking-tight text-brand-700 dark:text-brand-300">
+                      {member.initials}
+                    </span>
                   </div>
                 )}
               </div>
-              <h3 className="text-lg font-semibold text-foreground">{member.name}</h3>
-              <p className="mt-1 text-sm font-medium text-brand-600 dark:text-brand-400">{member.role}</p>
+              <h3 className="mt-5 text-lg font-medium text-foreground">{member.name}</h3>
+              <p className="text-sm text-brand-700 dark:text-brand-300">{member.role}</p>
               <p className="mt-3 text-sm leading-relaxed text-muted">{member.bio}</p>
-            </motion.div>
+            </li>
           ))}
-        </motion.div>
+        </ul>
       </Container>
     </Section>
   );

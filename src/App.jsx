@@ -28,6 +28,8 @@ import AdminProjectEdit from "./pages/AdminProjectEdit";
 
 
 import { Toaster } from 'react-hot-toast'
+import { Helmet } from 'react-helmet-async'
+import Seo from './components/Seo'
 
 
 function App() {
@@ -39,8 +41,15 @@ function App() {
     location.pathname.includes('/admin');
 
 
+  const isPrivate = location.pathname.startsWith('/admin')
+
   return (
     <>
+      {isPrivate && (
+        <Helmet>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+      )}
       <Toaster
         position="top-right"
         toastOptions={{
@@ -78,7 +87,7 @@ function App() {
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
 
-        /// Admin pages
+        {/* Admin pages */}
         <Route path="/admin/login" element={<Login />} />
         <Route
           path="/admin/dashboard"
@@ -157,16 +166,15 @@ function App() {
         <Route
           path="*"
           element={
-            <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-background px-6 text-center">
-              <p className="text-7xl font-bold text-gradient">404</p>
-              <h1 className="text-2xl font-semibold text-foreground">Page Not Found</h1>
-              <p className="max-w-md text-muted">
-                The page you’re looking for doesn’t exist or has moved.
-              </p>
-              <Link to="/" className="btn-primary">
-                Back to Home
-              </Link>
-            </div>
+            <main className="flex min-h-screen flex-col items-start justify-center gap-6 bg-background px-6 md:px-16">
+              <Seo title="Page not found | Trovina" description="This page does not exist or has moved." path={location.pathname} noindex />
+              <p className="text-sm text-muted">404</p>
+              <h1 className="display-lg max-w-2xl text-foreground">This page doesn’t exist or has moved.</h1>
+              <div className="flex gap-3">
+                <Link to="/" className="btn-primary">Go to the homepage</Link>
+                <Link to="/contact" className="btn-secondary">Contact us</Link>
+              </div>
+            </main>
           }
         />
       </Routes>

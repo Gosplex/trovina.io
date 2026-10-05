@@ -78,10 +78,10 @@ export default function AdminDashboard() {
                 leads.push({
                     id: d.id,
                     businessName: data.businessName || data.fullName,
-                    fullName: data.fullName || "—",
-                    email: data.emailAddress || "—",
-                    phone: data.phoneNumber || "—",
-                    country: data.country || "—",
+                    fullName: data.fullName || "-",
+                    email: data.emailAddress || "-",
+                    phone: data.phoneNumber || "-",
+                    country: data.country || "-",
                     status: data.leadStatus,
                     createdAt: data.createdAt,
                 });
